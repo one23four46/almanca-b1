@@ -513,122 +513,30 @@ const quizData = [
     {q: "Es ist wichtig, ___ man pünktlich ist. (B2)", a: ["dass", "um", "zu", "weil"], c: 0}
 ];
 
-let qIdx = 0, score = 0, currentLevel = 'A1', vCursor = 0;
+// --- 1. DEĞİŞKENLER VE VERİLER ---
+let currentLevel = 'A1';
+let vCursor = 0;
 
-// --- FONKSİYONLAR ---
-function startQuiz() {
-    qIdx = 0; score = 0;
-    document.getElementById('screen-home').classList.add('hidden');
-    document.getElementById('screen-quiz').classList.remove('hidden');
-    showQuiz();
-}
-
-function showQuiz() {
-    const q = quizData[qIdx];
-    document.getElementById('quiz-progress').innerText = `SORU ${qIdx+1}/${quizData.length}`;
-    document.getElementById('quiz-question').innerText = q.q;
-    const box = document.getElementById('quiz-options'); box.innerHTML = "";
-    q.a.forEach((opt, i) => {
-        const btn = document.createElement('button'); btn.className = "option-btn"; btn.innerText = opt;
-        btn.onclick = () => {
-            if(i === q.c) { btn.classList.add('correct'); score++; } else { btn.classList.add('wrong'); }
-            setTimeout(() => { qIdx++; if(qIdx < quizData.length) showQuiz(); else { alert("Puan: "+score); initModule('A1'); } }, 800);
-        };
-        box.appendChild(btn);
-    });
-}
-
-
-
-function renderVocab() {
-    const list = vocabData[currentLevel];
-    const item = list[vCursor];
-    document.getElementById('prog').innerText = `${vCursor + 1} / ${list.length}`;
-    document.getElementById('vWord').innerText = item.w;
-    document.getElementById('vTr').innerText = item.t;
-    document.getElementById('vExDe').innerText = item.exD;
-    document.getElementById('vExTr').innerText = item.exT;
-}
-
-function nextVocab() { vCursor = (vCursor + 1) % vocabData[currentLevel].length; renderVocab(); }
-
-function renderGrammar() {
-    const g = grammarData[currentLevel];
-    document.getElementById('gTitle').innerText = g.title;
-    document.getElementById('gContent').innerHTML = g.content;
-}
-
-function renderReading() {
-    const r = readingData[currentLevel];
-    document.getElementById('rTitle').innerText = r.title;
-    document.getElementById('rText').innerText = r.text;
-    document.getElementById('rTr').innerText = r.tr;
-}
-
-function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; window.speechSynthesis.speak(u); }
-// --- ALT MENÜ GEÇİŞ FONKSİYONU ---
-
-
-    // --- 1. HEMŞİRELİK VERİLERİ (İÇERİK) ---
 const vakaData = {
     'MEDICAL': {
         title: "Vaka: Kalp Yetmezliği (Herzinsuffizienz)",
-        content: "<b>Hasta:</b> 78 yaşında erkek.<br><b>Tanı:</b> Dekompansierte Herzinsuffizienz.<br><b>Şikayet:</b> Dyspnoe (Nefes darlığı) ve ayak bileklerinde ödem (Ödeme).<br><b>Bakım Notu:</b> Günlük tartı ve sıvı takibi (Einfuhr-Ausfuhr-Kontrolle) yapılmalı."
+        content: "<b>Hasta:</b> 78 yaşında erkek.<br><b>Tanı:</b> Dekompansierte Herzinsuffizienz.<br><b>Şikayet:</b> Dyspnoe (Nefes darlığı) ve ayak bileklerinde ödem.<br><b>Bakım Notu:</b> Günlük tartı ve sıvı takibi yapılmalı."
     }
 };
 
 const bakimData = {
     'MEDICAL': {
         title: "Hemşirelik Bakım Planı",
-        content: "• <b>Vitalzeichen:</b> Blutdruck ve Puls her 4 saatte bir ölçülmeli.<br>• <b>Lagerung:</b> Nefes almayı kolaylaştırmak için üst gövde yüksekte (Oberkörperhochlage) tutulmalı.<br>• <b>Medikamente:</b> Doktor talimatına göre Diüretik verilmeli."
+        content: "• <b>Vitalzeichen:</b> Tansiyon ve Nabız takibi.<br>• <b>Lagerung:</b> Yüksek yastık pozisyonu.<br>• <b>Medikamente:</b> Doktorun yazdığı Diüretiklerin verilmesi."
     }
 };
 
-// --- 2. SAYFA GEÇİŞ FONKSİYONU ---
-function switchSub(type) {
-    // Önce bütün alt ekranları (Kelime, Vaka, Bakım) gizle
-    document.getElementById('sub-vocab').classList.add('hidden');
-    document.getElementById('sub-vaka').classList.add('hidden');
-    document.getElementById('sub-bakim').classList.add('hidden');
-    
-    // Sadece tıkladığın butona ait ekranı göster
-    const target = document.getElementById('sub-' + type);
-    if(target) target.classList.remove('hidden');
-
-    // Eğer Sağlıkçılar modundaysak ve Vaka/Bakım seçildiyse içini doldur
-    if(currentLevel === 'MEDICAL') {
-        if(type === 'vaka') {
-            document.getElementById('vakaTitle').innerHTML = vakaData.MEDICAL.title;
-            document.getElementById('vakaContent').innerHTML = vakaData.MEDICAL.content;
-        }
-        if(type === 'bakim') {
-            document.getElementById('bakimTitle').innerHTML = bakimData.MEDICAL.title;
-            document.getElementById('bakimContent').innerHTML = bakimData.MEDICAL.content;
-        }
-    }
-
-    // Alttaki butonların rengini güncelle
-    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-    // Tıklanan butonu aktif yap
-    if(event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-    }
-}
-
-// --- 3. ANA MENÜYE DÖNÜŞ ---
-function goHome() {
-    document.body.classList.remove('medical-theme');
-    document.getElementById('screen-main').classList.add('hidden');
-    document.getElementById('main-nav').classList.add('hidden');
-    document.getElementById('screen-home').classList.remove('hidden');
-    document.getElementById('statusLabel').innerText = "ANA SAYFA";
-}
-
-// --- 4. MODÜL BAŞLATICI (GÜNCEL) ---
+// --- 2. MODÜLÜ BAŞLATMA (BUTONLARA BASINCA ÇALIŞAN) ---
 function initModule(lvl) {
     currentLevel = lvl; 
     vCursor = 0;
     
+    // Sağlıkçı teması kontrolü
     if(lvl === 'MEDICAL') {
         document.body.classList.add('medical-theme');
     } else {
@@ -640,9 +548,66 @@ function initModule(lvl) {
     document.getElementById('screen-main').classList.remove('hidden');
     document.getElementById('main-nav').classList.remove('hidden');
     
-    // Her kur açıldığında Kelime bölümüyle başla
+    // İlk açılışta kelime ekranını göster
     switchSub('vocab'); 
     renderVocab(); 
+}
+
+// --- 3. ALT MENÜ GEÇİŞLERİ (KELİME/VAKA/BAKIM) ---
+function switchSub(type) {
+    // Tüm ekranları gizle
+    document.getElementById('sub-vocab').classList.add('hidden');
+    document.getElementById('sub-vaka').classList.add('hidden');
+    document.getElementById('sub-bakim').classList.add('hidden');
+    
+    // Seçileni göster
+    const target = document.getElementById('sub-' + type);
+    if(target) target.classList.remove('hidden');
+
+    // Sağlıkçı modundaysak vaka/bakım içini doldur
+    if(currentLevel === 'MEDICAL') {
+        if(type === 'vaka') {
+            document.getElementById('vakaTitle').innerHTML = vakaData.MEDICAL.title;
+            document.getElementById('vakaContent').innerHTML = vakaData.MEDICAL.content;
+        }
+        if(type === 'bakim') {
+            document.getElementById('bakimTitle').innerHTML = bakimData.MEDICAL.title;
+            document.getElementById('bakimContent').innerHTML = bakimData.MEDICAL.content;
+        }
+    }
+
+    // Butonların rengini güncelle
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+    if(event && event.currentTarget) event.currentTarget.classList.add('active');
+}
+
+// --- 4. ANA MENÜYE DÖNÜŞ ---
+function goHome() {
+    location.reload(); // Sayfayı yeniler ve her şeyi sıfırlar, en garantisidir.
+}
+
+// --- 5. KELİME FONKSİYONLARI (MEVCUT SİSTEMİN) ---
+function renderVocab() {
+    const list = vocabData[currentLevel] || [];
+    if(list.length === 0) return;
+    const v = list[vCursor];
+    document.getElementById('vWord').innerText = v.de;
+    document.getElementById('vTr').innerText = v.tr;
+    document.getElementById('vTr').style.filter = "blur(8px)"; // Kelimeyi bulanık başlat
+    document.getElementById('vExD').innerText = v.ex;
+    document.getElementById('vExT').innerText = v.et;
+}
+
+function nextV() {
+    const list = vocabData[currentLevel] || [];
+    vCursor = (vCursor + 1) % list.length;
+    renderVocab();
+}
+
+function prevV() {
+    const list = vocabData[currentLevel] || [];
+    vCursor = (vCursor - 1 + list.length) % list.length;
+    renderVocab();
 }
 </script>
 <div id="main-nav" class="nav-bar hidden">
