@@ -3,95 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAcademy Pro - Seviye Tespit & Kelime Dağarcığı</title>
+    <title>DeutschAcademy Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #fdfaf5; --accent: #e65100; --accent2: #2e7d32; --dark: #1a1612; --border: #e0d8cc; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; line-height: 1.5; }
+        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; padding-bottom: 80px; }
         header { background: white; border-bottom: 2px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; }
         .logo { font-family: 'Fraunces'; font-size: 1.5rem; color: var(--accent); cursor: pointer; text-decoration:none; font-weight:900; }
         .container { max-width: 500px; margin: 1.5rem auto; padding: 0 1rem; }
         .hidden { display: none !important; }
 
         /* BUTONLAR */
-        .btn { background: var(--dark); color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; font-weight: 700; width: 100%; font-size: 0.9rem; margin-bottom: 8px; transition: 0.2s; text-align: center; display: block; }
-        .btn-test { background: var(--accent2); margin-bottom: 2rem; }
-        .btn-next { background: var(--accent); }
-
+        .btn { background: var(--dark); color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; font-weight: 700; width: 100%; font-size: 0.9rem; margin-bottom: 8px; transition: 0.2s; text-align: center; }
+        .btn-test { background: var(--accent2); margin-bottom: 2rem; display: block; }
+        
         /* SINAV */
-        .quiz-box { background: white; padding: 2rem; border-radius: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 10px; background: white; cursor: pointer; text-align: left; font-family: inherit; font-size: 1rem; }
-        .option-btn:hover { background: #f9f6f2; border-color: var(--accent); }
+        .quiz-box { background: white; padding: 2rem; border-radius: 25px; border: 1px solid var(--border); }
+        .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 10px; background: white; cursor: pointer; text-align: left; font-family: inherit; }
+        .correct { background-color: #c8e6c9 !important; color: #1b5e20 !important; }
+        .wrong { background-color: #ffcdd2 !important; color: #b71c1c !important; }
 
-        /* KART TASARIMI */
-        .v-card { background: white; border-radius: 25px; padding: 2rem; border: 1px solid var(--border); text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .v-word { font-family: 'Fraunces'; font-size: 2.6rem; margin-bottom: 5px; color: var(--dark); }
-        .v-tr { font-size: 1.4rem; color: var(--accent2); font-weight: 600; margin-bottom: 1.5rem; }
-        .v-details { display: flex; justify-content: center; gap: 10px; font-size: 0.8rem; color: #888; margin-bottom: 1rem; font-weight: 700; text-transform: uppercase; }
-        .v-details span { background: #eee; padding: 2px 10px; border-radius: 5px; }
-        .v-example { background: #f9f6f2; padding: 1.2rem; border-radius: 15px; border-left: 5px solid var(--accent); text-align: left; cursor: pointer; margin-bottom: 1.5rem; }
+        /* İÇERİK KARTLARI */
+        .card { background: white; border-radius: 25px; padding: 2rem; border: 1px solid var(--border); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .g-title { font-family: 'Fraunces'; font-size: 1.8rem; margin-bottom: 1rem; color: var(--accent); }
+        .g-content { line-height: 1.6; font-size: 1rem; }
+        .read-box { text-align: left; }
+        .read-text { font-style: italic; background: #f9f6f2; padding: 1rem; border-radius: 10px; margin-bottom: 1rem; }
+
+        /* ALT NAVİGASYON */
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 2px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { border: none; background: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: 700; color: #999; }
+        .nav-item.active { color: var(--accent); }
+        .nav-icon { font-size: 1.2rem; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo" onclick="location.reload()">DEUTSCH<em>ACADEMY</em></div>
-    <div id="statusLabel" style="font-size: 0.75rem; font-weight: 800; color: #999;">MODÜL: ANA SAYFA</div>
+    <div id="statusLabel" style="font-size: 0.75rem; font-weight: 800; color: #999;">ANA SAYFA</div>
 </header>
 
 <div class="container">
     
-    <div id="screen-home" class="welcome-box" style="text-align: center;">
-        <h1 style="font-family:'Fraunces'; font-size: 2.2rem; margin-bottom: 1rem;">Hoş Geldin!</h1>
-        <p style="margin-bottom: 2rem; color: #666; font-size: 0.95rem;">Seviyeni test et veya bir kur seçerek kelime öğrenmeye başla.</p>
-        
-        <button class="btn btn-test" onclick="startQuiz()">📝 ÜCRETSİZ SEVİYE TESPİTİ</button>
-        
-        <div style="text-align: left;">
-            <p style="font-weight: 800; font-size: 0.7rem; color: #bbb; margin-bottom: 10px; letter-spacing: 1px;">KUR SEÇİMİ</p>
-            <button class="btn" onclick="init('A1')">A1 - Başlangıç Seviyesi</button>
-            <button class="btn" onclick="init('A2')">A2 - Temel Seviye</button>
-            <button class="btn" onclick="init('B1')">B1 - Orta Seviye</button>
-        </div>
+    <div id="screen-home">
+        <h1 style="font-family:'Fraunces'; font-size: 2.2rem; text-align: center; margin-bottom: 1rem;">Hoş Geldin!</h1>
+        <button class="btn btn-test" onclick="startQuiz()">📝 SEVİYE TESPİT SINAVI</button>
+        <p style="font-weight: 800; font-size: 0.7rem; color: #bbb; margin-bottom: 10px;">KUR SEÇEREK BAŞLA</p>
+        <button class="btn" onclick="initModule('A1')">A1 - Başlangıç</button>
+        <button class="btn" onclick="initModule('A2')">A2 - Temel</button>
+        <button class="btn" onclick="initModule('B1')">B1 - Orta</button>
     </div>
 
     <div id="screen-quiz" class="hidden">
         <div class="quiz-box">
-            <div id="quiz-progress" style="color: var(--accent); font-weight: 800; font-size: 0.8rem; margin-bottom: 10px;"></div>
-            <h2 id="quiz-question" style="margin-bottom: 1.5rem; font-family: 'Fraunces'; font-size: 1.4rem;"></h2>
+            <div id="quiz-progress" style="font-weight:800; color:var(--accent); font-size:0.8rem;"></div>
+            <h2 id="quiz-question" style="margin: 1rem 0; font-family:'Fraunces';"></h2>
             <div id="quiz-options"></div>
         </div>
     </div>
 
-    <div id="screen-learning" class="hidden">
-        <div id="prog" style="font-size: 0.8rem; margin-bottom: 10px; color: #999; font-weight: 700;">1 / 150</div>
-        <div class="v-card">
-            <div class="v-details">
-                <span id="vType">TÜR</span>
-                <span id="vPlural">ÇOĞUL</span>
+    <div id="screen-main" class="hidden">
+        
+        <div id="sub-vocab" class="sub-screen">
+            <div id="prog" style="font-size:0.8rem; margin-bottom:10px; font-weight:700; color:#999;"></div>
+            <div class="card" style="text-align:center;">
+                <h1 id="vWord" style="font-family:'Fraunces'; font-size:2.5rem;">-</h1>
+                <p id="vTr" style="font-size:1.3rem; color:var(--accent2); font-weight:600; margin-bottom:1rem;">-</p>
+                <div style="background:#f9f6f2; padding:1rem; border-radius:15px; border-left:5px solid var(--accent); text-align:left; margin-bottom:1rem;">
+                    <p id="vExDe" style="font-weight:600;"></p>
+                    <p id="vExTr" style="font-size:0.9rem; color:#666;"></p>
+                </div>
+                <button class="btn" style="background:var(--accent);" onclick="nextVocab()">Sonraki Kelime →</button>
+                <button class="btn" style="background:#f0f0f0; color:#555;" onclick="speak(document.getElementById('vWord').innerText)">🔊 Telaffuz</button>
             </div>
-            <h1 id="vWord">Wort</h1>
-            <p id="vTr">Anlam</p>
-            
-            <div class="v-example" onclick="speak(document.getElementById('vExDe').innerText)">
-                <small style="color:var(--accent); font-weight:900; font-size: 0.7rem;">CÜMLE İÇİNDE 🔊</small>
-                <p id="vExDe" style="margin-top:5px; font-weight:600; font-size: 1.05rem;"></p>
-                <p id="vExTr" style="font-size:0.9rem; color:#777;"></p>
-            </div>
-
-            <button class="btn btn-next" style="margin-top: 1.5rem;" onclick="next()">Sonraki Kelime →</button>
-            <button class="btn" style="background:#f0f0f0; color:#555;" onclick="speak(document.getElementById('vWord').innerText)">🔊 Telaffuz Et</button>
-            <button class="btn" style="background:none; color:#bbb; font-size: 0.7rem; margin-top: 10px;" onclick="location.reload()">Ana Menüye Dön</button>
         </div>
+
+        <div id="sub-grammar" class="sub-screen hidden">
+            <div class="card">
+                <h2 id="gTitle" class="g-title">Gramer Konusu</h2>
+                <div id="gContent" class="g-content">Buraya gramer açıklamaları gelecek...</div>
+            </div>
+        </div>
+
+        <div id="sub-reading" class="sub-screen hidden">
+            <div class="card read-box">
+                <h2 id="rTitle" class="g-title">Okuma Parçası</h2>
+                <div id="rText" class="read-text">Metin buraya gelecek...</div>
+                <div id="rTr" style="font-size:0.9rem; color:#666; border-top:1px solid #eee; pt:1rem;">Türkçe çeviri...</div>
+            </div>
+        </div>
+
     </div>
 
 </div>
 
+<div id="main-nav" class="nav-bar hidden">
+    <button class="nav-item active" onclick="switchSub('vocab')"><span class="nav-icon">📖</span>Kelime</button>
+    <button class="nav-item" onclick="switchSub('grammar')"><span class="nav-icon">⚖️</span>Gramer</button>
+    <button class="nav-item" onclick="switchSub('reading')"><span class="nav-icon">📑</span>Okuma</button>
+    <button class="nav-item" onclick="location.reload()"><span class="nav-icon">🏠</span>Menü</button>
+</div>
+
 <script>
-// --- VERİ HAVUZU ---
-const data = {
-   'A1': [
+// --- VERİLER ---
+const vocabData = {
+    'A1': [
     // --- TEMEL FİİLLER (GÜNLÜK) ---
     {w:"sein", t:"Olmak", tp:"Fiil", p:"-", exD:"Ich bin müde.", exT:"Yorgunum."},
     {w:"haben", t:"Sahip olmak", tp:"Fiil", p:"-", exD:"Ich habe Hunger.", exT:"Açım."},
@@ -187,17 +205,85 @@ const data = {
     {w:"nicht", t:"Değil / Olumsuzluk", tp:"Zarf", p:"-", exD:"Das ist nicht gut.", exT:"Bu iyi değil."}
 ],
     'A2': [
-        {w:"der Urlaub", t:"Tatil", tp:"İsim", p:"die Urlaube", exD:"Ich mache Urlaub.", exT:"Tatil yapıyorum."},
-        {w:"besuchen", t:"Ziyaret etmek", tp:"Fiil", p:"-", exD:"Besuchst du mich?", exT:"Beni ziyaret edecek misin?"},
-        {w:"die Ausbildung", t:"Eğitim", tp:"İsim", p:"die Ausbildungen", exD:"Er macht eine Ausbildung.", exT:"O eğitim alıyor."}
-    ],
-    'B1': [
-        {w:"obwohl", t:"Rağmen", tp:"Bağlaç", p:"-", exD:"Obwohl es regnet, gehe ich.", exT:"Yağmur yağmasına rağmen gidiyorum."},
-        {w:"die Herausforderung", t:"Zorluk", tp:"İsim", p:"die Herausforderungen", exD:"Das ist schwer.", exT:"Bu zordur."}
-    ]
+    // --- SOSYAL YAŞAM VE TATİL ---
+    {w:"der Urlaub", t:"Tatil", tp:"İsim", p:"die Urlaube", exD:"Ich mache im Sommer Urlaub.", exT:"Yazın tatil yapıyorum."},
+    {w:"reisen", t:"Seyahat etmek", tp:"Fiil", p:"-", exD:"Wir reisen nach Berlin.", exT:"Berlin'e seyahat ediyoruz."},
+    {w:"besuchen", t:"Ziyaret etmek", tp:"Fiil", p:"-", exD:"Besuchst du mich morgen?", exT:"Yarın beni ziyaret edecek misin?"},
+    {w:"die Einladung", t:"Davet", tp:"İsim", p:"die Einladungen", exD:"Danke für die Einladung.", exT:"Davet için teşekkürler."},
+    {w:"feiern", t:"Kutlamak", tp:"Fiil", p:"-", exD:"Wir feiern Geburtstag.", exT:"Doğum günü kutluyoruz."},
+    {w:"das Geschenk", t:"Hediye", tp:"İsim", p:"die Geschenke", exD:"Das Geschenk ist für dich.", exT:"Hediye senin için."},
+    {w:"ausgehen", t:"Dışarı çıkmak", tp:"Fiil", p:"-", exD:"Wollen wir heute ausgehen?", exT:"Bugün dışarı çıkmak ister miyiz?"},
+    
+    // --- MESLEKLER VE EĞİTİM ---
+    {w:"die Ausbildung", t:"Mesleki Eğitim", tp:"İsim", p:"die Ausbildungen", exD:"Er macht eine Ausbildung.", exT:"O bir mesleki eğitim alıyor."},
+    {w:"der Beruf", t:"Meslek", tp:"İsim", p:"die Berufe", exD:"Was bist du von Beruf?", exT:"Mesleğin nedir?"},
+    {w:"die Arbeit", t:"İş", tp:"İsim", p:"die Arbeiten", exD:"Die Arbeit macht Spaß.", exT:"İş eğlenceli."},
+    {w:"verdienen", t:"Kazanmak (Para)", tp:"Fiil", p:"-", exD:"Er verdient viel Geld.", exT:"O çok para kazanıyor."},
+    {w:"kündigen", t:"İstifa etmek/Çıkarmak", tp:"Fiil", p:"-", exD:"Ich habe gekündigt.", exT:"İstifa ettim."},
+    {w:"die Besprechung", t:"Toplantı", tp:"İsim", p:"die Besprechungen", exD:"Die Besprechung beginnt um 9.", exT:"Toplantı 9'da başlıyor."},
+    
+    // --- SAĞLIK VE VÜCUT ---
+    {w:"die Gesundheit", t:"Sağlık", tp:"İsim", p:"-", exD:"Gesundheit ist wichtig.", exT:"Sağlık önemlidir."},
+    {w:"krank", t:"Hasta", tp:"Sıfat", p:"-", exD:"Ich bin seit gestern krank.", exT:"Dünden beri hastayım."},
+    {w:"der Schmerz", t:"Ağrı/Acı", tp:"İsim", p:"die Schmerzen", exD:"Ich habe Kopfschmerzen.", exT:"Başım ağrıyor."},
+    {w:"das Medikament", t:"İlaç", tp:"İsim", p:"die Medikamente", exD:"Nimm das Medikament!", exT:"İlacı al!"},
+    {w:"untersuchen", t:"Muayene etmek", tp:"Fiil", p:"-", exD:"Der Arzt untersucht mich.", exT:"Doktor beni muayene ediyor."},
+    
+    // --- DUYGULAR VE SIFATLAR ---
+    {w:"wichtig", t:"Önemli", tp:"Sıfat", p:"-", exD:"Das ist sehr wichtig.", exT:"Bu çok önemli."},
+    {w:"langweilig", t:"Sıkıcı", tp:"Sıfat", p:"-", exD:"Der Film ist langweilig.", exT:"Film sıkıcı."},
+    {w:"lustig", t:"Komik", tp:"Sıfat", p:"-", exD:"Du bist so lustig!", exT:"Çok komiksin!"},
+    {w:"gefährlich", t:"Tehlikeli", tp:"Sıfat", p:"-", exD:"Das ist ein gefährlicher Hund.", exT:"Bu tehlikeli bir köpek."},
+    {w:"pünktlich", t:"Dakik", tp:"Sıfat", p:"-", exD:"Bitte sei pünktlich.", exT:"Lütfen dakik ol."},
+    
+    // --- DİĞER KRİTİK KELİMELER ---
+    {w:"erzählen", t:"Anlatmak", tp:"Fiil", p:"-", exD:"Erzähl mir eine Geschichte.", exT:"Bana bir hikaye anlat."},
+    {w:"versuchen", t:"Denemek", tp:"Fiil", p:"-", exD:"Ich versuche es noch einmal.", exT:"Bunu bir kez daha deneyeceğim."},
+    {w:"benutzen", t:"Kullanmak", tp:"Fiil", p:"-", exD:"Darf ich dein Handy benutzen?", exT:"Telefonunu kullanabilir miyim?"},
+    {w:"versprechen", t:"Söz vermek", tp:"Fiil", p:"-", exD:"Ich verspreche es dir.", exT:"Sana söz veriyorum."},
+    {w:"die Meinung", t:"Fikir", tp:"İsim", p:"die Meinungen", exD:"Das ist meine Meinung.", exT:"Bu benim fikrim."}
+],
+   'B1': [
+    // --- BAĞLAÇLAR VE ZARFLAR (B1'in Kalbi) ---
+    {w:"obwohl", t:"Rağmen", tp:"Bağlaç", p:"-", exD:"Obwohl es regnet, gehe ich raus.", exT:"Yağmur yağmasına rağmen dışarı çıkıyorum."},
+    {w:"deshalb", t:"Bu yüzden", tp:"Bağlaç", p:"-", exD:"Ich bin krank, deshalb bleibe ich zu Hause.", exT:"Hastayım, bu yüzden evde kalıyorum."},
+    {w:"trotzdem", t:"Buna rağmen", tp:"Zarf", p:"-", exD:"Es war teuer, aber ich habe es trotzdem gekauft.", exT:"Pahalıydı ama yine de aldım."},
+    {w:"entweder... oder", t:"Ya... ya da", tp:"Bağlaç", p:"-", exD:"Entweder du kommst mit, oder du bleibst hier.", exT:"Ya benimle gelirsin ya da burada kalırsın."},
+    
+    // --- TOPLUM VE ÇEVRE ---
+    {w:"die Umwelt", t:"Çevre", tp:"İsim", p:"-", exD:"Wir müssen die Umwelt schützen.", exT:"Çevreyi korumalıyız."},
+    {w:"nachhaltig", t:"Sürdürülebilir", tp:"Sıfat", p:"-", exD:"Wir brauchen nachhaltige Energie.", exT:"Sürdürülebilir enerjiye ihtiyacımız var."},
+    {w:"die Gesellschaft", t:"Toplum", tp:"İsim", p:"die Gesellschaften", exD:"Die Gesellschaft verändert sich.", exT:"Toplum değişiyor."},
+    {w:"der Umweltschutz", t:"Çevre koruma", tp:"İsim", p:"-", exD:"Umweltschutz ist wichtig.", exT:"Çevre koruma önemlidir."},
+    
+    // --- DUYGULAR VE DURUMLAR ---
+    {w:"die Herausforderung", t:"Zorluk/Meydan okuma", tp:"İsim", p:"die Herausforderungen", exD:"Das ist eine große Herausforderung.", exT:"Bu büyük bir zorluk."},
+    {w:"begeistert", t:"Coşkulu/Hayran", tp:"Sıfat", p:"-", exD:"Ich bin von der Idee begeistert.", exT:"Bu fikre hayran kaldım."},
+    {w:"enttäuscht", t:"Hayal kırıklığına uğramış", tp:"Sıfat", p:"-", exD:"Er war sehr enttäuscht.", exT:"Büyük hayal kırıklığına uğradı."},
+    {w:"selbstständig", t:"Kendi başına/Serbest", tp:"Sıfat", p:"-", exD:"Er arbeitet selbstständig.", exT:"Serbest çalışıyor."},
+    
+    // --- FİİLLER (İLERİ) ---
+    {w:"entscheiden", t:"Karar vermek", tp:"Fiil", p:"-", exD:"Ich kann mich nicht entscheiden.", exT:"Karar veremiyorum."},
+    {w:"empfehlen", t:"Tavsiye etmek", tp:"Fiil", p:"-", exD:"Was kannst du mir empfehlen?", exT:"Bana ne tavsiye edebilirsin?"},
+    {w:"vergleichen", t:"Karşılaştırmak", tp:"Fiil", p:"-", exD:"Vergleich die Preise!", exT:"Fiyatları karşılaştır!"},
+    {w:"vermeiden", t:"Kaçınmak", tp:"Fiil", p:"-", exD:"Wir müssen Plastik vermeiden.", exT:"Plastikten kaçınmalıyız."},
+    {w:"beeinflussen", t:"Etkilemek", tp:"Fiil", p:"-", exD:"Das Wetter beeinflusst meine Laune.", exT:"Hava modumu etkiliyor."}
+]
 };
 
-// --- SINAV SORULARI ---
+const grammarData = {
+    'A1': {title: "Konu 1: Şahıs Zamirleri", content: "Almanca'da şahıs zamirleri şöyledir:<br><b>Ich:</b> Ben<br><b>Du:</b> Sen<br><b>Er/Sie/Es:</b> O<br><br><i>Örnek: Ich bin öğretmen.</i>"},
+    'A2': {title: "Konu 1: Perfekt (Geçmiş Zaman)", content: "Haben/Sein + Partizip II yapısı kullanılır.<br><i>Örnek: Ich habe gelernt. (Öğrendim)</i>"},
+    'B1': {title: "Konu 1: Yan Cümleler", content: "Weil, dass, obwohl gibi bağlaçlar fiili sona atar."}
+};
+
+const readingData = {
+    'A1': {title: "Hallo Ahmet!", text: "Hallo! Ich heiße Ahmet. Ich wohne in Berlin. Ich lerne Deutsch.", tr: "Merhaba! Benim adım Ahmet. Berlin'de yaşıyorum. Almanca öğreniyorum."},
+    'A2': {title: "Mein Urlaub", text: "Letztes Jahr war ich in Antalya. Das Wetter war sehr schön.", tr: "Geçen yıl Antalya'daydım. Hava çok güzeldi."},
+    'B1': {title: "Umweltschutz", text: "Es ist wichtig, die Umwelt zu schützen.", tr: "Çevreyi korumak önemlidir."}
+};
+
+// --- SINAV VERİSİ ---
 const quizData = [
     {q: "Ich ___ Ahmet. (A1)", a: ["bin", "bist", "ist", "sein"], c: 0},
     {q: "Woher ___ du? (A1)", a: ["kommt", "kommst", "kommen", "komme"], c: 1},
@@ -221,73 +307,74 @@ const quizData = [
     {q: "Es ist wichtig, ___ man pünktlich ist. (B2)", a: ["dass", "um", "zu", "weil"], c: 0}
 ];
 
+let qIdx = 0, score = 0, currentLevel = 'A1', vCursor = 0;
 
-
-let qIdx = 0; let score = 0;
-let currentList = []; let cursor = 0;
-
-// SINAV FONKSİYONLARI
+// --- FONKSİYONLAR ---
 function startQuiz() {
     qIdx = 0; score = 0;
     document.getElementById('screen-home').classList.add('hidden');
     document.getElementById('screen-quiz').classList.remove('hidden');
-    showQ();
+    showQuiz();
 }
 
-function showQ() {
+function showQuiz() {
     const q = quizData[qIdx];
-    document.getElementById('quiz-progress').innerText = `SORU ${qIdx + 1} / ${quizData.length}`;
+    document.getElementById('quiz-progress').innerText = `SORU ${qIdx+1}/${quizData.length}`;
     document.getElementById('quiz-question').innerText = q.q;
-    const optBox = document.getElementById('quiz-options');
-    optBox.innerHTML = "";
+    const box = document.getElementById('quiz-options'); box.innerHTML = "";
     q.a.forEach((opt, i) => {
-        const b = document.createElement('button');
-        b.className = "option-btn";
-        b.innerText = opt;
-        b.onclick = () => { if(i===q.c) score++; qIdx++; if(qIdx < quizData.length) showQ(); else finish(); };
-        optBox.appendChild(b);
+        const btn = document.createElement('button'); btn.className = "option-btn"; btn.innerText = opt;
+        btn.onclick = () => {
+            if(i === q.c) { btn.classList.add('correct'); score++; } else { btn.classList.add('wrong'); }
+            setTimeout(() => { qIdx++; if(qIdx < quizData.length) showQuiz(); else { alert("Puan: "+score); initModule('A1'); } }, 800);
+        };
+        box.appendChild(btn);
     });
 }
 
-function finish() {
-    let res = "A1";
-    if(score >= 4) res = "A2";
-    if(score >= 7) res = "B1";
-    alert(`Sınav Bitti! Skorun: ${score}/${quizData.length}\nSeviyen: ${res}`);
-    init(res);
-}
-
-// ÖĞRENME FONKSİYONLARI
-function init(lvl) {
-    currentList = data[lvl] || data['A1'];
-    cursor = 0;
-    document.getElementById('statusLabel').innerText = "MODÜL: " + lvl;
+function initModule(lvl) {
+    currentLevel = lvl; vCursor = 0;
+    document.getElementById('statusLabel').innerText = lvl + " MODÜLÜ";
     document.getElementById('screen-home').classList.add('hidden');
     document.getElementById('screen-quiz').classList.add('hidden');
-    document.getElementById('screen-learning').classList.remove('hidden');
-    render();
+    document.getElementById('screen-main').classList.remove('hidden');
+    document.getElementById('main-nav').classList.remove('hidden');
+    renderVocab(); renderGrammar(); renderReading();
 }
 
-function render() {
-    const item = currentList[cursor];
-    document.getElementById('prog').innerText = `${cursor + 1} / ${currentList.length}`;
+function switchSub(type) {
+    document.querySelectorAll('.sub-screen').forEach(s => s.classList.add('hidden'));
+    document.getElementById('sub-' + type).classList.remove('hidden');
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+}
+
+function renderVocab() {
+    const list = vocabData[currentLevel];
+    const item = list[vCursor];
+    document.getElementById('prog').innerText = `${vCursor + 1} / ${list.length}`;
     document.getElementById('vWord').innerText = item.w;
     document.getElementById('vTr').innerText = item.t;
-    document.getElementById('vType').innerText = item.tp;
-    document.getElementById('vPlural').innerText = item.p;
     document.getElementById('vExDe').innerText = item.exD;
     document.getElementById('vExTr').innerText = item.exT;
-    speak(item.w);
 }
 
-function next() { cursor = (cursor + 1) % currentList.length; render(); }
+function nextVocab() { vCursor = (vCursor + 1) % vocabData[currentLevel].length; renderVocab(); }
 
-function speak(t) {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(t);
-    u.lang = 'de-DE'; u.rate = 0.85;
-    window.speechSynthesis.speak(u);
+function renderGrammar() {
+    const g = grammarData[currentLevel];
+    document.getElementById('gTitle').innerText = g.title;
+    document.getElementById('gContent').innerHTML = g.content;
 }
+
+function renderReading() {
+    const r = readingData[currentLevel];
+    document.getElementById('rTitle').innerText = r.title;
+    document.getElementById('rText').innerText = r.text;
+    document.getElementById('rTr').innerText = r.tr;
+}
+
+function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; window.speechSynthesis.speak(u); }
 </script>
 </body>
 </html>
