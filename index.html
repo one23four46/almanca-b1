@@ -140,21 +140,41 @@ body.medical-theme #vTr {
         </div>
     </div>
 
-    <div id="screen-main" class="hidden">
-        
-        <div id="sub-vocab" class="sub-screen">
-            <div id="prog" style="font-size:0.8rem; margin-bottom:10px; font-weight:700; color:#999;"></div>
-            <div class="card" style="text-align:center;">
-                <h1 id="vWord" style="font-family:'Fraunces'; font-size:2.5rem;">-</h1>
-                <p id="vTr" style="font-size:1.3rem; color:var(--accent2); font-weight:600; margin-bottom:1rem;">-</p>
-                <div style="background:#f9f6f2; padding:1rem; border-radius:15px; border-left:5px solid var(--accent); text-align:left; margin-bottom:1rem;">
-                    <p id="vExDe" style="font-weight:600;"></p>
-                    <p id="vExTr" style="font-size:0.9rem; color:#666;"></p>
-                </div>
-                <button class="btn" style="background:var(--accent);" onclick="nextVocab()">Sonraki Kelime →</button>
-                <button class="btn" style="background:#f0f0f0; color:#555;" onclick="speak(document.getElementById('vWord').innerText)">🔊 Telaffuz</button>
+   <div id="screen-main" class="hidden">
+    
+    <div id="sub-vocab" class="sub-screen">
+        <div class="card">
+            <div id="quiz-progress" style="font-size:0.8rem; opacity:0.6; margin-bottom:10px;">KELİME ÇALIŞMASI</div>
+            <h1 id="vWord" style="font-size: 2.5rem; color: #00796b;">...</h1>
+            <p id="vTr" onclick="this.style.filter='none'" style="font-size: 1.2rem; color: #666; margin: 15px 0; cursor: pointer;">(Anlamı görmek için dokun)</p>
+            <div id="vEx" style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 10px; border-left: 5px solid #00796b;">
+                <p id="vExD" style="font-style: italic; font-weight: 500;"></p>
+                <p id="vExT" style="color: #888; font-size: 0.9rem;"></p>
+            </div>
+            <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
+                <button class="btn" onclick="prevV()" style="flex:1; background:#ccc;">Geri</button>
+                <button class="btn" onclick="nextV()" style="flex:1;">İleri</button>
             </div>
         </div>
+    </div>
+
+    <div id="sub-vaka" class="sub-screen hidden">
+        <div class="card">
+            <h2 id="vakaTitle" style="color:#00796b; border-bottom: 2px solid #eee; padding-bottom: 10px;">Vaka Sunumu</h2>
+            <div id="vakaContent" style="margin-top:1rem; text-align: left; line-height:1.8; background:#f0f7f6; padding:20px; border-radius:15px; font-size: 1.1rem;">
+                </div>
+        </div>
+    </div>
+
+    <div id="sub-bakim" class="sub-screen hidden">
+        <div class="card">
+            <h2 id="bakimTitle" style="color:#00796b; border-bottom: 2px solid #eee; padding-bottom: 10px;">Bakım ve Uygulama</h2>
+            <div id="bakimContent" style="margin-top:1rem; text-align: left; line-height:1.8; font-size: 1.1rem;">
+                </div>
+        </div>
+    </div>
+
+</div>
 
         <div id="sub-grammar" class="sub-screen hidden">
             <div class="card">
@@ -578,36 +598,96 @@ function switchSub(type) {
     event.currentTarget.classList.add('active');
 }
 
-// --- ANA MENÜYE DÖNÜŞ FONKSİYONU ---
-function goHome() {
-    // Tıbbi temayı temizle
-    document.body.classList.remove('medical-theme');
+
+
+    // --- 1. HEMŞİRELİK VERİLERİ (İÇERİK) ---
+const vakaData = {
+    'MEDICAL': {
+        title: "Vaka: Kalp Yetmezliği (Herzinsuffizienz)",
+        content: "<b>Hasta:</b> 78 yaşında erkek.<br><b>Tanı:</b> Dekompansierte Herzinsuffizienz.<br><b>Şikayet:</b> Dyspnoe (Nefes darlığı) ve ayak bileklerinde ödem (Ödeme).<br><b>Bakım Notu:</b> Günlük tartı ve sıvı takibi (Einfuhr-Ausfuhr-Kontrolle) yapılmalı."
+    }
+};
+
+const bakimData = {
+    'MEDICAL': {
+        title: "Hemşirelik Bakım Planı",
+        content: "• <b>Vitalzeichen:</b> Blutdruck ve Puls her 4 saatte bir ölçülmeli.<br>• <b>Lagerung:</b> Nefes almayı kolaylaştırmak için üst gövde yüksekte (Oberkörperhochlage) tutulmalı.<br>• <b>Medikamente:</b> Doktor talimatına göre Diüretik verilmeli."
+    }
+};
+
+// --- 2. SAYFA GEÇİŞ FONKSİYONU ---
+function switchSub(type) {
+    // Önce bütün alt ekranları (Kelime, Vaka, Bakım) gizle
+    document.getElementById('sub-vocab').classList.add('hidden');
+    document.getElementById('sub-vaka').classList.add('hidden');
+    document.getElementById('sub-bakim').classList.add('hidden');
     
-    // Ana sayfayı göster, diğerlerini gizle
+    // Sadece tıkladığın butona ait ekranı göster
+    const target = document.getElementById('sub-' + type);
+    if(target) target.classList.remove('hidden');
+
+    // Eğer Sağlıkçılar modundaysak ve Vaka/Bakım seçildiyse içini doldur
+    if(currentLevel === 'MEDICAL') {
+        if(type === 'vaka') {
+            document.getElementById('vakaTitle').innerHTML = vakaData.MEDICAL.title;
+            document.getElementById('vakaContent').innerHTML = vakaData.MEDICAL.content;
+        }
+        if(type === 'bakim') {
+            document.getElementById('bakimTitle').innerHTML = bakimData.MEDICAL.title;
+            document.getElementById('bakimContent').innerHTML = bakimData.MEDICAL.content;
+        }
+    }
+
+    // Alttaki butonların rengini güncelle
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+    // Tıklanan butonu aktif yap
+    if(event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
+}
+
+// --- 3. ANA MENÜYE DÖNÜŞ ---
+function goHome() {
+    document.body.classList.remove('medical-theme');
     document.getElementById('screen-main').classList.add('hidden');
     document.getElementById('main-nav').classList.add('hidden');
     document.getElementById('screen-home').classList.remove('hidden');
-    
-    // Üst bar yazısını sıfırla
     document.getElementById('statusLabel').innerText = "ANA SAYFA";
 }
+
+// --- 4. MODÜL BAŞLATICI (GÜNCEL) ---
+function initModule(lvl) {
+    currentLevel = lvl; 
+    vCursor = 0;
+    
+    if(lvl === 'MEDICAL') {
+        document.body.classList.add('medical-theme');
+    } else {
+        document.body.classList.remove('medical-theme');
+    }
+
+    document.getElementById('statusLabel').innerText = lvl;
+    document.getElementById('screen-home').classList.add('hidden');
+    document.getElementById('screen-main').classList.remove('hidden');
+    document.getElementById('main-nav').classList.remove('hidden');
+    
+    // Her kur açıldığında Kelime bölümüyle başla
+    switchSub('vocab'); 
+    renderVocab(); 
+}
 </script>
-    <div id="main-nav" class="nav-bar hidden">
+<div id="main-nav" class="nav-bar hidden">
     <button class="nav-item active" onclick="switchSub('vocab')">
-        <span style="font-size:1.2rem;">📖</span>
-        <span>Kelime</span>
+        <span class="nav-icon">📖</span>Kelime
     </button>
-    <button class="nav-item" onclick="switchSub('grammar')">
-        <span style="font-size:1.2rem;">⚖️</span>
-        <span>Gramer</span>
+    <button class="nav-item" onclick="switchSub('vaka')">
+        <span class="nav-icon">🚑</span>Hemşirelik Vaka
     </button>
-    <button class="nav-item" onclick="switchSub('reading')">
-        <span style="font-size:1.2rem;">📑</span>
-        <span>Okuma</span>
+    <button class="nav-item" onclick="switchSub('bakim')">
+        <span class="nav-icon">🩺</span>Bakım Planı
     </button>
     <button class="nav-item" onclick="goHome()">
-        <span style="font-size:1.2rem;">🏠</span>
-        <span>Menü</span>
+        <span class="nav-icon">🏠</span>Menü
     </button>
 </div>
 </body>
