@@ -54,6 +54,7 @@
         <button class="btn" onclick="initModule('A1')">A1 - Başlangıç</button>
         <button class="btn" onclick="initModule('A2')">A2 - Temel</button>
         <button class="btn" onclick="initModule('B1')">B1 - Orta</button>
+        <button class="btn" style="background: #00796b;" onclick="initModule('MEDICAL')">🩺 SAĞLIKÇILAR (Tıbbi Almanca)</button>
     </div>
 
     <div id="screen-quiz" class="hidden">
@@ -268,7 +269,19 @@ const vocabData = {
     {w:"vergleichen", t:"Karşılaştırmak", tp:"Fiil", p:"-", exD:"Vergleich die Preise!", exT:"Fiyatları karşılaştır!"},
     {w:"vermeiden", t:"Kaçınmak", tp:"Fiil", p:"-", exD:"Wir müssen Plastik vermeiden.", exT:"Plastikten kaçınmalıyız."},
     {w:"beeinflussen", t:"Etkilemek", tp:"Fiil", p:"-", exD:"Das Wetter beeinflusst meine Laune.", exT:"Hava modumu etkiliyor."}
-]
+],
+    'MEDICAL': [
+        {w:"der Blutdruck", t:"Tansiyon", exD:"Wir müssen den Blutdruck messen.", exT:"Tansiyonu ölçmeliyiz."},
+        {w:"die Untersuchung", t:"Muayene", exD:"Die Untersuchung dauert 10 Minuten.", exT:"Muayene 10 dakika sürer."},
+        {w:"das Rezept", t:"Reçete", exD:"Hier ist Ihr Rezept.", exT:"İşte reçeteniz."},
+        {w:"einatmen", t:"Nefes almak", exD:"Bitte tief einatmen.", exT:"Lütfen derin nefes alın."},
+        {w:"ausatmen", t:"Nefes vermek", exD:"Und jetzt ausatmen.", exT:"Ve şimdi nefes verin."},
+        {w:"die Spritze", t:"İğne/Enjektör", exD:"Keine Sorge, die Spritze tut nicht weh.", exT:"Endişelenmeyin, iğne acıtmaz."},
+        {w:"der Schmerz", t:"Ağrı", exD:"Wo haben Sie Schmerzen?", exT:"Nerenizde ağrı var?"},
+        {w:"die Krankenschwester", t:"Hemşire", exD:"Die Krankenschwester kommt gleich.", exT:"Hemşire birazdan gelecek."},
+        {w:"nüchtern", t:"Aç karnına", exD:"Sie müssen nüchtern kommen.", exT:"Aç karnına gelmelisiniz."},
+        {w:"die Notaufnahme", t:"Acil Servis", exD:"Er ist in der Notaufnahme.", exT:"O, acil serviste."}
+    ]
 };
 
 const grammarData = {
