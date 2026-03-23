@@ -140,11 +140,9 @@ body.medical-theme #vTr {
         </div>
     </div>
 
-   <div id="screen-main" class="hidden">
-    
+  <div id="screen-main" class="hidden">
     <div id="sub-vocab" class="sub-screen">
         <div class="card">
-            <div id="quiz-progress" style="font-size:0.8rem; opacity:0.6; margin-bottom:10px;">KELİME ÇALIŞMASI</div>
             <h1 id="vWord" style="font-size: 2.5rem; color: #00796b;">...</h1>
             <p id="vTr" onclick="this.style.filter='none'" style="font-size: 1.2rem; color: #666; margin: 15px 0; cursor: pointer;">(Anlamı görmek için dokun)</p>
             <div id="vEx" style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 10px; border-left: 5px solid #00796b;">
@@ -157,6 +155,21 @@ body.medical-theme #vTr {
             </div>
         </div>
     </div>
+
+    <div id="sub-vaka" class="sub-screen hidden">
+        <div class="card">
+            <h2 id="vakaTitle" style="color:#00796b;">Vaka Sunumu</h2>
+            <div id="vakaContent" style="margin-top:1rem; text-align: left; line-height:1.8; background:#f0f7f6; padding:15px; border-radius:10px;"></div>
+        </div>
+    </div>
+
+    <div id="sub-bakim" class="sub-screen hidden">
+        <div class="card">
+            <h2 id="bakimTitle" style="color:#00796b;">Bakım ve Uygulama</h2>
+            <div id="bakimContent" style="margin-top:1rem; text-align: left; line-height:1.8; padding:10px;"></div>
+        </div>
+    </div>
+</div>
 
     <div id="sub-vaka" class="sub-screen hidden">
         <div class="card">
@@ -525,37 +538,7 @@ function showQuiz() {
     });
 }
 
-function initModule(lvl) {
-    currentLevel = lvl; 
-    vCursor = 0;
-    
-    // --- TEMA KONTROLÜ BURADA ---
-    if(lvl === 'MEDICAL') {
-        // Eğer Sağlıkçılar seçildiyse temayı giydir
-        document.body.classList.add('medical-theme');
-    } else {
-        // Diğer kurlarda (A1, A2, B1) temayı çıkar
-        document.body.classList.remove('medical-theme');
-    }
 
-    document.getElementById('statusLabel').innerText = lvl;
-    document.getElementById('screen-home').classList.add('hidden');
-    document.getElementById('screen-quiz').classList.add('hidden');
-    document.getElementById('screen-main').classList.remove('hidden');
-    document.getElementById('main-nav').classList.remove('hidden');
-    
-    // Verileri ekrana basan fonksiyonların
-    renderVocab(); 
-    renderGrammar(); 
-    renderReading();
-}
-
-function switchSub(type) {
-    document.querySelectorAll('.sub-screen').forEach(s => s.classList.add('hidden'));
-    document.getElementById('sub-' + type).classList.remove('hidden');
-    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-}
 
 function renderVocab() {
     const list = vocabData[currentLevel];
@@ -584,20 +567,6 @@ function renderReading() {
 
 function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; window.speechSynthesis.speak(u); }
 // --- ALT MENÜ GEÇİŞ FONKSİYONU ---
-function switchSub(type) {
-    // 1. Önce tüm alt ekranları gizle
-    document.getElementById('sub-vocab').classList.add('hidden');
-    document.getElementById('sub-grammar').classList.add('hidden');
-    document.getElementById('sub-reading').classList.add('hidden');
-    
-    // 2. Sadece tıklanan ekranı göster (vocab, grammar veya reading)
-    document.getElementById('sub-' + type).classList.remove('hidden');
-    
-    // 3. Menü butonlarının renklerini güncelle
-    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-}
-
 
 
     // --- 1. HEMŞİRELİK VERİLERİ (İÇERİK) ---
