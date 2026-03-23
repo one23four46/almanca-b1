@@ -3,113 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAcademy - Seviye Tespit ve Eğitim</title>
+    <title>DeutschAcademy Pro - Seviye Tespit & Kelime Dağarcığı</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #fdfaf5; --accent: #e65100; --accent2: #2e7d32; --dark: #1a1612; --border: #e0d8cc; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; }
+        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; line-height: 1.5; }
         header { background: white; border-bottom: 2px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; }
         .logo { font-family: 'Fraunces'; font-size: 1.5rem; color: var(--accent); cursor: pointer; text-decoration:none; font-weight:900; }
-        .container { max-width: 600px; margin: 1.5rem auto; padding: 0 1rem; }
+        .container { max-width: 500px; margin: 1.5rem auto; padding: 0 1rem; }
         .hidden { display: none !important; }
 
         /* BUTONLAR */
-        .btn { background: var(--dark); color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; font-weight: 700; width: 100%; font-size: 0.9rem; margin-bottom: 8px; transition: 0.2s; }
+        .btn { background: var(--dark); color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; font-weight: 700; width: 100%; font-size: 0.9rem; margin-bottom: 8px; transition: 0.2s; text-align: center; display: block; }
         .btn-test { background: var(--accent2); margin-bottom: 2rem; }
         .btn-next { background: var(--accent); }
 
-        /* SINAV TASARIMI */
+        /* SINAV */
         .quiz-box { background: white; padding: 2rem; border-radius: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 10px; background: white; cursor: pointer; text-align: left; font-family: inherit; font-size: 1rem; }
         .option-btn:hover { background: #f9f6f2; border-color: var(--accent); }
 
-        /* KELİME KARTI (RESİMSİZ YENİ SÜRÜM) */
-        .v-card { background: white; border-radius: 25px; padding: 2rem; border: 1px solid var(--border); text-align: center; }
-        .v-word { font-family: 'Fraunces'; font-size: 2.5rem; margin-bottom: 5px; }
-        .v-tr { font-size: 1.3rem; color: var(--accent2); font-weight: 600; margin-bottom: 1.5rem; }
-        .v-details { display: flex; justify-content: center; gap: 10px; font-size: 0.8rem; color: #888; margin-bottom: 1rem; }
-        .v-example { background: #f9f6f2; padding: 1.2rem; border-radius: 15px; border-left: 4px solid var(--accent); text-align: left; cursor: pointer; }
+        /* KART TASARIMI */
+        .v-card { background: white; border-radius: 25px; padding: 2rem; border: 1px solid var(--border); text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .v-word { font-family: 'Fraunces'; font-size: 2.6rem; margin-bottom: 5px; color: var(--dark); }
+        .v-tr { font-size: 1.4rem; color: var(--accent2); font-weight: 600; margin-bottom: 1.5rem; }
+        .v-details { display: flex; justify-content: center; gap: 10px; font-size: 0.8rem; color: #888; margin-bottom: 1rem; font-weight: 700; text-transform: uppercase; }
+        .v-details span { background: #eee; padding: 2px 10px; border-radius: 5px; }
+        .v-example { background: #f9f6f2; padding: 1.2rem; border-radius: 15px; border-left: 5px solid var(--accent); text-align: left; cursor: pointer; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo" onclick="location.reload()">DEUTSCH<em>ACADEMY</em></div>
-    <div id="statusLabel" style="font-size: 0.8rem; font-weight: 800; color: #999;">HOŞ GELDİN</div>
+    <div id="statusLabel" style="font-size: 0.75rem; font-weight: 800; color: #999;">MODÜL: ANA SAYFA</div>
 </header>
 
 <div class="container">
     
     <div id="screen-home" class="welcome-box" style="text-align: center;">
-        <h1 style="font-family:'Fraunces'; font-size: 2.5rem; margin-bottom: 1rem;">Almanca Yolculuğun</h1>
-        <p style="margin-bottom: 2rem; color: #666;">Seviyeni test et veya doğrudan bir kura başla.</p>
+        <h1 style="font-family:'Fraunces'; font-size: 2.2rem; margin-bottom: 1rem;">Hoş Geldin!</h1>
+        <p style="margin-bottom: 2rem; color: #666; font-size: 0.95rem;">Seviyeni test et veya bir kur seçerek kelime öğrenmeye başla.</p>
         
-        <button class="btn btn-test" onclick="startQuiz()">📝 SEVİYE TESPİT SINAVINA GİR</button>
+        <button class="btn btn-test" onclick="startQuiz()">📝 ÜCRETSİZ SEVİYE TESPİTİ</button>
         
-        <div style="text-align: left; margin-top: 1rem;">
-            <p style="font-weight: 800; font-size: 0.8rem; color: #aaa; margin-bottom: 10px;">DOĞRUDAN BAŞLA</p>
-            <button class="btn" onclick="init('A1')">A1 - Başlangıç</button>
-            <button class="btn" onclick="init('A2')">A2 - Temel</button>
-            <button class="btn" onclick="init('B1')">B1 - Orta</button>
-            <button class="btn" onclick="init('B2')">B2 - İleri</button>
+        <div style="text-align: left;">
+            <p style="font-weight: 800; font-size: 0.7rem; color: #bbb; margin-bottom: 10px; letter-spacing: 1px;">KUR SEÇİMİ</p>
+            <button class="btn" onclick="init('A1')">A1 - Başlangıç Seviyesi</button>
+            <button class="btn" onclick="init('A2')">A2 - Temel Seviye</button>
+            <button class="btn" onclick="init('B1')">B1 - Orta Seviye</button>
         </div>
     </div>
 
     <div id="screen-quiz" class="hidden">
         <div class="quiz-box">
-            <small id="quiz-progress" style="color: var(--accent); font-weight: 800;"></small>
-            <h2 id="quiz-question" style="margin: 1rem 0; font-family: 'Fraunces';"></h2>
+            <div id="quiz-progress" style="color: var(--accent); font-weight: 800; font-size: 0.8rem; margin-bottom: 10px;"></div>
+            <h2 id="quiz-question" style="margin-bottom: 1.5rem; font-family: 'Fraunces'; font-size: 1.4rem;"></h2>
             <div id="quiz-options"></div>
         </div>
     </div>
 
     <div id="screen-learning" class="hidden">
-        <div id="prog" style="font-size: 0.8rem; margin-bottom: 10px; color: #999;">1 / 100</div>
+        <div id="prog" style="font-size: 0.8rem; margin-bottom: 10px; color: #999; font-weight: 700;">1 / 150</div>
         <div class="v-card">
-            <div class="v-details"><span id="vType"></span> <span id="vPlural"></span></div>
-            <h1 id="vWord">-</h1>
-            <p id="vTr">-</p>
-            <div class="v-example" onclick="speak(document.getElementById('vExDe').innerText)">
-                <small style="color:var(--accent); font-weight:900;">ÖRNEK CÜMLE 🔊</small>
-                <p id="vExDe" style="margin-top:5px; font-weight:600;"></p>
-                <p id="vExTr" style="font-size:0.9rem; color:#666;"></p>
+            <div class="v-details">
+                <span id="vType">TÜR</span>
+                <span id="vPlural">ÇOĞUL</span>
             </div>
+            <h1 id="vWord">Wort</h1>
+            <p id="vTr">Anlam</p>
+            
+            <div class="v-example" onclick="speak(document.getElementById('vExDe').innerText)">
+                <small style="color:var(--accent); font-weight:900; font-size: 0.7rem;">CÜMLE İÇİNDE 🔊</small>
+                <p id="vExDe" style="margin-top:5px; font-weight:600; font-size: 1.05rem;"></p>
+                <p id="vExTr" style="font-size:0.9rem; color:#777;"></p>
+            </div>
+
             <button class="btn btn-next" style="margin-top: 1.5rem;" onclick="next()">Sonraki Kelime →</button>
-            <button class="btn" style="background:#eee; color:#666;" onclick="speak(document.getElementById('vWord').innerText)">🔊 Telaffuz</button>
+            <button class="btn" style="background:#f0f0f0; color:#555;" onclick="speak(document.getElementById('vWord').innerText)">🔊 Telaffuz Et</button>
+            <button class="btn" style="background:none; color:#bbb; font-size: 0.7rem; margin-top: 10px;" onclick="location.reload()">Ana Menüye Dön</button>
         </div>
     </div>
 
 </div>
 
 <script>
-// --- SINAV SORULARI (20 ADET) ---
-const quizData = [
-    {q: "Ich ___ Ahmet. (A1)", a: ["bin", "bist", "ist", "sein"], c: 0},
-    {q: "Woher ___ du? (A1)", a: ["kommt", "kommst", "kommen", "komme"], c: 1},
-    {q: "Das ist ___ Apfel. (A1)", a: ["eine", "ein", "einer", "einen"], c: 1},
-    {q: "Haben Sie ___ Handy? (A1)", a: ["ein", "eine", "einen", "eines"], c: 0},
-    {q: "Wie spät ist es? - Es ist ___ Uhr. (A1)", a: ["acht", "achten", "achter", "achtes"], c: 0},
-    {q: "Ich ___ gestern im Kino. (A2)", a: ["bin", "war", "habe", "wird"], c: 1},
-    {q: "Er hat das Auto ___. (A2)", a: ["kaufen", "kauft", "gekauft", "gekaufen"], c: 2},
-    {q: "Das Kind spielt mit ___ Hund. (A2)", a: ["der", "den", "dem", "des"], c: 2},
-    {q: "Ich trinke Tee, ___ ich keinen Kaffee mag. (A2)", a: ["und", "aber", "weil", "denn"], c: 2},
-    {q: "Gehen wir ___ Park? (A2)", a: ["in die", "in den", "in der", "im"], c: 1},
-    {q: "Ich freue mich ___ den Urlaub. (B1)", a: ["an", "auf", "über", "in"], c: 1},
-    {q: "Das ist der Mann, ___ ich geholfen habe. (B1)", a: ["den", "dem", "der", "dessen"], c: 1},
-    {q: "Obwohl es regnet, ___ er spazieren. (B1)", a: ["geht", "er geht", "gehe", "gehen"], c: 0},
-    {q: "An deiner Stelle ___ ich mehr lernen. (B1)", a: ["werde", "würde", "hätte", "muss"], c: 1},
-    {q: "Je mehr ich lerne, ___ besser werde ich. (B1)", a: ["dann", "desto", "so", "wie"], c: 1},
-    {q: "Die Entscheidung ___ morgen getroffen. (B2)", a: ["wird", "ist", "hat", "wurde"], c: 0},
-    {q: "Er tut so, als ___ er alles wissen. (B2)", a: ["würde", "wäre", "hätte", "ob"], c: 0},
-    {q: "Nachdem er ___ hatte, ging er schlafen. (B2)", a: ["essen", "gegessen", "isst", "aß"], c: 1},
-    {q: "Ich erinnere mich daran, ___ wir uns trafen. (B2)", a: ["dass", "als", "wenn", "ob"], c: 1},
-    {q: "Es ist wichtig, ___ man pünktlich ist. (B2)", a: ["dass", "um", "zu", "weil"], c: 0}
-];
-
-// --- KELİME VERİLERİ ---
+// --- VERİ HAVUZU ---
 const data = {
-    'A1': [
+   'A1': [
     // --- TEMEL FİİLLER (GÜNLÜK) ---
     {w:"sein", t:"Olmak", tp:"Fiil", p:"-", exD:"Ich bin müde.", exT:"Yorgunum."},
     {w:"haben", t:"Sahip olmak", tp:"Fiil", p:"-", exD:"Ich habe Hunger.", exT:"Açım."},
@@ -203,26 +185,58 @@ const data = {
     {w:"aber", t:"Ama", tp:"Bağlaç", p:"-", exD:"Klein, aber fein.", exT:"Küçük ama güzel."},
     {w:"sehr", t:"Çok", tp:"Zarf", p:"-", exD:"Sehr gut!", exT:"Çok iyi!"},
     {w:"nicht", t:"Değil / Olumsuzluk", tp:"Zarf", p:"-", exD:"Das ist nicht gut.", exT:"Bu iyi değil."}
-]
+],
     'A2': [
-        {w:"der Urlaub", t:"Tatil", tp:"İsim", p:"die Urlaube", exD:"Schönen Urlaub!", exT:"İyi tatiller!"}
+        {w:"der Urlaub", t:"Tatil", tp:"İsim", p:"die Urlaube", exD:"Ich mache Urlaub.", exT:"Tatil yapıyorum."},
+        {w:"besuchen", t:"Ziyaret etmek", tp:"Fiil", p:"-", exD:"Besuchst du mich?", exT:"Beni ziyaret edecek misin?"},
+        {w:"die Ausbildung", t:"Eğitim", tp:"İsim", p:"die Ausbildungen", exD:"Er macht eine Ausbildung.", exT:"O eğitim alıyor."}
+    ],
+    'B1': [
+        {w:"obwohl", t:"Rağmen", tp:"Bağlaç", p:"-", exD:"Obwohl es regnet, gehe ich.", exT:"Yağmur yağmasına rağmen gidiyorum."},
+        {w:"die Herausforderung", t:"Zorluk", tp:"İsim", p:"die Herausforderungen", exD:"Das ist schwer.", exT:"Bu zordur."}
     ]
 };
 
-let quizIdx = 0; let score = 0;
+// --- SINAV SORULARI ---
+const quizData = [
+    {q: "Ich ___ Ahmet. (A1)", a: ["bin", "bist", "ist", "sein"], c: 0},
+    {q: "Woher ___ du? (A1)", a: ["kommt", "kommst", "kommen", "komme"], c: 1},
+    {q: "Das ist ___ Apfel. (A1)", a: ["eine", "ein", "einer", "einen"], c: 1},
+    {q: "Haben Sie ___ Handy? (A1)", a: ["ein", "eine", "einen", "eines"], c: 0},
+    {q: "Wie spät ist es? - Es ist ___ Uhr. (A1)", a: ["acht", "achten", "achter", "achtes"], c: 0},
+    {q: "Ich ___ gestern im Kino. (A2)", a: ["bin", "war", "habe", "wird"], c: 1},
+    {q: "Er hat das Auto ___. (A2)", a: ["kaufen", "kauft", "gekauft", "gekaufen"], c: 2},
+    {q: "Das Kind spielt mit ___ Hund. (A2)", a: ["der", "den", "dem", "des"], c: 2},
+    {q: "Ich trinke Tee, ___ ich keinen Kaffee mag. (A2)", a: ["und", "aber", "weil", "denn"], c: 2},
+    {q: "Gehen wir ___ Park? (A2)", a: ["in die", "in den", "in der", "im"], c: 1},
+    {q: "Ich freue mich ___ den Urlaub. (B1)", a: ["an", "auf", "über", "in"], c: 1},
+    {q: "Das ist der Mann, ___ ich geholfen habe. (B1)", a: ["den", "dem", "der", "dessen"], c: 1},
+    {q: "Obwohl es regnet, ___ er spazieren. (B1)", a: ["geht", "er geht", "gehe", "gehen"], c: 0},
+    {q: "An deiner Stelle ___ ich mehr lernen. (B1)", a: ["werde", "würde", "hätte", "muss"], c: 1},
+    {q: "Je mehr ich lerne, ___ besser werde ich. (B1)", a: ["dann", "desto", "so", "wie"], c: 1},
+    {q: "Die Entscheidung ___ morgen getroffen. (B2)", a: ["wird", "ist", "hat", "wurde"], c: 0},
+    {q: "Er tut so, als ___ er alles wissen. (B2)", a: ["würde", "wäre", "hätte", "ob"], c: 0},
+    {q: "Nachdem er ___ hatte, ging er schlafen. (B2)", a: ["essen", "gegessen", "isst", "aß"], c: 1},
+    {q: "Ich erinnere mich daran, ___ wir uns trafen. (B2)", a: ["dass", "als", "wenn", "ob"], c: 1},
+    {q: "Es ist wichtig, ___ man pünktlich ist. (B2)", a: ["dass", "um", "zu", "weil"], c: 0}
+];
+
+
+
+let qIdx = 0; let score = 0;
 let currentList = []; let cursor = 0;
 
-// SINAV MANTIĞI
+// SINAV FONKSİYONLARI
 function startQuiz() {
-    quizIdx = 0; score = 0;
+    qIdx = 0; score = 0;
     document.getElementById('screen-home').classList.add('hidden');
     document.getElementById('screen-quiz').classList.remove('hidden');
-    showQuestion();
+    showQ();
 }
 
-function showQuestion() {
-    const q = quizData[quizIdx];
-    document.getElementById('quiz-progress').innerText = `SORU ${quizIdx + 1} / 20`;
+function showQ() {
+    const q = quizData[qIdx];
+    document.getElementById('quiz-progress').innerText = `SORU ${qIdx + 1} / ${quizData.length}`;
     document.getElementById('quiz-question').innerText = q.q;
     const optBox = document.getElementById('quiz-options');
     optBox.innerHTML = "";
@@ -230,34 +244,24 @@ function showQuestion() {
         const b = document.createElement('button');
         b.className = "option-btn";
         b.innerText = opt;
-        b.onclick = () => checkAnswer(i);
+        b.onclick = () => { if(i===q.c) score++; qIdx++; if(qIdx < quizData.length) showQ(); else finish(); };
         optBox.appendChild(b);
     });
 }
 
-function checkAnswer(i) {
-    if(i === quizData[quizIdx].c) score++;
-    quizIdx++;
-    if(quizIdx < quizData.length) showQuestion();
-    else finishQuiz();
+function finish() {
+    let res = "A1";
+    if(score >= 4) res = "A2";
+    if(score >= 7) res = "B1";
+    alert(`Sınav Bitti! Skorun: ${score}/${quizData.length}\nSeviyen: ${res}`);
+    init(res);
 }
 
-function finishQuiz() {
-    let result = "A1";
-    if(score >= 5) result = "A2";
-    if(score >= 9) result = "B1";
-    if(score >= 14) result = "B2";
-    if(score >= 18) result = "C1";
-    
-    alert(`Sınav Bitti! Skorun: ${score}/20\nBelirlenen Seviyen: ${result}`);
-    init(result);
-}
-
-// ÖĞRENME MANTIĞI
+// ÖĞRENME FONKSİYONLARI
 function init(lvl) {
     currentList = data[lvl] || data['A1'];
     cursor = 0;
-    document.getElementById('statusLabel').innerText = lvl + " KURSU";
+    document.getElementById('statusLabel').innerText = "MODÜL: " + lvl;
     document.getElementById('screen-home').classList.add('hidden');
     document.getElementById('screen-quiz').classList.add('hidden');
     document.getElementById('screen-learning').classList.remove('hidden');
@@ -277,7 +281,13 @@ function render() {
 }
 
 function next() { cursor = (cursor + 1) % currentList.length; render(); }
-function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; u.rate = 0.85; window.speechSynthesis.speak(u); }
+
+function speak(t) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = 'de-DE'; u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+}
 </script>
 </body>
 </html>
