@@ -1,140 +1,231 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutsch B1 – Kapsamlı Hazırlık</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-    --bg: #f5f0e8; --surface: #ede8df; --card: #ffffff; --dark: #1a1612;
-    --accent: #c8391a; --accent2: #2a6b4e; --border: #d8d0c0; --shadow: rgba(26,22,18,0.12);
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsch Pro – Seviye Tespitli Almanca Akademisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8f5f0; --surface: #ede8df; --card: #ffffff; --dark: #1a1612;
+            --accent: #c8391a; --accent2: #2a6b4e; --border: #d8d0c0; --shadow: rgba(0,0,0,0.1);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; }
+        
+        header {
+            background: var(--card); border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top:0; z-index: 1000;
+        }
+        .logo { font-family: 'Fraunces'; font-size: 1.5rem; font-weight: 900; color: var(--accent); cursor:pointer; }
+        .lvl-badge { background: var(--dark); color: white; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
 
-header{
-    position:sticky; top:0; z-index:100; background:rgba(245,240,232,0.92);
-    backdrop-filter:blur(12px); border-bottom:1px solid var(--border);
-    padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:64px;
-}
-.logo{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:900;}
-.logo em{color:var(--accent); font-style:normal;}
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .hidden { display: none !important; }
 
-nav{display:flex; gap:0.5rem;}
-.nav-btn{background:none; border:none; padding:0.5rem 1rem; cursor:pointer; font-weight:500; border-radius:8px;}
-.nav-btn.active{background:var(--dark); color:#fff;}
+        .card { background: var(--card); border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 30px var(--shadow); margin-bottom: 2rem; border: 1px solid var(--border); }
+        .btn { 
+            background: var(--dark); color: white; border: none; padding: 14px 28px; 
+            border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--shadow); }
+        .btn-outline { background: transparent; border: 2px solid var(--dark); color: var(--dark); }
 
-.section{display:none; padding:2rem;}
-.section.active{display:block;}
+        .lvl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .lvl-box { 
+            background: white; border: 2px solid var(--border); padding: 1.5rem; 
+            text-align: center; border-radius: 18px; cursor: pointer; transition: 0.3s;
+        }
+        .lvl-box:hover { border-color: var(--accent); transform: scale(1.05); }
+        .lvl-box h2 { font-family: 'Fraunces'; font-size: 1.8rem; margin-bottom: 5px; }
 
-/* Flashcard */
-.vocab-card{
-    background:var(--card); border:1px solid var(--border); border-radius:24px;
-    padding:2.5rem; max-width:500px; margin:2rem auto; text-align:center;
-    box-shadow:0 15px 35px var(--shadow);
-}
-.vocab-word{font-family:'Fraunces',serif; font-size:2.5rem; margin:1rem 0;}
-.vocab-tr{font-size:1.3rem; color:var(--accent2); margin-bottom:1.5rem; display:none;}
+        .quiz-option { 
+            display: block; width: 100%; padding: 16px; margin: 12px 0; 
+            border: 1px solid var(--border); border-radius: 12px; text-align: left; 
+            cursor: pointer; font-size: 1.1rem; background: white; transition: 0.2s;
+        }
+        .quiz-option:hover { background: var(--surface); border-color: var(--dark); }
 
-/* Gramer Tablosu */
-.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.5rem; max-width:1200px; margin:0 auto;}
-.grid-item{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.5rem;}
-.grid-item h3{font-family:'Fraunces',serif; color:var(--accent); margin-bottom:1rem;}
-
-.btn{background:var(--dark); color:#fff; border:none; padding:0.8rem 1.2rem; border-radius:10px; cursor:pointer; font-weight:600; margin:5px;}
-</style>
+        #wordDisplay { font-family: 'Fraunces'; font-size: 3.5rem; margin: 1rem 0; color: var(--dark); }
+        .progress-quiz { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 2rem; overflow: hidden; }
+        .progress-quiz-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.3s; }
+    </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Deutsch<em>.</em>B1</div>
-    <nav id="mainNav">
-        <button class="nav-btn active" onclick="showSec('vocab')">📚 Kelimeler</button>
-        <button class="nav-btn" onclick="showSec('grammar')">📖 Gramer</button>
-        <button class="nav-btn" onclick="showSec('reading')">📰 Okuma</button>
-    </nav>
+    <div class="logo" onclick="location.reload()">Deutsch<em>Academy</em></div>
+    <div id="userStatus" class="lvl-badge">Hoş Geldiniz</div>
 </header>
 
-<section id="sec-vocab" class="section active">
-    <div class="vocab-card">
-        <button class="btn" style="background:var(--surface); color:black; border-radius:50%; width:50px; height:50px;" onclick="speakCurrent()">🔊</button>
-        <div id="vWord" class="vocab-word">Yükleniyor...</div>
-        <div id="vTr" class="vocab-tr">Anlam</div>
-        <button class="btn" onclick="document.getElementById('vTr').style.display='block'">Anlamı Gör</button>
-        <button class="btn" style="background:var(--accent2);" onclick="nextVocab()">Sonraki →</button>
-    </div>
-</section>
-
-<section id="sec-grammar" class="section">
-    <div class="grid">
-        <div class="grid-item">
-            <h3>Passiv (Edilgen Yapı)</h3>
-            <p>Werden + Partizip II</p>
-            <p style="font-style:italic; margin-top:0.5rem;">"Das Auto wird repariert."</p>
-        </div>
-        <div class="grid-item">
-            <h3>Konjunktiv II</h3>
-            <p>Hayaller ve Nezaket: würde + Infinitiv</p>
-            <p style="font-style:italic; margin-top:0.5rem;">"Ich hätte gern einen Kaffee."</p>
+<div class="container">
+    
+    <div id="screen-home" class="card" style="text-align: center;">
+        <h1 style="font-family: 'Fraunces'; font-size: 3rem; margin-bottom: 1rem;">Almanca Yolculuğuna Başla</h1>
+        <p style="font-size: 1.1rem; color: #555;">Seviyeni belirleyelim ve sana en uygun dersleri getirelim.</p>
+        <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+            <button class="btn" style="width: 100%; max-width: 300px;" onclick="startQuiz()">Seviye Tespit Sınavı (15 Soru)</button>
+            <button class="btn btn-outline" style="width: 100%; max-width: 300px;" onclick="showScreen('levels')">Seviyemi Manuel Seçeceğim</button>
         </div>
     </div>
-</section>
 
-<section id="sec-reading" class="section">
-    <div style="max-width:800px; margin:0 auto; background:white; padding:2rem; border-radius:20px; border:1px solid var(--border);">
-        <h2 style="font-family:'Fraunces'; margin-bottom:1rem;">B1 Okuma Parçası</h2>
-        <p>Almanya'da yaşam ve kültür üzerine metinler buraya gelecek...</p>
+    <div id="screen-levels" class="hidden">
+        <h2 style="font-family: 'Fraunces'; margin-bottom: 1.5rem; text-align: center;">Bir Seviye Seçin:</h2>
+        <div class="lvl-grid">
+            <div class="lvl-box" onclick="loadLevel('A1')"><h2>A1</h2><p>Yeni Başlayan</p></div>
+            <div class="lvl-box" onclick="loadLevel('A2')"><h2>A2</h2><p>Temel Seviye</p></div>
+            <div class="lvl-box" onclick="loadLevel('B1')"><h2>B1</h2><p>Orta Seviye</p></div>
+            <div class="lvl-box" onclick="loadLevel('B2')"><h2>B2</h2><p>İleri Orta</p></div>
+            <div class="lvl-box" onclick="loadLevel('C1')"><h2>C1</h2><p>Profesyonel</p></div>
+        </div>
     </div>
-</section>
+
+    <div id="screen-quiz" class="card hidden">
+        <div class="progress-quiz"><div id="quizBar" class="progress-quiz-fill"></div></div>
+        <div id="quiz-content">
+            <span id="qCount" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">SORU 1/15</span>
+            <h3 id="quiz-q" style="margin: 1rem 0 2rem 0; font-size: 1.4rem; font-family: 'Fraunces';">Soru...</h3>
+            <div id="quiz-options"></div>
+        </div>
+    </div>
+
+    <div id="screen-learning" class="card hidden" style="text-align: center;">
+        <h2 id="currentLvlTitle" style="color: var(--accent); font-size: 1rem; letter-spacing: 2px;">MODÜL</h2>
+        <button onclick="speakCurrent()" style="background:var(--surface); border:none; width:70px; height:70px; border-radius:50%; font-size: 2rem; cursor: pointer; margin: 1.5rem 0;">🔊</button>
+        <div id="wordDisplay">Wort</div>
+        <div id="trDisplay" style="font-size: 1.6rem; color: var(--accent2); margin-bottom: 2rem; visibility: hidden; font-weight: 500;">Anlam</div>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            <button class="btn btn-outline" onclick="toggleTr()">Anlamı Gör / Gizle</button>
+            <button class="btn" onclick="nextWord()" style="background: var(--accent2);">Sonraki Kelime →</button>
+            <button class="btn" onclick="showScreen('levels')" style="margin-top: 1.5rem; background: #eee; color: #555;">Başka Seviyeye Geç</button>
+        </div>
+    </div>
+
+</div>
 
 <script>
-const vocabData = [
-    {de: "die Herausforderung", tr: "Zorluk / Meydan okuma"},
-    {de: "sich beschäftigen mit", tr: "Bir şeyle meşgul olmak"},
-    {de: "die Voraussetzung", tr: "Ön koşul / Şart"},
-    {de: "begeistert", tr: "Coşkulu / Hayran"},
-    {de: "nachhaltig", tr: "Sürdürülebilir"}
+// --- VERİ BANKASI ---
+const levelWords = {
+    'A1': [{de:"das Haus", tr:"Ev"}, {de:"trinken", tr:"İçmek"}, {de:"hören", tr:"Duymak/Dinlemek"}, {de:"der Apfel", tr:"Elma"}],
+    'A2': [{de:"die Einladung", tr:"Davet"}, {de:"besuchen", tr:"Ziyaret etmek"}, {de:"verstehen", tr:"Anlamak"}, {de:"gehören", tr:"Ait olmak"}],
+    'B1': [{de:"die Herausforderung", tr:"Zorluk/Meydan okuma"}, {de:"nachhaltig", tr:"Sürdürülebilir"}, {de:"beeindrucken", tr:"Etkilemek"}, {de:"verantwortlich", tr:"Sorumlu"}],
+    'B2': [{de:"die Auswirkung", tr:"Etki"}, {de:"vermeiden", tr:"Kaçınmak"}, {de:"behaupten", tr:"İddia etmek"}, {de:"umstritten", tr:"Tartışmalı"}],
+    'C1': [{de:"vorausgesetzt", tr:"Şartıyla"}, {de:"die Schlussfolgerung", tr: "Çıkarım"}, {de:"erläutern", tr:"Açıklamak"}, {de:"hervorheben", tr:"Vurgulamak"}]
+};
+
+const questions = [
+    {q:"Wie ___ du? (Adın ne?)", o:["bist", "heißt", "hast"], c:1},
+    {q:"Ich ___ aus der Türkei.", o:["komme", "bin", "wohne"], c:0},
+    {q:"Was machst du ___ Wochenende?", o:["in", "an", "am"], c:2},
+    {q:"Gestern ___ ich keine Zeit.", o:["habe", "hatte", "war"], c:1},
+    {q:"Ich gehe ins Kino, ___ ich Filme liebe.", o:["weil", "dass", "obwohl"], c:0},
+    {q:"Das ist das Kind, ___ ich geholfen habe.", o:["der", "das", "dem"], c:2},
+    {q:"___ du mir bitte helfen?", o:["Könntest", "Kannst", "Wirst"], c:0},
+    {q:"Ich interessiere mich ___ Politik.", o:["für", "an", "über"], c:0},
+    {q:"Das Haus ___ gerade gebaut.", o:["ist", "wird", "wurde"], c:1},
+    {q:"Wenn ich reich ___, würde ich eine Weltreise machen.", o:["bin", "war", "wäre"], c:2},
+    {q:"Er wartet ___ seinen Freund.", o:["an", "auf", "für"], c:1},
+    {q:"Ich habe mich ___ das Wetter gewöhnt.", o:["an", "auf", "in"], c:0},
+    {q:"Trotz ___ Regens gehen wir spazieren.", o:["dem", "den", "des"], c:2},
+    {q:"Es ist wichtig, ___ man täglich lernt.", o:["dass", "weil", "damit"], c:0},
+    {q:"Je mehr ich lerne, ___ besser werde ich.", o:["desto", "als", "wie"], c:0}
 ];
 
-let vIdx = 0;
+let curIdx = 0;
+let score = 0;
+let learningLevel = 'A1';
+let learningWordIdx = 0;
 
-function showSec(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('sec-' + id).classList.add('active');
-    event.currentTarget.classList.add('active');
+// --- NAVİGASYON ---
+function showScreen(id) {
+    document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
+    document.getElementById('screen-' + id).classList.remove('hidden');
 }
 
-// SESLENDİRME
+// --- QUIZ MANTIĞI ---
+function startQuiz() {
+    curIdx = 0; score = 0;
+    showScreen('quiz');
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const q = questions[curIdx];
+    document.getElementById('qCount').textContent = `SORU ${curIdx + 1} / ${questions.length}`;
+    document.getElementById('quizBar').style.width = ((curIdx + 1) / questions.length * 100) + '%';
+    document.getElementById('quiz-q').textContent = q.q;
+    
+    const optArea = document.getElementById('quiz-options');
+    optArea.innerHTML = '';
+    
+    q.o.forEach((opt, i) => {
+        const b = document.createElement('button');
+        b.className = 'quiz-option';
+        b.textContent = opt;
+        b.onclick = () => {
+            if(i === q.c) score++;
+            curIdx++;
+            if(curIdx < questions.length) loadQuestion();
+            else finishQuiz();
+        };
+        optArea.appendChild(b);
+    });
+}
+
+function finishQuiz() {
+    let finalLvl = 'A1';
+    if(score >= 13) finalLvl = 'C1';
+    else if(score >= 10) finalLvl = 'B2';
+    else if(score >= 7) finalLvl = 'B1';
+    else if(score >= 4) finalLvl = 'A2';
+    
+    alert(`Sınav Bitti! Skorun: ${score}/${questions.length}. Belirlenen Seviye: ${finalLvl}`);
+    loadLevel(finalLvl);
+}
+
+// --- ÖĞRENME MANTIĞI ---
+function loadLevel(lvl) {
+    learningLevel = lvl;
+    learningWordIdx = 0;
+    document.getElementById('userStatus').textContent = "Seviye: " + lvl;
+    document.getElementById('currentLvlTitle').textContent = lvl + " MODÜLÜ";
+    showScreen('learning');
+    updateWord();
+}
+
+function updateWord() {
+    const word = levelWords[learningLevel][learningWordIdx];
+    document.getElementById('wordDisplay').textContent = word.de;
+    document.getElementById('trDisplay').textContent = word.tr;
+    document.getElementById('trDisplay').style.visibility = 'hidden';
+    speak(word.de);
+}
+
+function nextWord() {
+    learningWordIdx = (learningWordIdx + 1) % levelWords[learningLevel].length;
+    updateWord();
+}
+
+function toggleTr() {
+    const tr = document.getElementById('trDisplay');
+    tr.style.visibility = (tr.style.visibility === 'hidden') ? 'visible' : 'hidden';
+}
+
+// --- SES MOTORU ---
 function speak(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'de-DE';
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'de-DE';
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
     }
 }
 
 function speakCurrent() {
-    speak(vocabData[vIdx].de);
+    speak(levelWords[learningLevel][learningWordIdx].de);
 }
-
-function nextVocab() {
-    vIdx = (vIdx + 1) % vocabData.length;
-    loadVocab();
-}
-
-function loadVocab() {
-    const item = vocabData[vIdx];
-    document.getElementById('vWord').textContent = item.de;
-    document.getElementById('vTr').textContent = item.tr;
-    document.getElementById('vTr').style.display = 'none';
-    speak(item.de);
-}
-
-window.onload = loadVocab;
 </script>
 </body>
 </html>
