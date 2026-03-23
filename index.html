@@ -69,6 +69,48 @@ body.medical-theme #vTr {
     cursor: pointer;
 }
 /* --- CSS BİTTİ --- */
+        /* ALT NAVİGASYON BARI TASARIMI */
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 2px solid #e0d8cc;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    z-index: 1000;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #999;
+    gap: 4px;
+    transition: 0.3s;
+}
+
+/* Aktif olan sekme Sağlıkçı Yeşili veya Turuncu olsun */
+.nav-item.active {
+    color: #00796b; /* Sağlıkçı modundaysan bu renk baskın olur */
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+}
+
+/* Navigasyon barı başlangıçta gizli olsun (Sadece kura girince gözüksün) */
+.hidden {
+    display: none !important;
+}
     </style>
 </head>
 <body>
@@ -521,6 +563,52 @@ function renderReading() {
 }
 
 function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE'; window.speechSynthesis.speak(u); }
+// --- ALT MENÜ GEÇİŞ FONKSİYONU ---
+function switchSub(type) {
+    // 1. Önce tüm alt ekranları gizle
+    document.getElementById('sub-vocab').classList.add('hidden');
+    document.getElementById('sub-grammar').classList.add('hidden');
+    document.getElementById('sub-reading').classList.add('hidden');
+    
+    // 2. Sadece tıklanan ekranı göster (vocab, grammar veya reading)
+    document.getElementById('sub-' + type).classList.remove('hidden');
+    
+    // 3. Menü butonlarının renklerini güncelle
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+}
+
+// --- ANA MENÜYE DÖNÜŞ FONKSİYONU ---
+function goHome() {
+    // Tıbbi temayı temizle
+    document.body.classList.remove('medical-theme');
+    
+    // Ana sayfayı göster, diğerlerini gizle
+    document.getElementById('screen-main').classList.add('hidden');
+    document.getElementById('main-nav').classList.add('hidden');
+    document.getElementById('screen-home').classList.remove('hidden');
+    
+    // Üst bar yazısını sıfırla
+    document.getElementById('statusLabel').innerText = "ANA SAYFA";
+}
 </script>
+    <div id="main-nav" class="nav-bar hidden">
+    <button class="nav-item active" onclick="switchSub('vocab')">
+        <span style="font-size:1.2rem;">📖</span>
+        <span>Kelime</span>
+    </button>
+    <button class="nav-item" onclick="switchSub('grammar')">
+        <span style="font-size:1.2rem;">⚖️</span>
+        <span>Gramer</span>
+    </button>
+    <button class="nav-item" onclick="switchSub('reading')">
+        <span style="font-size:1.2rem;">📑</span>
+        <span>Okuma</span>
+    </button>
+    <button class="nav-item" onclick="goHome()">
+        <span style="font-size:1.2rem;">🏠</span>
+        <span>Menü</span>
+    </button>
+</div>
 </body>
 </html>
