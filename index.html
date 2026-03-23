@@ -3,229 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Pro – Seviye Tespitli Almanca Akademisi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>DeutschAcademy – Dil Yolculuğun Başlıyor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f8f5f0; --surface: #ede8df; --card: #ffffff; --dark: #1a1612;
-            --accent: #c8391a; --accent2: #2a6b4e; --border: #d8d0c0; --shadow: rgba(0,0,0,0.1);
+            --bg: #fdfaf5; --surface: #f3eee5; --card: #ffffff; --dark: #1a1612;
+            --accent: #e65100; --accent2: #2e7d32; --border: #e0d8cc; --shadow: rgba(0,0,0,0.06);
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; }
+        * { margin:0; padding:0; box-sizing:border-box; outline: none; }
+        body { background:var(--bg); color:var(--dark); font-family:'Outfit',sans-serif; overflow-x: hidden; }
         
-        header {
-            background: var(--card); border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top:0; z-index: 1000;
-        }
-        .logo { font-family: 'Fraunces'; font-size: 1.5rem; font-weight: 900; color: var(--accent); cursor:pointer; }
-        .lvl-badge { background: var(--dark); color: white; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        /* HEADER */
+        header { background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:1000; }
+        .logo { font-family: 'Fraunces'; font-size: 1.6rem; font-weight: 900; color: var(--accent); cursor: pointer; text-decoration: none; }
 
-        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
         .hidden { display: none !important; }
 
-        .card { background: var(--card); border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 30px var(--shadow); margin-bottom: 2rem; border: 1px solid var(--border); }
-        .btn { 
-            background: var(--dark); color: white; border: none; padding: 14px 28px; 
-            border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 1rem;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--shadow); }
-        .btn-outline { background: transparent; border: 2px solid var(--dark); color: var(--dark); }
+        /* HERO - GİRİŞ EKRANI */
+        .hero { text-align: center; padding: 4rem 1rem; animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from{opacity:0; transform: translateY(20px);} to{opacity:1; transform: translateY(0);} }
 
-        .lvl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .lvl-box { 
-            background: white; border: 2px solid var(--border); padding: 1.5rem; 
-            text-align: center; border-radius: 18px; cursor: pointer; transition: 0.3s;
-        }
-        .lvl-box:hover { border-color: var(--accent); transform: scale(1.05); }
-        .lvl-box h2 { font-family: 'Fraunces'; font-size: 1.8rem; margin-bottom: 5px; }
+        .hero h1 { font-family: 'Fraunces'; font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; color: var(--dark); }
+        .hero p { font-size: 1.2rem; color: #666; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
 
-        .quiz-option { 
-            display: block; width: 100%; padding: 16px; margin: 12px 0; 
-            border: 1px solid var(--border); border-radius: 12px; text-align: left; 
-            cursor: pointer; font-size: 1.1rem; background: white; transition: 0.2s;
-        }
-        .quiz-option:hover { background: var(--surface); border-color: var(--dark); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 3rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 4px 15px var(--shadow); }
+        .stat-card h4 { font-size: 1.5rem; color: var(--accent2); }
+        .stat-card span { font-size: 0.85rem; color: #888; text-transform: uppercase; font-weight: 700; }
 
-        #wordDisplay { font-family: 'Fraunces'; font-size: 3.5rem; margin: 1rem 0; color: var(--dark); }
-        .progress-quiz { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 2rem; overflow: hidden; }
-        .progress-quiz-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.3s; }
+        /* LEVEL GRID */
+        .lvl-section { margin-top: 3rem; text-align: left; }
+        .lvl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 1rem; }
+        .lvl-btn { background: white; border: 2px solid var(--border); padding: 20px; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 1.3rem; transition: 0.3s; box-shadow: 0 4px 0 var(--border); }
+        .lvl-btn:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 7px 0 var(--border); }
+        .lvl-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 0 #bf4500; }
+
+        /* KART TASARIMI */
+        .v-card { background: var(--card); border-radius: 35px; padding: 2.5rem; box-shadow: 0 30px 60px var(--shadow); border: 1px solid var(--border); text-align: center; margin-top: 1rem; }
+        .v-image { width: 100%; height: 250px; background: var(--surface); border-radius: 25px; margin-bottom: 2rem; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .v-image img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .v-word { font-family: 'Fraunces'; font-size: 3rem; color: var(--dark); }
+        .v-tr { font-size: 1.6rem; color: var(--accent2); font-weight: 600; margin-bottom: 1.5rem; }
+
+        .v-example { background: var(--bg); padding: 1.5rem; border-radius: 20px; border-left: 5px solid var(--accent); text-align: left; margin-bottom: 2rem; cursor: pointer; position: relative; }
+        .v-example:hover { background: #fff5e6; }
+
+        .btn { background: var(--dark); color: white; border: none; padding: 18px 30px; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 1.1rem; transition: 0.2s; width: 100%; }
+        .btn-next { background: var(--accent); margin-top: 10px; }
+        .btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo" onclick="location.reload()">Deutsch<em>Academy</em></div>
-    <div id="userStatus" class="lvl-badge">Hoş Geldiniz</div>
+    <a href="#" class="logo" onclick="location.reload()">Deutsch<em>Academy</em></a>
+    <div id="lvlLabel" style="font-weight: 700; color: #999;">GİRİŞ</div>
 </header>
 
 <div class="container">
     
-    <div id="screen-home" class="card" style="text-align: center;">
-        <h1 style="font-family: 'Fraunces'; font-size: 3rem; margin-bottom: 1rem;">Almanca Yolculuğuna Başla</h1>
-        <p style="font-size: 1.1rem; color: #555;">Seviyeni belirleyelim ve sana en uygun dersleri getirelim.</p>
-        <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-            <button class="btn" style="width: 100%; max-width: 300px;" onclick="startQuiz()">Seviye Tespit Sınavı (15 Soru)</button>
-            <button class="btn btn-outline" style="width: 100%; max-width: 300px;" onclick="showScreen('levels')">Seviyemi Manuel Seçeceğim</button>
+    <div id="screen-welcome" class="hero">
+        <span>🇩🇪 ALMANCA ÖĞRENİMİNİ KEŞFET</span>
+        <h1>Kelimelerin Gücünü Hisset.</h1>
+        <p>A1'den C1'e kadar görsel destekli, sesli ve örnek cümlelerle zenginleştirilmiş profesyonel Almanca kütüphanesi.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>500+</h4>
+                <span>Görsel Kelime</span>
+            </div>
+            <div class="stat-card">
+                <h4>150+</h4>
+                <span>Gramer Yapısı</span>
+            </div>
+        </div>
+
+        <div class="lvl-section">
+            <h3 style="font-family: 'Fraunces'; margin-bottom: 1rem;">Bir Kur Seç ve Başla:</h3>
+            <div class="lvl-grid">
+                <button class="lvl-btn" onclick="startCourse('A1')">A1</button>
+                <button class="lvl-btn" onclick="startCourse('A2')">A2</button>
+                <button class="lvl-btn" onclick="startCourse('B1')">B1</button>
+                <button class="lvl-btn" onclick="startCourse('B2')">B2</button>
+                <button class="lvl-btn" onclick="startCourse('C1')">C1</button>
+            </div>
         </div>
     </div>
 
-    <div id="screen-levels" class="hidden">
-        <h2 style="font-family: 'Fraunces'; margin-bottom: 1.5rem; text-align: center;">Bir Seviye Seçin:</h2>
-        <div class="lvl-grid">
-            <div class="lvl-box" onclick="loadLevel('A1')"><h2>A1</h2><p>Yeni Başlayan</p></div>
-            <div class="lvl-box" onclick="loadLevel('A2')"><h2>A2</h2><p>Temel Seviye</p></div>
-            <div class="lvl-box" onclick="loadLevel('B1')"><h2>B1</h2><p>Orta Seviye</p></div>
-            <div class="lvl-box" onclick="loadLevel('B2')"><h2>B2</h2><p>İleri Orta</p></div>
-            <div class="lvl-box" onclick="loadLevel('C1')"><h2>C1</h2><p>Profesyonel</p></div>
-        </div>
-    </div>
+    <div id="screen-learning" class="hidden">
+        <div class="v-card">
+            <div class="v-image">
+                <img id="vImg" src="" alt="Görsel">
+            </div>
 
-    <div id="screen-quiz" class="card hidden">
-        <div class="progress-quiz"><div id="quizBar" class="progress-quiz-fill"></div></div>
-        <div id="quiz-content">
-            <span id="qCount" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">SORU 1/15</span>
-            <h3 id="quiz-q" style="margin: 1rem 0 2rem 0; font-size: 1.4rem; font-family: 'Fraunces';">Soru...</h3>
-            <div id="quiz-options"></div>
-        </div>
-    </div>
+            <h1 id="vWord" class="v-word">Laden...</h1>
+            <p id="vPlural" style="color:#888; font-style:italic; margin-bottom: 1rem;">plural</p>
+            <p id="vTr" class="v-tr">Anlam</p>
 
-    <div id="screen-learning" class="card hidden" style="text-align: center;">
-        <h2 id="currentLvlTitle" style="color: var(--accent); font-size: 1rem; letter-spacing: 2px;">MODÜL</h2>
-        <button onclick="speakCurrent()" style="background:var(--surface); border:none; width:70px; height:70px; border-radius:50%; font-size: 2rem; cursor: pointer; margin: 1.5rem 0;">🔊</button>
-        <div id="wordDisplay">Wort</div>
-        <div id="trDisplay" style="font-size: 1.6rem; color: var(--accent2); margin-bottom: 2rem; visibility: hidden; font-weight: 500;">Anlam</div>
-        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-            <button class="btn btn-outline" onclick="toggleTr()">Anlamı Gör / Gizle</button>
-            <button class="btn" onclick="nextWord()" style="background: var(--accent2);">Sonraki Kelime →</button>
-            <button class="btn" onclick="showScreen('levels')" style="margin-top: 1.5rem; background: #eee; color: #555;">Başka Seviyeye Geç</button>
+            <div class="v-example" onclick="speak(document.getElementById('vExDe').textContent)">
+                <span style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 1px;">ÖRNEK CÜMLE 🔊</span>
+                <p id="vExDe" style="margin-top: 8px; font-weight: 600; font-size: 1.15rem; color: var(--dark);"></p>
+                <p id="vExTr" style="font-size: 0.95rem; color: #777; margin-top: 5px;"></p>
+            </div>
+
+            <button class="btn" onclick="speakWord()">🔊 Telaffuzu Dinle</button>
+            <button class="btn btn-next" onclick="nextWord()">Sonraki Kelime →</button>
+            
+            <a href="#" onclick="location.reload()" style="display:block; margin-top: 2rem; color: #aaa; text-decoration: none; font-size: 0.9rem; font-weight: 600;">← Ana Menüye Dön</a>
         </div>
     </div>
 
 </div>
 
 <script>
-// --- VERİ BANKASI ---
-const levelWords = {
-    'A1': [{de:"das Haus", tr:"Ev"}, {de:"trinken", tr:"İçmek"}, {de:"hören", tr:"Duymak/Dinlemek"}, {de:"der Apfel", tr:"Elma"}],
-    'A2': [{de:"die Einladung", tr:"Davet"}, {de:"besuchen", tr:"Ziyaret etmek"}, {de:"verstehen", tr:"Anlamak"}, {de:"gehören", tr:"Ait olmak"}],
-    'B1': [{de:"die Herausforderung", tr:"Zorluk/Meydan okuma"}, {de:"nachhaltig", tr:"Sürdürülebilir"}, {de:"beeindrucken", tr:"Etkilemek"}, {de:"verantwortlich", tr:"Sorumlu"}],
-    'B2': [{de:"die Auswirkung", tr:"Etki"}, {de:"vermeiden", tr:"Kaçınmak"}, {de:"behaupten", tr:"İddia etmek"}, {de:"umstritten", tr:"Tartışmalı"}],
-    'C1': [{de:"vorausgesetzt", tr:"Şartıyla"}, {de:"die Schlussfolgerung", tr: "Çıkarım"}, {de:"erläutern", tr:"Açıklamak"}, {de:"hervorheben", tr:"Vurgulamak"}]
+// --- VERİ BANKASI (A1-C1 Örnekleri) ---
+const database = {
+    'A1': [
+        {de:"das Haus", tr:"Ev", plural:"die Häuser", exDe:"Ich gehe nach Hause.", exTr:"Eve gidiyorum.", img:"https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500"},
+        {de:"lernen", tr:"Öğrenmek", plural:"-", exDe:"Ich lerne jeden Tag Deutsch.", exTr:"Her gün Almanca öğreniyorum.", img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=500"}
+    ],
+    'B1': [
+        {de:"die Entscheidung", tr:"Karar", plural:"die Entscheidungen", exDe:"Das ist eine wichtige Entscheidung.", exTr:"Bu önemli bir karar.", img:"https://images.unsplash.com/photo-1454165833767-027508496b08?w=500"},
+        {de:"nachhaltig", tr:"Sürdürülebilir", plural:"-", exDe:"Wir brauchen nachhaltige Energie.", exTr:"Sürdürülebilir enerjiye ihtiyacımız var.", img:"https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=500"}
+    ]
+    // Diğer kurlar aynı formatta eklenebilir...
 };
 
-const questions = [
-    {q:"Wie ___ du? (Adın ne?)", o:["bist", "heißt", "hast"], c:1},
-    {q:"Ich ___ aus der Türkei.", o:["komme", "bin", "wohne"], c:0},
-    {q:"Was machst du ___ Wochenende?", o:["in", "an", "am"], c:2},
-    {q:"Gestern ___ ich keine Zeit.", o:["habe", "hatte", "war"], c:1},
-    {q:"Ich gehe ins Kino, ___ ich Filme liebe.", o:["weil", "dass", "obwohl"], c:0},
-    {q:"Das ist das Kind, ___ ich geholfen habe.", o:["der", "das", "dem"], c:2},
-    {q:"___ du mir bitte helfen?", o:["Könntest", "Kannst", "Wirst"], c:0},
-    {q:"Ich interessiere mich ___ Politik.", o:["für", "an", "über"], c:0},
-    {q:"Das Haus ___ gerade gebaut.", o:["ist", "wird", "wurde"], c:1},
-    {q:"Wenn ich reich ___, würde ich eine Weltreise machen.", o:["bin", "war", "wäre"], c:2},
-    {q:"Er wartet ___ seinen Freund.", o:["an", "auf", "für"], c:1},
-    {q:"Ich habe mich ___ das Wetter gewöhnt.", o:["an", "auf", "in"], c:0},
-    {q:"Trotz ___ Regens gehen wir spazieren.", o:["dem", "den", "des"], c:2},
-    {q:"Es ist wichtig, ___ man täglich lernt.", o:["dass", "weil", "damit"], c:0},
-    {q:"Je mehr ich lerne, ___ besser werde ich.", o:["desto", "als", "wie"], c:0}
-];
+let currentKur = 'A1';
+let idx = 0;
 
-let curIdx = 0;
-let score = 0;
-let learningLevel = 'A1';
-let learningWordIdx = 0;
-
-// --- NAVİGASYON ---
-function showScreen(id) {
-    document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
-    document.getElementById('screen-' + id).classList.remove('hidden');
+function startCourse(lvl) {
+    if(!database[lvl]) { alert("Bu kur yakında eklenecek!"); return; }
+    currentKur = lvl;
+    idx = 0;
+    document.getElementById('lvlLabel').textContent = lvl + " KURSU";
+    document.getElementById('screen-welcome').classList.add('hidden');
+    document.getElementById('screen-learning').classList.remove('hidden');
+    updateUI();
 }
 
-// --- QUIZ MANTIĞI ---
-function startQuiz() {
-    curIdx = 0; score = 0;
-    showScreen('quiz');
-    loadQuestion();
-}
-
-function loadQuestion() {
-    const q = questions[curIdx];
-    document.getElementById('qCount').textContent = `SORU ${curIdx + 1} / ${questions.length}`;
-    document.getElementById('quizBar').style.width = ((curIdx + 1) / questions.length * 100) + '%';
-    document.getElementById('quiz-q').textContent = q.q;
-    
-    const optArea = document.getElementById('quiz-options');
-    optArea.innerHTML = '';
-    
-    q.o.forEach((opt, i) => {
-        const b = document.createElement('button');
-        b.className = 'quiz-option';
-        b.textContent = opt;
-        b.onclick = () => {
-            if(i === q.c) score++;
-            curIdx++;
-            if(curIdx < questions.length) loadQuestion();
-            else finishQuiz();
-        };
-        optArea.appendChild(b);
-    });
-}
-
-function finishQuiz() {
-    let finalLvl = 'A1';
-    if(score >= 13) finalLvl = 'C1';
-    else if(score >= 10) finalLvl = 'B2';
-    else if(score >= 7) finalLvl = 'B1';
-    else if(score >= 4) finalLvl = 'A2';
-    
-    alert(`Sınav Bitti! Skorun: ${score}/${questions.length}. Belirlenen Seviye: ${finalLvl}`);
-    loadLevel(finalLvl);
-}
-
-// --- ÖĞRENME MANTIĞI ---
-function loadLevel(lvl) {
-    learningLevel = lvl;
-    learningWordIdx = 0;
-    document.getElementById('userStatus').textContent = "Seviye: " + lvl;
-    document.getElementById('currentLvlTitle').textContent = lvl + " MODÜLÜ";
-    showScreen('learning');
-    updateWord();
-}
-
-function updateWord() {
-    const word = levelWords[learningLevel][learningWordIdx];
-    document.getElementById('wordDisplay').textContent = word.de;
-    document.getElementById('trDisplay').textContent = word.tr;
-    document.getElementById('trDisplay').style.visibility = 'hidden';
-    speak(word.de);
+function updateUI() {
+    const item = database[currentKur][idx];
+    document.getElementById('vWord').textContent = item.de;
+    document.getElementById('vTr').textContent = item.tr;
+    document.getElementById('vPlural').textContent = item.plural;
+    document.getElementById('vExDe').textContent = item.exDe;
+    document.getElementById('vExTr').textContent = item.exTr;
+    document.getElementById('vImg').src = item.img;
+    speak(item.de);
 }
 
 function nextWord() {
-    learningWordIdx = (learningWordIdx + 1) % levelWords[learningLevel].length;
-    updateWord();
+    idx = (idx + 1) % database[currentKur].length;
+    updateUI();
 }
 
-function toggleTr() {
-    const tr = document.getElementById('trDisplay');
-    tr.style.visibility = (tr.style.visibility === 'hidden') ? 'visible' : 'hidden';
-}
-
-// --- SES MOTORU ---
 function speak(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'de-DE';
-        u.rate = 0.85;
+        u.lang = 'de-DE'; u.rate = 0.8;
         window.speechSynthesis.speak(u);
     }
 }
 
-function speakCurrent() {
-    speak(levelWords[learningLevel][learningWordIdx].de);
-}
+function speakWord() { speak(database[currentKur][idx].de); }
 </script>
 </body>
 </html>
