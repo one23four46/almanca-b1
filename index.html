@@ -946,307 +946,54 @@ nurse: {
             { article: "die", de: "Krankenkasse", tr: "Sağlık Sigortası", en: "Health insurance", category: "Basics", example: "Ihre Versichertenkarte bitte.", ex_tr: "Sigorta kartınız lütfen." }
         ],
   fallbeispiele: [
+    {
+        title: "Morgenroutine & Mobilisation",
+        de_title: "Morgenrunde: Unterstützung beim Aufstehen",
+        level: "B1/B2 Pflege",
+        type: "Alltag",
+        teaser_de: "Ein Gespräch zwischen einer Pflegekraft und einem Patienten am Morgen.",
+        teaser_tr: "Sabah rutini: Bir hemşire ve hasta arasındaki sabah diyaloğu.",
+        sections: [
             {
-                title: "Akuter Myokardinfarkt",
-                subtitle: "Kardiyoloji • Kalp Krizi",
-                icon: "❤️",
-                fields: [
-                    { label: "Befund", value: "Starke Brustschmerzen, Ausstrahlung in den Arm <br><small style='color:var(--muted)'>Şiddetli göğüs ağrısı, kola yayılan ağrı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Atmen Sie ruhig. Wo genau tut es weh? <br><small style='color:var(--muted)'>Sakin nefes alın. Tam olarak neresi ağrıyor?</small><br><b>Pat:</b> Hier in der Brust, es drückt sehr! <br><small style='color:var(--muted)'>Burada göğsümde, çok baskı var!</small>" },
-                    { label: "Maßnahme", value: "Notarzt rufen, EKG schreiben, O2-Gabe <br><small style='color:var(--muted)'>Doktor çağır, EKG çek, Oksijen ver</small>" }
+                title_de: "Begrüßung und Befinden",
+                text_de: "Die Pflegekraft betritt das Zimmer von Herrn Müller.",
+                dialog: [
+                    { speaker: "PK", de: "Guten Morgen, Herr Müller! Wie haben Sie geschlafen?", tr: "Günaydın Bay Müller! Nasıl uyudunuz?" },
+                    { speaker: "Patient", de: "Guten Morgen. Ach, nicht so gut. Mein Rücken tut etwas weh.", tr: "Günaydın. Ah, pek iyi değil. Sırtım biraz ağrıyor." },
+                    { speaker: "PK", de: "Das tut mir leid. Möchten Sie, dass ich Ihnen beim Aufstehen helfe?", tr: "Üzüldüm. Kalkmanıza yardım etmemi ister misiniz?" }
                 ]
             },
             {
-                title: "Hyperglykämie",
-                subtitle: "Diabetes • Yüksek Şeker",
-                icon: "🩸",
-                fields: [
-                    { label: "Befund", value: "BZ-Wert 450 mg/dl, Azetongeruch <br><small style='color:var(--muted)'>Şeker 450, aseton kokusu</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Haben Sie heute Ihre Medikamente genommen? <br><small style='color:var(--muted)'>Bugün ilaçlarınızı aldınız mı?</small><br><b>Pat:</b> Ich habe es vergessen ve fühle mich schlapp. <br><small style='color:var(--muted)'>Unuttum ve kendimi halsiz hissediyorum.</small>" },
-                    { label: "Maßnahme", value: "Insulin nach Plan geben <br><small style='color:var(--muted)'>Plana göre insülin ver</small>" }
-                ]
-            },
-            {
-                title: "Hypoglykämie",
-                subtitle: "Diabetes • Düşük Şeker",
-                icon: "🍬",
-                fields: [
-                    { label: "Befund", value: "Patient zittert, kalter Schweiß <br><small style='color:var(--muted)'>Hasta titriyor, soğuk terleme</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Herr Demir, ist Ihnen schwindelig? <br><small style='color:var(--muted)'>Sayın Demir, başınız mı dönüyor?</small><br><b>Pat:</b> Ja, ich brauche dringend etwas Zucker. <br><small style='color:var(--muted)'>Evet, acilen biraz şekere ihtiyacım var.</small>" },
-                    { label: "Maßnahme", value: "Traubenzucker oder Saft geben <br><small style='color:var(--muted)'>Kesme şeker veya meyve suyu ver</small>" }
-                ]
-            },
-            {
-                title: "Dekubitus Grad II",
-                subtitle: "Wundpflege • Yatak Yarası",
-                icon: "🩹",
-                fields: [
-                    { label: "Befund", value: "Rötung und Blase am Gesäß <br><small style='color:var(--muted)'>Kalçada kızarıklık ve su toplaması</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wir müssen Sie jetzt umlagern. <br><small style='color:var(--muted)'>Şimdi pozisyonunuzu değiştirmemiz lazım.</small><br><b>Pat:</b> Das tut an der Stelle weh. <br><small style='color:var(--muted)'>O bölge acıyor.</small>" },
-                    { label: "Maßnahme", value: "Druckentlastung, Verbandwechsel <br><small style='color:var(--muted)'>Basıncı azaltma, pansuman değişimi</small>" }
-                ]
-            },
-            {
-                title: "Pneumonie",
-                subtitle: "Lunge • Zatürre",
-                icon: "🫁",
-                fields: [
-                    { label: "Befund", value: "Fieber, produktiver Husten <br><small style='color:var(--muted)'>Ateş, balgamlı öksürük</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Können Sie bitte tief einatmen? <br><small style='color:var(--muted)'>Lütfen derin nefes alabilir misiniz?</small><br><b>Pat:</b> Es tut beim Husten weh. <br><small style='color:var(--muted)'>Öksürürken acıyor.</small>" },
-                    { label: "Maßnahme", value: "Inhalation, Mobilisation <br><small style='color:var(--muted)'>Buhar tedavisi, hareketlendirme</small>" }
-                ]
-            },
-            {
-                title: "Apoplex",
-                subtitle: "Neurologie • Felç",
-                icon: "🧠",
-                fields: [
-                    { label: "Befund", value: "Hängender Mundwinkel, Sprachstörung <br><small style='color:var(--muted)'>Ağız kenarında sarkma, konuşma bozukluğu</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Bitte lächeln Sie einmal. <br><small style='color:var(--muted)'>Lütfen bir gülümseyin.</small><br><b>Pat:</b> Ich... kann nicht. <br><small style='color:var(--muted)'>Ben... yapamıyorum.</small>" },
-                    { label: "Maßnahme", value: "Sofort Stroke Unit informieren <br><small style='color:var(--muted)'>Hemen inme ünitesine haber ver</small>" }
-                ]
-            },
-            {
-                title: "Thrombose",
-                subtitle: "Gefäße • Damar Tıkanıklığı",
-                icon: "🦵",
-                fields: [
-                    { label: "Befund", value: "Einseitige Beinschwellung, Hitze <br><small style='color:var(--muted)'>Tek taraflı bacak şişmesi, sıcaklık</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Bewegen Sie das Bein bitte nicht. <br><small style='color:var(--muted)'>Lütfen bacağı hareket ettirmeyin.</small><br><b>Pat:</b> Mein Bein ist so schwer und heiß. <br><small style='color:var(--muted)'>Bacağım çok ağır ve sıcak.</small>" },
-                    { label: "Maßnahme", value: "Bettruhe, Heparin <br><small style='color:var(--muted)'>Yatak istirahati, kan sulandırıcı</small>" }
-                ]
-            },
-            {
-                title: "Zystitis",
-                subtitle: "Urologie • İdrar Yolu Enf.",
-                icon: "🚽",
-                fields: [
-                    { label: "Befund", value: "Dysurie, trüber Urin <br><small style='color:var(--muted)'>Ağrılı idrar, bulanık idrar</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Haben Sie Schmerzen beim Wasserlassen? <br><small style='color:var(--muted)'>İdrar yaparken ağrınız var mı?</small><br><b>Pat:</b> Ja, es brennt furchtbar. <br><small style='color:var(--muted)'>Evet, feci yanıyor.</small>" },
-                    { label: "Maßnahme", value: "Viel trinken, Urinstix <br><small style='color:var(--muted)'>Bol sıvı, idrar testi</small>" }
-                ]
-            },
-            {
-                title: "Fraktur",
-                subtitle: "Orthopädie • Kırık",
-                icon: "🦴",
-                fields: [
-                    { label: "Befund", value: "Oberschenkelhalsbruch nach Sturz <br><small style='color:var(--muted)'>Düşme sonrası kalça kırığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wo haben Sie die stärksten Schmerzen? <br><small style='color:var(--muted)'>En şiddetli ağrınız nerede?</small><br><b>Pat:</b> Direkt in der Hüfte. <br><small style='color:var(--muted)'>Tam kalçamda.</small>" },
-                    { label: "Maßnahme", value: "Röntgen, Analgetika <br><small style='color:var(--muted)'>Röntgen, ağrı kesici</small>" }
-                ]
-            },
-            {
-                title: "Dehydration",
-                subtitle: "Geriatrie • Sıvı Kaybı",
-                icon: "🌵",
-                fields: [
-                    { label: "Befund", value: "Trockene Schleimhäute <br><small style='color:var(--muted)'>Kuru mukoza</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Frau Weber, Sie müssen mehr trinken. <br><small style='color:var(--muted)'>Bayan Weber, daha fazla içmelisiniz.</small><br><b>Pat:</b> Ich habe aber keinen Durst. <br><small style='color:var(--muted)'>Ama susamadım.</small>" },
-                    { label: "Maßnahme", value: "Infusion vorbereiten <br><small style='color:var(--muted)'>Serum hazırlama</small>" }
-                ]
-            },
-            {
-                title: "Obstipation",
-                subtitle: "Verdauung • Kabızlık",
-                icon: "💩",
-                fields: [
-                    { label: "Befund", value: "Kein Stuhlgang seit 4 Tagen <br><small style='color:var(--muted)'>4 gündür dışkılama yok</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wann hatten Sie das letzte Mal Stuhlgang? <br><small style='color:var(--muted)'>En son ne zaman dışkıladınız?</small><br><b>Pat:</b> Das ist schon ewig her. <br><small style='color:var(--muted)'>Çok uzun zaman oldu.</small>" },
-                    { label: "Maßnahme", value: "Einlauf nach Anordnung <br><small style='color:var(--muted)'>Talimatla lavman</small>" }
-                ]
-            },
-            {
-                title: "Asthma Bronchiale",
-                subtitle: "Lunge • Astım",
-                icon: "💨",
-                fields: [
-                    { label: "Befund", value: "Giemen, Atemnot <br><small style='color:var(--muted)'>Hırıltı, nefes darlığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Benutzen Sie Ihr Spray. <br><small style='color:var(--muted)'>Spreyinizi kullanın.</small><br><b>Pat:</b> Ich... bekomme... keine Luft! <br><small style='color:var(--muted)'>Nefes... alamıyorum!</small>" },
-                    { label: "Maßnahme", value: "Kutschersitz, O2-Gabe <br><small style='color:var(--muted)'>Arabacı oturuşu, Oksijen</small>" }
-                ]
-            },
-            {
-                title: "Postoperative Blutung",
-                subtitle: "Chirurgie • Ameliyat Kanama",
-                icon: "🩸",
-                fields: [
-                    { label: "Befund", value: "Verband durchgeblutet <br><small style='color:var(--muted)'>Pansuman kanla dolmuş</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ich kontrolliere Ihren Verband. <br><small style='color:var(--muted)'>Pansumanınızı kontrol ediyorum.</small><br><b>Pat:</b> Warum ist es so nass? <br><small style='color:var(--muted)'>Neden bu kadar ıslak?</small>" },
-                    { label: "Maßnahme", value: "Arzt rufen, Druckverband <br><small style='color:var(--muted)'>Doktoru çağır, basınçlı sargı</small>" }
-                ]
-            },
-            {
-                title: "Parkinson-Sturz",
-                subtitle: "Neurologie • Düşme",
-                icon: "🤝",
-                fields: [
-                    { label: "Befund", value: "Sturz im Bad <br><small style='color:var(--muted)'>Banyoda düşme</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wo tut es weh? <br><small style='color:var(--muted)'>Nereniz ağrıyor?</small><br><b>Pat:</b> Meine Knie brennen sehr. <br><small style='color:var(--muted)'>Dizlerim çok yanıyor.</small>" },
-                    { label: "Maßnahme", value: "Sturzprotokoll schreiben <br><small style='color:var(--muted)'>Düşme raporu yaz</small>" }
-                ]
-            },
-            {
-                title: "MRSA Isolation",
-                subtitle: "Hygiene • İzolasyon",
-                icon: "☣️",
-                fields: [
-                    { label: "Befund", value: "Positiver Keimnachweis <br><small style='color:var(--muted)'>Pozitif bakteri bulgusu</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wir isolieren Sie im Zimmer. <br><small style='color:var(--muted)'>Sizi odada izole ediyoruz.</small><br><b>Pat:</b> Darf ich rausgehen? <br><small style='color:var(--muted)'>Dışarı çıkabilir miyim?</small>" },
-                    { label: "Maßnahme", value: "Schutzkleidung tragen <br><small style='color:var(--muted)'>Koruyucu kıyafet giy</small>" }
-                ]
-            },
-            {
-                title: "Herzinsuffizienz",
-                subtitle: "Kardiologie • Yetmezlik",
-                icon: "💔",
-                fields: [
-                    { label: "Befund", value: "Ödeme in den Beinen <br><small style='color:var(--muted)'>Bacaklarda ödem</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ihre Schuhe sind sehr eng. <br><small style='color:var(--muted)'>Ayakkabılarınız çok dar.</small><br><b>Pat:</b> Ja, meine Füße sind dick. <br><small style='color:var(--muted)'>Evet, ayaklarım şiş.</small>" },
-                    { label: "Maßnahme", value: "Täglich wiegen <br><small style='color:var(--muted)'>Günlük tartım yap</small>" }
-                ]
-            },
-            {
-                title: "Epileptischer Anfall",
-                subtitle: "Neurologie • Sara",
-                icon: "⚡",
-                fields: [
-                    { label: "Befund", value: "Tonisch-klonischer Anfall <br><small style='color:var(--muted)'>Kasılmalı nöbet</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ich bin bei Ihnen. <br><small style='color:var(--muted)'>Yanınızdayım.</small><br><b>Pat:</b> (Desorientiert) Wo bin ich? <br><small style='color:var(--muted)'>Neredeyim?</small>" },
-                    { label: "Maßnahme", value: "Patienten vor Verletzung schützen <br><small style='color:var(--muted)'>Hastayı yaralanmadan koru</small>" }
-                ]
-            },
-            {
-                title: "Lungenembolie",
-                subtitle: "Notfall • Emboli",
-                icon: "⚠️",
-                fields: [
-                    { label: "Befund", value: "Plötzliche Atemnot <br><small style='color:var(--muted)'>Ani nefes darlığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ganz ruhig atmen. <br><small style='color:var(--muted)'>Sakin nefes al.</small><br><b>Pat:</b> Ich kriege keine Luft! <br><small style='color:var(--muted)'>Nefes alamıyorum!</small>" },
-                    { label: "Maßnahme", value: "Notarzt informieren <br><small style='color:var(--muted)'>Doktora haber ver</small>" }
-                ]
-            },
-            {
-                title: "Sepsis",
-                subtitle: "Notfall • Enfeksiyon",
-                icon: "🌡️",
-                fields: [
-                    { label: "Befund", value: "Hohes Fieber, Verwirrtheit <br><small style='color:var(--muted)'>Yüksek ateş, kafa karışıklığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Kennen Sie das Datum? <br><small style='color:var(--muted)'>Tarihi biliyor musunuz?</small><br><b>Pat:</b> Ich weiß es nicht mehr. <br><small style='color:var(--muted)'>Artık bilmiyorum.</small>" },
-                    { label: "Maßnahme", value: "Blutkulturen abnehmen <br><small style='color:var(--muted)'>Kan kültürü al</small>" }
-                ]
-            },
-            {
-                title: "Gastritis",
-                subtitle: "Magen • Gastrit",
-                icon: "🤢",
-                fields: [
-                    { label: "Befund", value: "Magenschmerzen, Übelkeit <br><small style='color:var(--muted)'>Mide ağrısı, bulantı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Tut es nach dem Essen weh? <br><small style='color:var(--muted)'>Yemekten sonra mı acıyor?</small><br><b>Pat:</b> Ja, es brennt im Bauch. <br><small style='color:var(--muted)'>Evet, karnımda yanma var.</small>" },
-                    { label: "Maßnahme", value: "Schonkost servieren <br><small style='color:var(--muted)'>Hafif diyet ver</small>" }
-                ]
-            },
-            {
-                title: "Ileus",
-                subtitle: "Gastro • Düğümlenme",
-                icon: "🚫",
-                fields: [
-                    { label: "Befund", value: "Kein Windabgang <br><small style='color:var(--muted)'>Gaz çıkışı yok</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ist Ihr Bauch hart? <br><small style='color:var(--muted)'>Karnınız sert mi?</small><br><b>Pat:</b> Ja, wie ein Stein. <br><small style='color:var(--muted)'>Evet, taş gibi.</small>" },
-                    { label: "Maßnahme", value: "Magensonde vorbereiten <br><small style='color:var(--muted)'>Mide sondası hazırla</small>" }
-                ]
-            },
-            {
-                title: "Demenz-Weglaufen",
-                subtitle: "Geriatrie • Kaçma",
-                icon: "🧩",
-                fields: [
-                    { label: "Befund", value: "Patient sucht den Ausgang <br><small style='color:var(--muted)'>Hasta çıkışı arıyor</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wo möchten Sie hin? <br><small style='color:var(--muted)'>Nereye gitmek istiyorsunuz?</small><br><b>Pat:</b> Ich muss nach Hause. <br><small style='color:var(--muted)'>Eve gitmem lazım.</small>" },
-                    { label: "Maßnahme", value: "Patienten ablenken <br><small style='color:var(--muted)'>Hastayı oyala</small>" }
-                ]
-            },
-            {
-                title: "Allergischer Schock",
-                subtitle: "Notfall • Alerji",
-                icon: "🐝",
-                fields: [
-                    { label: "Befund", value: "Hautausschlag, Dyspnoe <br><small style='color:var(--muted)'>Cilt döküntüsü, nefes darlığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Juckt Ihre Haut? <br><small style='color:var(--muted)'>Cildiniz kaşınıyor mu?</small><br><b>Pat:</b> Alles brennt und juckt. <br><small style='color:var(--muted)'>Her yerim yanıyor ve kaşınıyor.</small>" },
-                    { label: "Maßnahme", value: "Adrenalin bereitstellen <br><small style='color:var(--muted)'>Adrenalin hazırla</small>" }
-                ]
-            },
-            {
-                title: "Katarakt OP",
-                subtitle: "Auge • Göz Ameliyatı",
-                icon: "👁️",
-                fields: [
-                    { label: "Befund", value: "Vorbereitung zur Linsen-OP <br><small style='color:var(--muted)'>Lens ameliyatı hazırlığı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ich tropfe Ihr Auge ein. <br><small style='color:var(--muted)'>Gözünüze damla damlatıyorum.</small><br><b>Pat:</b> Sehe ich danach besser? <br><small style='color:var(--muted)'>Sonra daha iyi görecek miyim?</small>" },
-                    { label: "Maßnahme", value: "OP-Markierung checken <br><small style='color:var(--muted)'>Ameliyat işaretini kontrol et</small>" }
-                ]
-            },
-            {
-                title: "Nierenkolik",
-                subtitle: "Urologie • Böbrek Sancısı",
-                icon: "💧",
-                fields: [
-                    { label: "Befund", value: "Flankenschmerz <br><small style='color:var(--muted)'>Yan ağrısı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ist der Schmerz krampfartig? <br><small style='color:var(--muted)'>Ağrı kramp şeklinde mi?</small><br><b>Pat:</b> Ja, ich halte es kaum aus. <br><small style='color:var(--muted)'>Evet, dayanamıyorum.</small>" },
-                    { label: "Maßnahme", value: "Urin filtrieren <br><small style='color:var(--muted)'>İdrarı filtre et (taş için)</small>" }
-                ]
-            },
-            {
-                title: "Leberinsuffizienz",
-                subtitle: "Gastro • Karaciğer",
-                icon: "🟡",
-                fields: [
-                    { label: "Befund", value: "Gelbe Skleren (Ikterus) <br><small style='color:var(--muted)'>Göz aklarında sararma</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Ist Ihr Urin dunkel? <br><small style='color:var(--muted)'>İdrarınız koyu mu?</small><br><b>Pat:</b> Ja, wie dunkler Tee. <br><small style='color:var(--muted)'>Evet, koyu çay gibi.</small>" },
-                    { label: "Maßnahme", value: "Blutwerte kontrollieren <br><small style='color:var(--muted)'>Kan değerlerini kontrol et</small>" }
-                ]
-            },
-            {
-                title: "Ağrı Yönetimi",
-                subtitle: "Schmerzmanagement",
-                icon: "💊",
-                fields: [
-                    { label: "Befund", value: "Postoperativer Schmerz <br><small style='color:var(--muted)'>Ameliyat sonrası ağrı</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Wie stark ist der Schmerz (1-10)? <br><small style='color:var(--muted)'>Ağrı kaç şiddetinde (1-10)?</small><br><b>Pat:</b> Ungefähr eine 7. <br><small style='color:var(--muted)'>Yaklaşık 7.</small>" },
-                    { label: "Maßnahme", value: "Analgetika geben <br><small style='color:var(--muted)'>Ağrı kesici ver</small>" }
-                ]
-            },
-            {
-                title: "Logopädie / Schlucken",
-                subtitle: "Dysphagie • Yutkunma",
-                icon: "🥤",
-                fields: [
-                    { label: "Befund", value: "Verschlucken beim Essen <br><small style='color:var(--muted)'>Yemek yerken yutma kaçırma</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Essen Sie langsam. <br><small style='color:var(--muted)'>Yavaş yiyin.</small><br><b>Pat:</b> Ich muss immer husten. <br><small style='color:var(--muted)'>Hep öksürmem gerekiyor.</small>" },
-                    { label: "Maßnahme", value: "Essen andicken <br><small style='color:var(--muted)'>Yemeği koyulaştır</small>" }
-                ]
-            },
-            {
-                title: "Angehörigengespräch",
-                subtitle: "Kommunikation • İletişim",
-                icon: "👥",
-                fields: [
-                    { label: "Befund", value: "Ehefrau ist besorgt <br><small style='color:var(--muted)'>Hasta eşi endişeli</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Er schläft gerade ruhig. <br><small style='color:var(--muted)'>Şu an sakin uyuyor.</small><br><b>Ang:</b> Wann wacht er auf? <br><small style='color:var(--muted)'>Ne zaman uyanır?</small>" },
-                    { label: "Maßnahme", value: "Auskunft geben <br><small style='color:var(--muted)'>Bilgi ver</small>" }
-                ]
-            },
-            {
-                title: "Entlassung",
-                subtitle: "Abschluss • Taburcu",
-                icon: "🏠",
-                fields: [
-                    { label: "Befund", value: "Entlassbrief liegt bereit <br><small style='color:var(--muted)'>Taburcu belgesi hazır</small>", highlight: true },
-                    { label: "Dialog", value: "<b>Pfl:</b> Hier ist Ihr Brief. <br><small style='color:var(--muted)'>İşte belgeniz.</small><br><b>Pat:</b> Danke für alles. <br><small style='color:var(--muted)'>Her şey için teşekkürler.</small>" },
-                    { label: "Maßnahme", value: "Transportschein ausstellen <br><small style='color:var(--muted)'>Nakil belgesi düzenle</small>" }
+                title_de: "Blutdruckmessung",
+                text_de: "Vorbereitung der Vitalwertkontrolle.",
+                dialog: [
+                    { speaker: "PK", de: "Bevor wir zum Frühstück gehen, messe ich noch kurz Ihren Blutdruck.", tr: "Kahvaltıya gitmeden önce kısa bir tansiyonunuzu ölçeceğim." },
+                    { speaker: "Patient", de: "Ist er wieder zu hoch?", tr: "Yine mi çok yüksek?" },
+                    { speaker: "PK", de: "130 zu 80. Das ist heute ein sehr guter Wert!", tr: "130'a 80. Bu bugün için çok iyi bir değer!" }
                 ]
             }
-        ],
+        ]
+    },
+    {
+        title: "Übergabegespräch",
+        de_title: "Schichtwechsel: Patientin Frau Schmidt",
+        level: "B2 Pflege",
+        type: "Team-Kommunikation",
+        teaser_de: "Übergabe von der Frühschicht an die Spätschicht.",
+        teaser_tr: "Sabah vardiyasından öğle vardiyasına hasta devir teslimi.",
+        sections: [
+            {
+                title_de: "Zustand von Frau Schmidt",
+                text_de: "Dokumentation des Allgemeinzustands.",
+                dialog: [
+                    { speaker: "PK (Früh)", de: "Frau Schmidt in Zimmer 4 hat heute Morgen über Schwindel geklagt.", tr: "4 numaralı odadaki Bayan Schmidt bu sabah baş dönmesinden şikayet etti." },
+                    { speaker: "PK (Spät)", de: "Hat sie genug getrunken?", tr: "Yeterince su içti mi?" },
+                    { speaker: "PK (Früh)", de: "Ja, sie hat etwa 1,5 Liter Wasser getrunken. Der Arzt war schon da.", tr: "Evet, yaklaşık 1,5 litre su içti. Doktor zaten geldi." }
+                ]
+            }
+        ]
+    }
+],
   dokumentation: [
     {
       icon: "📋",
