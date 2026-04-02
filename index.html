@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PflegeAkademy Portal</title>
+    <title>PflegeAkademy - Nurse Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --nurse-blue: #0ea5e9; --med-green: #10b981; --warning-gold: #f59e0b;
-            --danger-red: #ef4444; --bg: #f8fafc; --card: #ffffff;
+            --danger-red: #ef4444; --bg: #f1f5f9; --card: #ffffff;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -17,70 +17,94 @@
         
         #app { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; padding: 12px; position: relative; }
 
-        /* GİRİŞ EKRANI - SAĞLIK PORTALI */
-        #login { position: fixed; inset: 0; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); z-index: 4000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
-        .hospital-logo { font-size: 80px; margin-bottom: 10px; filter: drop-shadow(0 10px 15px rgba(14,165,233,0.2)); }
+        /* GİRİŞ EKRANI */
+        .modal-overlay { position: fixed; inset: 0; background: white; z-index: 4000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-box { text-align: center; width: 100%; max-width: 350px; }
 
-        /* ÜST PANEL */
+        /* HEMŞİRE KARŞILAMA EKRANI */
+        #nurse-welcome { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 4500; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 50px; cursor: pointer; }
+        .nurse-img { width: 280px; filter: drop-shadow(0 0 20px var(--nurse-blue)); margin-bottom: -20px; animation: slideUp 0.6s ease-out; }
+        .speech-bubble { 
+            background: white; border-radius: 30px; padding: 20px; width: 85%; max-width: 320px; 
+            position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.3); margin-bottom: 40px;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .speech-bubble::after {
+            content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 20px solid white;
+        }
+
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* ÜST PANEL VE STREAK */
         .header { background: white; padding: 12px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-top: 4px solid var(--nurse-blue); flex-shrink: 0; }
+        .streak-dots { display: flex; gap: 6px; margin-top: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #e2e8f0; transition: 0.3s; border: 1px solid #cbd5e1; }
+        .dot.active { background: var(--med-green); box-shadow: 0 0 10px var(--med-green); border-color: transparent; }
 
-        /* SERİ (STREAK) LAMBALARI */
-        .streak-dots { display: flex; gap: 5px; margin-top: 5px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: #e2e8f0; transition: 0.3s; }
-        .dot.active { background: var(--med-green); box-shadow: 0 0 8px var(--med-green); }
-
-        /* HEDİYE BUTONU (SAĞLIK PAKETİ) */
-        #gift-btn { position: absolute; right: 20px; top: 130px; z-index: 100; cursor: pointer; text-align: center; animation: pulse-med 2s infinite; }
-        @keyframes pulse-med { 0% { transform: scale(1); } 50% { transform: scale(1.1); filter: hue-rotate(20deg); } 100% { transform: scale(1); } }
+        /* HEDİYE BUTONU */
+        #gift-btn { position: absolute; right: 20px; top: 130px; z-index: 100; cursor: pointer; animation: pulse-med 1.5s infinite; }
+        @keyframes pulse-med { 0% { transform: scale(1); } 50% { transform: scale(1.15); filter: drop-shadow(0 0 15px var(--warning-gold)); } 100% { transform: scale(1); } }
 
         /* MARKET */
         .market-belt { display: flex; justify-content: space-around; background: #1e293b; padding: 10px; border-radius: 20px; margin-bottom: 10px; color: white; flex-shrink: 0; }
         .item { text-align: center; cursor: pointer; flex: 1; border-right: 1px solid #334155; }
         .item:last-child { border: none; }
-        .item-price { font-size: 10px; background: var(--warning-gold); color: black; border-radius: 10px; padding: 2px 6px; font-weight: 800; display: inline-block; margin-top: 2px; }
+        .item-price { font-size: 10px; background: var(--warning-gold); color: black; border-radius: 10px; padding: 2px 6px; font-weight: 800; display: inline-block; }
 
-        /* SORU ALANI */
-        .card { background: var(--card); border-radius: 30px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: center; margin-bottom: 15px; border: 1px solid #e2e8f0; }
-        .vaka-box { background: #f1f5f9; border-radius: 15px; padding: 12px; font-size: 13px; color: #334155; border-left: 5px solid var(--nurse-blue); text-align: left; margin-bottom: 12px; line-height: 1.4; font-style: italic; }
+        /* SORU KARTI */
+        .card { background: var(--card); border-radius: 25px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: center; margin-bottom: 10px; border: 1px solid #e2e8f0; }
+        .vaka-box { background: #f1f5f9; border-radius: 15px; padding: 10px; font-size: 13px; color: #334155; border-left: 5px solid var(--nurse-blue); text-align: left; margin-bottom: 10px; font-style: italic; }
 
-        .opt-btn { background: white; border: 2px solid #f1f5f9; border-radius: 18px; padding: 15px; font-weight: 600; text-align: left; cursor: pointer; font-size: 15px; margin-bottom: 8px; width: 100%; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .opt-btn:active { transform: scale(0.98); }
-        .correct { background: #10b981 !important; color: white !important; border-color: #10b981 !important; }
-        .wrong { background: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .opt-btn { background: white; border: 2px solid #f1f5f9; border-radius: 15px; padding: 14px; font-weight: 600; text-align: left; cursor: pointer; font-size: 14px; margin-bottom: 6px; width: 100%; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .correct { background: #10b981 !important; color: white !important; transform: scale(1.02); }
+        .wrong { background: #ef4444 !important; color: white !important; }
 
-        /* ÇARK MODALI */
-        #wheel-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 3000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .wheel-wrap { position: relative; width: 320px; height: 320px; border: 12px solid #fff; border-radius: 50%; box-shadow: 0 0 50px rgba(14,165,233,0.3); }
-        #wheel { width: 100%; height: 100%; border-radius: 50%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); background: conic-gradient(
-            #10b981 0deg 60deg, #ef4444 60deg 120deg, #3b82f6 120deg 180deg, #f59e0b 180deg 240deg, #8b5cf6 240deg 300deg, #475569 300deg 360deg
-        ); }
-        .wheel-text { position: absolute; width: 50%; height: 50%; transform-origin: bottom right; padding: 25px 10px; color: white; font-weight: 800; font-size: 13px; text-align: center; }
-        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); z-index: 20; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 35px solid #fff; }
-
-        /* ÖDÜL KARTI */
-        #reward-ui { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: white; padding: 30px; border-radius: 35px; text-align: center; z-index: 3500; transition: 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28); width: 85%; max-width: 340px; box-shadow: 0 25px 60px rgba(0,0,0,0.4); }
-        #reward-ui.show { transform: translate(-50%, -50%) scale(1); }
+        /* ÇARK SİSTEMİ */
+        #wheel-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.98); z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .wheel-container { position: relative; width: 320px; height: 320px; border: 10px solid white; border-radius: 50%; box-shadow: 0 0 40px rgba(14,165,233,0.4); overflow: hidden; }
+        #wheel { width: 100%; height: 100%; border-radius: 50%; position: relative; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); 
+            background: conic-gradient(
+                #10b981 0 45deg, #ef4444 45deg 90deg, #3b82f6 90deg 135deg, #f59e0b 135deg 180deg,
+                #8b5cf6 180deg 225deg, #f43f5e 225deg 270deg, #06b6d4 270deg 315deg, #64748b 315deg 360deg
+            );
+        }
+        .wheel-text { position: absolute; top: 0; right: 0; width: 50%; height: 50%; transform-origin: bottom left; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 10px; padding-bottom: 65px; text-align: center; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); z-index: 6000; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid gold; }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="login">
-        <div class="hospital-logo">🏥</div>
-        <h1 style="font-family:'Montserrat'; color:#1e293b; margin:0; font-size:28px;">PFLEGE AKADEMY</h1>
-        <p style="color:#64748b; font-size:14px; margin-top:5px;">Sağlık Personeli Eğitim Portalı</p>
-        <div style="width:100%; max-width:320px; margin-top:30px;">
-            <input type="text" id="user-name" placeholder="Personel Adı Soyadı" style="width:100%; padding:18px; border-radius:15px; border:2px solid #e2e8f0; margin-bottom:15px; outline:none; text-align:center; font-size:16px;">
-            <button onclick="startApp()" style="background:var(--nurse-blue); color:white; border:none; padding:18px; border-radius:15px; font-weight:900; width:100%; cursor:pointer; font-size:16px; box-shadow: 0 10px 20px rgba(14,165,233,0.2);">SİSTEME GİRİŞ YAP</button>
+    <div id="login-screen" class="modal-overlay">
+        <div class="login-box">
+            <span style="font-size: 60px;">🏥</span>
+            <h1 style="font-family:'Montserrat'; margin:10px 0; color:var(--nurse-blue);">PflegeAkademy</h1>
+            <p style="color:#64748b;">Sağlık Personeli Portalı</p>
+            <input type="text" id="user-name" placeholder="Hemşire Adınız" style="width:100%; padding:18px; border-radius:20px; border:2px solid #e2e8f0; margin-bottom:20px; text-align:center; font-size:18px; outline:none;">
+            <button onclick="welcomeNurse()" style="background:var(--nurse-blue); color:white; border:none; padding:18px; border-radius:20px; width:100%; font-weight:900; cursor:pointer; font-size:16px;">SİSTEME GİRİŞ</button>
+        </div>
+    </div>
+
+    <div id="nurse-welcome" class="hidden" onclick="startGame()">
+        <div class="speech-bubble">
+            <h3 style="margin:0; color:var(--nurse-blue);" id="nurse-greet">Hemşire ...</h3>
+            <p style="margin:10px 0; font-weight:600; color:#475569;">Eğer üst üste <span style="color:var(--med-green);">4 SORUYU</span> doğru bilirsen, sürpriz çarktan harika ödüller kazanabilirsin! 🎁✨</p>
+            <p style="font-size:12px; color:#94a3b8;">(Devam etmek için ekrana dokun)</p>
+        </div>
+        <div class="nurse-img">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="70" r="50" fill="#FFDBAC" /> <path d="M50 70 Q100 20 150 70" fill="#4B2C20" /> <rect x="60" y="120" width="80" height="100" rx="20" fill="#0ea5e9" /> <rect x="85" y="130" width="30" height="30" fill="white" opacity="0.3" /> <circle cx="80" cy="65" r="5" fill="black" /> <circle cx="120" cy="65" r="5" fill="black" /> <path d="M85 85 Q100 100 115 85" fill="none" stroke="black" stroke-width="2" /> <path d="M60 120 L40 160 M140 120 L160 160" stroke="#0ea5e9" stroke-width="20" stroke-linecap="round" /> </svg>
         </div>
     </div>
 
     <div id="app" class="hidden">
         <div id="gift-btn" class="hidden" onclick="openWheel()">
-            <div style="background:white; border-radius:15px; padding:10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--warning-gold);">
-                <span style="font-size:35px;">📦</span>
-                <div style="font-size:10px; font-weight:900; color:var(--warning-gold);">BONUS PAKET</div>
+            <div style="background:white; border-radius:15px; padding:10px; border:3px solid var(--warning-gold); box-shadow: 0 10px 25px rgba(245,158,11,0.3);">
+                <span style="font-size:35px;">🎁</span>
+                <div style="font-size:10px; font-weight:900; color:var(--warning-gold); text-align:center;">ÖDÜLÜ AL!</div>
             </div>
         </div>
 
@@ -105,55 +129,64 @@
 
         <div style="flex-grow:1; display:flex; flex-direction:column;">
             <div class="card">
-                <div class="vaka-box" id="vaka-text">Wird geladen...</div>
-                <div id="art-badge" style="background:var(--nurse-blue); color:white; display:inline-block; padding:2px 10px; border-radius:8px; font-size:11px; font-weight:900; margin-bottom:8px;">ARTIKEL</div>
-                <h2 id="q-word" style="margin:5px 0; font-size:26px; color:#1e293b;">Wort</h2>
-                <button onclick="speak()" style="background:#f1f5f9; border:none; padding:10px 20px; border-radius:12px; color:var(--nurse-blue); font-weight:700; cursor:pointer; margin-top:10px;">🔊 Aussprache</button>
+                <div class="vaka-box" id="vaka-text">Lädt...</div>
+                <div id="art-badge" style="background:var(--nurse-blue); color:white; display:inline-block; padding:2px 10px; border-radius:8px; font-size:11px; font-weight:900; margin-bottom:5px;">DER/DIE/DAS</div>
+                <h2 id="q-word" style="margin:5px 0; font-size:26px; color:#1e293b;">...</h2>
+                <button onclick="speak()" style="background:#f1f5f9; border:none; padding:10px 20px; border-radius:15px; color:var(--nurse-blue); font-weight:700; cursor:pointer; margin-top:5px;">🔊 Aussprache</button>
             </div>
-            <div id="opt-grid" style="overflow-y:auto; flex-grow:1;"></div>
+            <div id="opt-grid"></div>
         </div>
     </div>
 
     <div id="wheel-modal" class="hidden">
-        <h2 style="color:white; font-family:'Montserrat'; margin-bottom:20px; letter-spacing:2px;">BAŞARI ÇARKI</h2>
-        <div class="wheel-wrap">
-            <div class="pointer"></div>
+        <div class="pointer"></div>
+        <div class="wheel-container">
             <div id="wheel">
-                <div class="wheel-text" style="transform: rotate(30deg) translate(25px, -25px);">+1 CAN</div>
-                <div class="wheel-text" style="transform: rotate(90deg) translate(25px, -25px);">-50 XP</div>
-                <div class="wheel-text" style="transform: rotate(150deg) translate(15px, -25px);">+100 XP</div>
-                <div class="wheel-text" style="transform: rotate(210deg) translate(15px, -25px);">İPUCU</div>
-                <div class="wheel-text" style="transform: rotate(270deg) translate(15px, -25px);">+150 XP</div>
-                <div class="wheel-text" style="transform: rotate(330deg) translate(25px, -25px);">KAYIP</div>
+                <div class="wheel-text" style="transform: rotate(22.5deg);">+1 CAN</div>
+                <div class="wheel-text" style="transform: rotate(67.5deg);">-50 XP</div>
+                <div class="wheel-text" style="transform: rotate(112.5deg);">+100 XP</div>
+                <div class="wheel-text" style="transform: rotate(157.5deg);">İPUCU</div>
+                <div class="wheel-text" style="transform: rotate(202.5deg);">+200 XP</div>
+                <div class="wheel-text" style="transform: rotate(247.5deg);">-1 CAN</div>
+                <div class="wheel-text" style="transform: rotate(292.5deg);">BEDAVA PAS</div>
+                <div class="wheel-text" style="transform: rotate(337.5deg);">KAYIP</div>
             </div>
         </div>
-        <button onclick="spinWheel()" id="spin-btn" style="margin-top:40px; padding:20px 70px; border-radius:40px; border:none; background:var(--med-green); color:white; font-weight:900; font-size:22px; cursor:pointer; box-shadow: 0 8px 0 #059669;">ÇEVİR!</button>
+        <button onclick="spinWheel()" id="spin-btn" style="margin-top:40px; padding:18px 60px; border-radius:40px; border:none; background:var(--med-green); color:white; font-weight:900; font-size:20px; cursor:pointer; box-shadow: 0 10px 0 #059669;">ÇEVİR!</button>
     </div>
 
-    <div id="reward-ui">
-        <div id="rew-icon" style="font-size:70px;">🎁</div>
-        <h2 id="rew-title" style="margin:10px 0; color:#1e293b;">TEBRİKLER!</h2>
-        <p id="rew-desc" style="color:#64748b; font-weight:500; line-height:1.4;"></p>
-        <button onclick="closeReward()" style="background:var(--nurse-blue); color:white; border:none; padding:18px; border-radius:20px; font-weight:900; width:100%; margin-top:20px; cursor:pointer;">PORTALA DÖN</button>
+    <div id="reward-screen" class="modal-overlay hidden" style="z-index: 6000; background: rgba(0,0,0,0.8);">
+        <div style="background:white; padding:40px; border-radius:40px; text-align:center; max-width:320px; width:90%;">
+            <div id="rew-icon" style="font-size:70px;">🎁</div>
+            <h2 id="rew-title" style="margin:10px 0;">TEBRİKLER</h2>
+            <p id="rew-desc" style="color:#64748b; font-weight:600;"></p>
+            <button onclick="closeReward()" style="background:var(--nurse-blue); color:white; border:none; padding:15px; border-radius:20px; width:100%; font-weight:900; margin-top:15px; cursor:pointer;">DEVAM ET</button>
+        </div>
     </div>
 
 <script>
     const VOCAB = [
-        { de: "Blutdruckmessung", art: "die", tr: "Tansiyon ölçümü", vaka: "Der Patient hat Kopfschmerzen. Der Wert ist 170/95 mmHg." },
-        { de: "Verbandwechsel", art: "der", tr: "Pansuman değişimi", vaka: "Die Wunde am Fuß muss gereinigt und neu verbunden werden." },
-        { de: "Dekubitusprophylaxe", art: "die", tr: "Yatak yarası önleme", vaka: "Um Hautschäden zu vermeiden, lagern wir den Patienten um." },
-        { de: "Insulinspritze", art: "die", tr: "İnsülin iğnesi", vaka: "Der Blutzuckerspiegel des Patienten ist sehr hoch (250 mg/dl)." },
-        { de: "Aspirationsgefahr", art: "die", tr: "Aspirasyon riski", vaka: "Der Patient hat Schluckbeschwerden beim Essen." },
-        { de: "Händedesinfektion", art: "die", tr: "El dezenfeksiyonu", vaka: "Vor jedem Patientenkontakt ist dies zwingend erforderlich." }
+        { de: "Blutdruckmessung", art: "die", tr: "Tansiyon ölçümü", vaka: "Der Patient hat einen Blutdruck von 150/90 mmHg." },
+        { de: "Flüssigkeitsbilanz", art: "die", tr: "Sıvı dengesi", vaka: "Wir müssen dokumentieren, wie viel der Patient trinkt." },
+        { de: "Oberkörperhochlagerung", art: "die", tr: "Üst vücudu yükseltme", vaka: "Der Patient hat Atemnot und braucht eine bessere Position." },
+        { de: "Desinfektionsmittel", art: "das", tr: "Dezenfektan", vaka: "Vor der Injektion muss die Haut gereinigt werden." },
+        { de: "Patientenakte", art: "die", tr: "Hasta dosyası", vaka: "Alle Informationen werden im Computer gespeichert." },
+        { de: "Magensonde", art: "die", tr: "Mide sondası", vaka: "Die Nahrung wird direkt in den Magen geleitet." }
     ];
 
-    let state = { xp: 0, lives: 5, current: null, streak: 0, busy: false };
+    let state = { xp: 0, lives: 5, current: null, streak: 0, busy: false, name: "" };
 
-    function startApp() {
-        const n = document.getElementById('user-name').value || "Hemşire";
-        document.getElementById('disp-name').innerText = n;
-        document.getElementById('login').classList.add('hidden');
+    function welcomeNurse() {
+        state.name = document.getElementById('user-name').value || "Meslektaşım";
+        document.getElementById('nurse-greet').innerText = "Hemşire " + state.name;
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('nurse-welcome').classList.remove('hidden');
+    }
+
+    function startGame() {
+        document.getElementById('nurse-welcome').classList.add('hidden');
         document.getElementById('app').classList.remove('hidden');
+        document.getElementById('disp-name').innerText = state.name;
         next();
     }
 
@@ -182,43 +215,28 @@
     }
 
     function check(isOk, btn) {
-        const all = document.querySelectorAll('.opt-btn');
-        all.forEach(b => b.style.pointerEvents = 'none');
-
+        document.querySelectorAll('.opt-btn').forEach(b => b.style.pointerEvents = 'none');
         if(isOk) {
             state.xp += 20;
             state.streak++;
             btn.classList.add('correct');
-            updateStreakUI();
-            confetti({ particleCount: 40, spread: 70, origin: { y: 0.8 } });
-
-            if(state.streak >= 4) {
-                document.getElementById('gift-btn').classList.remove('hidden');
-            }
-            setTimeout(next, 700);
+            confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
+            if(state.streak >= 4) document.getElementById('gift-btn').classList.remove('hidden');
         } else {
             state.lives--;
             state.streak = 0;
             btn.classList.add('wrong');
-            updateStreakUI();
-            if(state.lives <= 0) setTimeout(() => location.reload(), 1500);
-            else setTimeout(next, 900);
+            if(state.lives <= 0) setTimeout(() => location.reload(), 2000);
         }
         updateUI();
-    }
-
-    function updateStreakUI() {
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((d, i) => {
-            d.classList.toggle('active', i < state.streak);
-        });
+        setTimeout(next, 900);
     }
 
     function openWheel() {
         document.getElementById('gift-btn').classList.add('hidden');
         document.getElementById('wheel-modal').classList.remove('hidden');
         state.streak = 0;
-        updateStreakUI();
+        updateUI();
     }
 
     function spinWheel() {
@@ -231,15 +249,16 @@
         setTimeout(() => {
             const actual = 360 - (deg % 360);
             let p = {};
-            if(actual < 60) p = { t: "+1 CAN", d: "Ekstra nöbet gücü! Canın yenilendi.", i: "💉", fn: () => state.lives++ };
-            else if(actual < 120) p = { t: "-50 XP", d: "Tıbbi hata! Puanlarından bir kısmı silindi.", i: "⚠️", fn: () => state.xp = Math.max(0, state.xp-50) };
-            else if(actual < 180) p = { t: "100 XP", d: "Başarılı operasyon! Hesabına 100 XP eklendi.", i: "💰", fn: () => state.xp += 100 };
-            else if(actual < 240) p = { t: "İPUCU", d: "Bir sonraki zor soruda kullanman için ipucu kredisi.", i: "💡", fn: () => state.xp += 25 };
-            else if(actual < 300) p = { t: "150 XP", d: "Haftanın personeli seçildin! Büyük ödül.", i: "⭐", fn: () => state.xp += 150 };
-            else p = { t: "KAYIP", d: "Şans bu sefer senden yana değildi...", i: "📉", fn: () => {} };
+            if(actual < 45) p = { t: "+1 CAN", d: "Harika! Canın tazelendi.", i: "💉", fn: () => state.lives++ };
+            else if(actual < 90) p = { t: "-50 XP", d: "Tıbbi hata! Puanın azaldı.", i: "⚠️", fn: () => state.xp = Math.max(0, state.xp-50) };
+            else if(actual < 135) p = { t: "+100 XP", d: "Büyük başarı bonusu!", i: "💰", fn: () => state.xp += 100 };
+            else if(actual < 180) p = { t: "İPUCU", d: "Ücretsiz ipucu hakkı kazandın.", i: "💡", fn: () => state.xp += 25 };
+            else if(actual < 225) p = { t: "+200 XP", d: "Süperstar! Müthiş puan.", i: "🌟", fn: () => state.xp += 200 };
+            else if(actual < 270) p = { t: "-1 CAN", d: "Nöbet çok yorucu geçti...", i: "😴", fn: () => state.lives-- };
+            else if(actual < 315) p = { t: "BEDAVA PAS", d: "Pas geçme kredisi eklendi.", i: "🚑", fn: () => state.xp += 40 };
+            else p = { t: "KAYIP", d: "Maalesef bu turda ödül yok.", i: "📉", fn: () => {} };
             
             p.fn();
-            updateUI();
             showReward(p);
         }, 4000);
     }
@@ -248,15 +267,15 @@
         document.getElementById('rew-icon').innerText = p.i;
         document.getElementById('rew-title').innerText = p.t;
         document.getElementById('rew-desc').innerText = p.d;
-        document.getElementById('reward-ui').classList.add('show');
+        document.getElementById('reward-screen').classList.remove('hidden');
     }
 
     function closeReward() {
-        document.getElementById('reward-ui').classList.remove('show');
+        document.getElementById('reward-screen').classList.add('hidden');
         document.getElementById('wheel-modal').classList.add('hidden');
         document.getElementById('wheel').style.transform = "rotate(0deg)";
         state.busy = false;
-        next();
+        updateUI();
     }
 
     function buy(t, c) {
@@ -275,6 +294,8 @@
     function updateUI() {
         document.getElementById('xp-val').innerText = state.xp;
         document.getElementById('life-val').innerText = state.lives;
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i < state.streak));
     }
 
     function speak() {
