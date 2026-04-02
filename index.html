@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PflegeAkademy Elite</title>
+    <title>PflegeAkademy Ultra</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,93 +12,91 @@
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; overflow: hidden; height: 100vh; display: flex; justify-content: center; }
         #app { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; padding: 15px; position: relative; }
 
-        /* MODALLAR GENEL */
-        .full-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.98); z-index: 9000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
-        .card-pop { background: white; color: #1e293b; padding: 30px; border-radius: 30px; width: 90%; max-width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        /* MERKEZİ ÖDÜL KARTI (SONUÇLAR İÇİN) */
+        .full-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; text-align: center; color: #1e293b; padding: 20px; }
+        .reward-card { background: white; padding: 40px 30px; border-radius: 40px; width: 90%; max-width: 380px; box-shadow: 0 25px 60px rgba(0,0,0,0.4); animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* ÜST PANEL */
         .stats { background: #1e293b; color: white; padding: 15px; border-radius: 25px; margin-bottom: 15px; }
         .xp-bg { background: #334155; height: 10px; border-radius: 10px; margin: 10px 0; overflow: hidden; }
-        #xp-fill { background: var(--med); height: 100%; width: 0%; transition: 0.5s; }
+        #xp-fill { background: linear-gradient(90deg, #10b981, #34d399); height: 100%; width: 0%; transition: 0.8s; }
         
-        /* MARKET */
-        .market-btn { background: var(--gold); color: black; border: none; padding: 8px 15px; border-radius: 12px; font-weight: 900; cursor: pointer; }
-        .market-item { display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 12px; border-radius: 15px; margin-bottom: 10px; border: 2px solid #e2e8f0; }
+        /* MARKET BUTONU */
+        .market-btn { background: var(--gold); color: black; border: none; padding: 8px 18px; border-radius: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 0 #b45309; }
 
-        /* SORU KARTI */
-        .q-card { background: white; border-radius: 30px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-        .vaka { background: #f8fafc; padding: 15px; border-radius: 15px; border-left: 5px solid var(--nurse); font-size: 13px; text-align: left; margin-bottom: 15px; font-style: italic; }
-        .opt { background: white; border: 2px solid #f1f5f9; border-radius: 15px; padding: 15px; margin-bottom: 8px; width: 100%; font-weight: 600; cursor: pointer; text-align: left; transition: 0.2s; }
-        .opt.correct { background: var(--med); color: white; }
-        .opt.wrong { background: var(--red); color: white; }
-
-        /* ÇARK */
-        #wheel-box { position: relative; width: 300px; height: 300px; border: 8px solid white; border-radius: 50%; overflow: hidden; box-shadow: 0 0 30px var(--nurse); }
+        /* ÇARK TASARIMI */
+        #wheel-box { position: relative; width: 300px; height: 300px; border: 10px solid white; border-radius: 50%; overflow: hidden; box-shadow: 0 0 40px rgba(14,165,233,0.3); }
         #wheel { width: 100%; height: 100%; border-radius: 50%; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
             background: conic-gradient(#10b981 0 45deg, #ef4444 45deg 90deg, #3b82f6 90deg 135deg, #f59e0b 135deg 180deg, #8b5cf6 180deg 225deg, #ec4899 225deg 270deg, #06b6d4 270deg 315deg, #64748b 315deg 360deg);
         }
-        .w-txt { position: absolute; top: 0; right: 0; width: 50%; height: 50%; transform-origin: bottom left; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 10px; padding-bottom: 60px; }
-        .pointer { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid gold; margin-bottom: -10px; z-index: 10; }
+        .w-txt { position: absolute; top: 0; right: 0; width: 50%; height: 50%; transform-origin: bottom left; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 11px; padding-bottom: 65px; }
+        .pointer { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid gold; margin-bottom: -15px; z-index: 10; position: relative; }
 
-        #gift { position: absolute; bottom: 30px; right: 30px; font-size: 50px; cursor: pointer; animation: bounce 1s infinite alternate; }
-        @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.2); } }
+        /* SORU BÖLÜMÜ */
+        .q-card { background: white; border-radius: 30px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .opt { background: white; border: 2px solid #f1f5f9; border-radius: 20px; padding: 18px; margin-bottom: 10px; width: 100%; font-weight: 700; cursor: pointer; text-align: left; transition: 0.2s; font-size: 15px; }
+        .opt.correct { background: var(--med); color: white; border-color: var(--med); }
+        .opt.wrong { background: var(--red); color: white; border-color: var(--red); }
+
+        #gift-btn { position: absolute; bottom: 30px; right: 30px; font-size: 60px; cursor: pointer; animation: bounce 1s infinite alternate; z-index: 100; filter: drop-shadow(0 0 10px gold); }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="login-modal" class="full-overlay" style="background: white;">
-        <div class="card-pop" style="box-shadow: none; border: 2px solid #eee;">
-            <span style="font-size: 50px;">👩‍⚕️</span>
-            <h2 style="font-family: 'Montserrat'; color: var(--nurse);">PflegeAkademy</h2>
-            <input type="text" id="user-in" placeholder="Adınız" style="width:100%; padding:15px; border-radius:15px; border:2px solid #ddd; margin-bottom:15px; text-align:center;">
-            <button onclick="nurseGreet()" style="width:100%; background:var(--nurse); color:white; padding:15px; border:none; border-radius:15px; font-weight:900;">BAŞLA</button>
+    <div id="login-screen" class="full-overlay" style="background: white;">
+        <div class="reward-card" style="box-shadow: none; border: 2px solid #f1f5f9;">
+            <div style="font-size: 60px;">🩺</div>
+            <h1 style="font-family: 'Montserrat'; color: var(--nurse);">PflegeAkademy</h1>
+            <input type="text" id="user-name" placeholder="Hemşire Adınız" style="width:100%; padding:18px; border-radius:20px; border:2px solid #ddd; margin-bottom:20px; text-align:center; font-size:18px;">
+            <button onclick="nurseIntro()" style="width:100%; background:var(--nurse); color:white; padding:18px; border:none; border-radius:20px; font-weight:900; font-size:16px; cursor:pointer;">SİSTEME GİR</button>
         </div>
     </div>
 
-    <div id="nurse-greet-modal" class="full-overlay hidden">
-        <div style="background: white; color: #1e293b; padding: 25px; border-radius: 30px; position: relative; width: 85%;">
-            <h3 id="n-name" style="color: var(--nurse); margin: 0;">Hemşire ...</h3>
-            <p style="font-weight: 600;">Eğer <b>5 doğru</b> yaparsan sana sürpriz bir çark getireceğim! İçinde harika ödüller var. 🎁</p>
-            <button onclick="startGame()" style="background: var(--med); color: white; border: none; padding: 12px 30px; border-radius: 12px; font-weight: 900;">HAZIRIM!</button>
-            <div style="position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); border-top: 20px solid white; border-left: 20px solid transparent; border-right: 20px solid transparent;"></div>
+    <div id="nurse-intro" class="full-overlay hidden">
+        <div class="reward-card">
+            <h2 id="n-greet" style="color: var(--nurse);">Hemşire ...</h2>
+            <p style="font-size: 18px; font-weight: 600; color: #475569;">Unutma! Üst üste <span style="color:var(--med)">5 doğru</span> yaparsan ödül çarkını getiririm. Hazır mısın?</p>
+            <button onclick="startApp()" style="background: var(--med); color: white; border: none; padding: 15px 40px; border-radius: 20px; font-weight: 900; cursor: pointer;">BAŞLAYALIM!</button>
         </div>
-        <div style="font-size: 150px; margin-top: 30px;">👩‍⚕️</div>
+        <div style="font-size: 150px; margin-top: 20px;">👩‍⚕️</div>
     </div>
 
     <div id="app" class="hidden">
         <div class="stats">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span id="rank" style="font-size: 11px; font-weight: 900; color: var(--nurse);">STAJYER</span>
-                <button class="market-btn" onclick="toggleModal('market-modal', true)">🛒 Kantin</button>
+                <span id="rank-tag" style="font-size: 11px; font-weight: 900; color: var(--nurse); letter-spacing: 1px;">STAJYER</span>
+                <button class="market-btn" onclick="openMarket()">🛒 KANTİN</button>
             </div>
             <div class="xp-bg"><div id="xp-fill"></div></div>
-            <div style="display:flex; justify-content:space-between; font-weight: 700; font-size: 14px;">
-                <span>💰 <span id="coin-v">0</span></span>
-                <span>LVL <span id="lvl-v">1</span></span>
-                <span>❤️ <span id="life-v">5</span></span>
+            <div style="display:flex; justify-content:space-between; font-weight: 800;">
+                <span>💰 <span id="coin-txt">0</span></span>
+                <span>LVL <span id="lvl-txt">1</span></span>
+                <span>❤️ <span id="life-txt">5</span></span>
             </div>
         </div>
 
         <div class="q-card">
-            <div class="vaka" id="v-txt">...</div>
-            <h2 id="q-word" style="margin: 10px 0;">Wort</h2>
-            <div id="opts"></div>
+            <div id="vaka-box" style="font-style: italic; color: #64748b; margin-bottom: 15px; font-size: 14px; text-align: left; background: #f8fafc; padding: 15px; border-radius: 15px; border-left: 5px solid var(--nurse);">...</div>
+            <h2 id="q-word" style="margin: 0 0 20px 0; font-size: 26px;">Kelime</h2>
+            <div id="option-container"></div>
         </div>
 
-        <div id="gift" class="hidden" onclick="toggleModal('wheel-modal', true)">🎁</div>
+        <div id="gift-btn" class="hidden" onclick="openWheel()">🎁</div>
     </div>
 
-    <div id="market-modal" class="full-overlay hidden" onclick="toggleModal('market-modal', false)">
-        <div class="card-pop" onclick="event.stopPropagation()">
-            <h3 style="margin-top:0;">Hastane Kantini</h3>
-            <div class="market-item" onclick="buy('heart', 200)">
-                <span>💉 <b>Can Paketi</b></span><span style="background:var(--gold); padding:4px 8px; border-radius:8px;">200 💰</span>
+    <div id="market-modal" class="full-overlay hidden" onclick="closeMarket()">
+        <div class="reward-card" onclick="event.stopPropagation()">
+            <h2 style="margin-top:0;">Hastane Kantini</h2>
+            <div style="background:#f1f5f9; padding:15px; border-radius:20px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; cursor:pointer;" onclick="buyItem('heart', 250)">
+                <span>💉 <b>+1 CAN</b></span><span style="background:var(--gold); padding:5px 12px; border-radius:10px; font-weight:900;">250 💰</span>
             </div>
-            <div class="market-item" onclick="buy('skip', 100)">
-                <span>🚑 <b>Pas Geç</b></span><span style="background:var(--gold); padding:4px 8px; border-radius:8px;">100 💰</span>
+            <div style="background:#f1f5f9; padding:15px; border-radius:20px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; cursor:pointer;" onclick="buyItem('skip', 150)">
+                <span>🚑 <b>PAS GEÇ</b></span><span style="background:var(--gold); padding:5px 12px; border-radius:10px; font-weight:900;">150 💰</span>
             </div>
-            <button onclick="toggleModal('market-modal', false)" style="width:100%; padding:10px; margin-top:10px; border:none; border-radius:10px;">Kapat</button>
+            <button onclick="closeMarket()" style="width:100%; padding:15px; border-radius:15px; border:none; margin-top:10px; font-weight:700;">KAPAT</button>
         </div>
     </div>
 
@@ -116,58 +114,73 @@
                 <div class="w-txt" style="transform:rotate(337.5deg);">BOŞ</div>
             </div>
         </div>
-        <button id="spin-btn" onclick="spin()" style="margin-top:30px; background:var(--med); color:white; padding:15px 50px; border:none; border-radius:30px; font-weight:900;">ÇEVİR!</button>
+        <button id="spin-btn" onclick="spinWheel()" style="margin-top:30px; background:var(--med); color:white; padding:18px 60px; border:none; border-radius:40px; font-weight:900; font-size:20px; cursor:pointer; box-shadow: 0 8px 0 #059669;">ÇEVİR!</button>
     </div>
 
     <div id="result-modal" class="full-overlay hidden">
-        <div class="card-pop">
-            <div id="res-icon" style="font-size: 60px;">🏆</div>
-            <h2 id="res-title">TEBRİKLER</h2>
-            <p id="res-desc">Ödülünüz eklendi!</p>
-            <button onclick="toggleModal('result-modal', false)" style="width:100%; background:var(--nurse); color:white; padding:15px; border:none; border-radius:15px; font-weight:900;">DEVAM ET</button>
+        <div class="reward-card">
+            <div id="res-icon" style="font-size: 80px; margin-bottom: 10px;">🏆</div>
+            <h2 id="res-title" style="margin: 0; color: var(--nurse);">TEBRİKLER!</h2>
+            <p id="res-desc" style="font-size: 18px; font-weight: 600; color: #475569; margin: 15px 0;">Ödülün Hesabına Eklendi.</p>
+            <button onclick="closeResult()" style="width:100%; background:var(--nurse); color:white; padding:15px; border:none; border-radius:15px; font-weight:900; cursor:pointer;">DEVAM ET</button>
         </div>
     </div>
 
 <script>
     const DATA = [
-        { de: "Herzinsuffizienz", tr: "Kalp yetmezliği", vaka: "Der Patient hat Wasser in den Lungen und Atemnot." },
-        { de: "Magenspiegelung", tr: "Gastroskopi", vaka: "Wir müssen den Magen von innen untersuchen." },
-        { de: "Blutentnahme", tr: "Kan alma", vaka: "Ich brauche drei Röhrchen für das Labor." },
-        { de: "Wundpflege", tr: "Yara bakımı", vaka: "Der Verband muss täglich gewechselt werden." }
+        { de: "Lungenentzündung", tr: "Zatürre", vaka: "Der Patient hustet stark und hat hohes Fieber." },
+        { de: "Blutdruckmessung", tr: "Tansiyon ölçümü", vaka: "Wir müssen prüfen, ob der Blutdruck zu hoch ist." },
+        { de: "Hüftfraktur", tr: "Kalça kırığı", vaka: "Der Patient ist gestürzt und kann das linke Bein nicht bewegen." },
+        { de: "Medikamentengabe", tr: "İlaç verme", vaka: "Die Tabletten müssen vor dem Essen eingenommen werden." }
     ];
 
     let state = { xp: 0, coins: 200, lives: 5, level: 1, streak: 0, busy: false, name: "" };
 
-    function nurseGreet() {
-        state.name = document.getElementById('user-in').value || "Hemşire";
-        document.getElementById('n-name').innerText = "Hemşire " + state.name;
-        document.getElementById('login-modal').classList.add('hidden');
-        document.getElementById('nurse-greet-modal').classList.remove('hidden');
+    function nurseIntro() {
+        state.name = document.getElementById('user-name').value || "Hemşire";
+        document.getElementById('n-greet').innerText = "Hemşire " + state.name;
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('nurse-intro').classList.remove('hidden');
     }
 
-    function startGame() {
-        document.getElementById('nurse-greet-modal').classList.add('hidden');
+    function startApp() {
+        document.getElementById('nurse-intro').classList.add('hidden');
         document.getElementById('app').classList.remove('hidden');
         updateUI();
-        next();
+        nextQ();
     }
 
     function updateUI() {
-        document.getElementById('coin-v').innerText = state.coins;
-        document.getElementById('life-v').innerText = state.lives;
-        document.getElementById('lvl-v').innerText = state.level;
-        let nextXP = state.level * 200;
+        document.getElementById('coin-txt').innerText = state.coins;
+        document.getElementById('life-txt').innerText = state.lives;
+        document.getElementById('lvl-txt').innerText = state.level;
+        let nextXP = state.level * 250;
         document.getElementById('xp-fill').style.width = (state.xp / nextXP * 100) + "%";
+        
         if(state.xp >= nextXP) {
             state.level++; state.xp = 0; state.coins += 500;
-            showResult("🏆", "SEVİYE ATLADIN!", `Tebrikler ${state.level}. seviyeye ulaştın! +500💰 kazandın.`);
-            confetti({ particleCount: 150, spread: 70 });
+            triggerLevelUp();
         }
     }
 
-    function next() {
+    function triggerLevelUp() {
+        document.getElementById('res-icon').innerText = "🏆";
+        document.getElementById('res-title').innerText = "LEVEL ATLADIN!";
+        document.getElementById('res-desc').innerHTML = `Tebrikler ${state.level}. Seviyeye ulaştın!<br><b>+500 💰 Hediye Edildi.</b>`;
+        document.getElementById('result-modal').classList.remove('hidden');
+        
+        // Havai Fişek Şöleni
+        let end = Date.now() + (3 * 1000);
+        (function frame() {
+            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        }());
+    }
+
+    function nextQ() {
         let q = DATA[Math.floor(Math.random()*DATA.length)];
-        document.getElementById('v-txt').innerText = q.vaka;
+        document.getElementById('vaka-box').innerText = q.vaka;
         document.getElementById('q-word').innerText = q.de;
         let opts = [q.tr];
         while(opts.length < 4) {
@@ -175,62 +188,72 @@
             if(!opts.includes(r)) opts.push(r);
         }
         opts.sort(()=>Math.random()-0.5);
-        const grid = document.getElementById('opts'); grid.innerHTML = "";
+        const container = document.getElementById('option-container');
+        container.innerHTML = "";
         opts.forEach(o => {
-            const b = document.createElement('button'); b.className = "opt"; b.innerText = o;
-            b.onclick = () => {
+            const btn = document.createElement('button');
+            btn.className = "opt";
+            btn.innerText = o;
+            btn.onclick = () => {
                 if(o === q.tr) {
-                    b.classList.add('correct'); state.xp += 50; state.coins += 10; state.streak++;
-                    if(state.streak >= 5) document.getElementById('gift').classList.remove('hidden');
+                    btn.classList.add('correct'); state.xp += 50; state.coins += 10; state.streak++;
+                    if(state.streak >= 5) document.getElementById('gift-btn').classList.remove('hidden');
                 } else {
-                    b.classList.add('wrong'); state.lives--; state.streak = 0;
+                    btn.classList.add('wrong'); state.lives--; state.streak = 0;
                     if(state.lives <= 0) location.reload();
                 }
-                updateUI(); setTimeout(next, 800);
+                updateUI(); setTimeout(nextQ, 800);
             };
-            grid.appendChild(b);
+            container.appendChild(btn);
         });
     }
 
-    function spin() {
+    function openWheel() { 
+        document.getElementById('wheel-modal').classList.remove('hidden');
+        document.getElementById('gift-btn').classList.add('hidden');
+        state.streak = 0;
+    }
+
+    function spinWheel() {
         if(state.busy) return; state.busy = true;
         const deg = Math.floor(Math.random() * 360) + 3600;
         document.getElementById('wheel').style.transform = `rotate(${deg}deg)`;
+        
         setTimeout(() => {
             const actual = 360 - (deg % 360);
-            let res = { i: "🎁", t: "ÖDÜL!", d: "" };
-            if(actual < 45) { state.coins += 300; res.d = "+300💰 Kazandın!"; }
-            else if(actual < 90) { state.lives--; res.i = "💔"; res.t = "EYVAH"; res.d = "-1 Can Gitti!"; }
-            else if(actual < 135) { state.xp += 100; res.d = "+100 XP Kazandın!"; }
-            else if(actual < 180) { state.lives++; res.d = "+1 Can Kazandın!"; }
-            else if(actual < 225) { state.coins += 500; res.d = "+500💰 Kazandın!"; }
-            else if(actual < 270) { state.coins += 150; res.d = "+150💰 Kazandın!"; }
-            else if(actual < 315) { state.xp += 50; res.d = "+50 XP Kazandın!"; }
-            else { res.i = "💨"; res.t = "TÜH"; res.d = "Boş Çıktı!"; }
+            let gift = { i: "🎁", t: "TEBRİKLER", d: "" };
             
-            toggleModal('wheel-modal', false);
-            showResult(res.i, res.t, res.d);
-            document.getElementById('gift').classList.add('hidden');
-            state.busy = false; state.streak = 0; updateUI();
+            if(actual < 45) { state.coins += 300; gift.d = "+300💰 Kazandın!"; }
+            else if(actual < 90) { state.lives--; gift.i = "💔"; gift.t = "TÜH!"; gift.d = "-1 Can Kaybettin!"; }
+            else if(actual < 135) { state.xp += 100; gift.d = "+100 XP Kazandın!"; }
+            else if(actual < 180) { state.lives++; gift.d = "+1 Can Kazandın!"; }
+            else if(actual < 225) { state.coins += 500; gift.d = "+500💰 Kazandın!"; }
+            else if(actual < 270) { state.coins += 150; gift.d = "+150💰 Kazandın!"; }
+            else if(actual < 315) { state.xp += 50; gift.d = "+50 XP Kazandın!"; }
+            else { gift.i = "💨"; gift.t = "BOŞ"; gift.d = "Maalesef ödül çıkmadı."; }
+
+            document.getElementById('wheel-modal').classList.add('hidden');
+            document.getElementById('res-icon').innerText = gift.i;
+            document.getElementById('res-title').innerText = gift.t;
+            document.getElementById('res-desc').innerText = gift.d;
+            document.getElementById('result-modal').classList.remove('hidden');
+            
+            if(gift.i !== "💔" && gift.i !== "💨") confetti({ particleCount: 100, spread: 70 });
+            
+            state.busy = false; updateUI();
             document.getElementById('wheel').style.transform = "rotate(0deg)";
         }, 4100);
     }
 
-    function showResult(i, t, d) {
-        document.getElementById('res-icon').innerText = i;
-        document.getElementById('res-title').innerText = t;
-        document.getElementById('res-desc').innerText = d;
-        toggleModal('result-modal', true);
-        if(i !== "💔" && i !== "💨") confetti({ particleCount: 50 });
-    }
+    function closeResult() { document.getElementById('result-modal').classList.add('hidden'); }
+    function openMarket() { document.getElementById('market-modal').classList.remove('hidden'); }
+    function closeMarket() { document.getElementById('market-modal').classList.add('hidden'); }
 
-    function toggleModal(id, show) { document.getElementById(id).classList.toggle('hidden', !show); }
-    
-    function buy(type, cost) {
+    function buyItem(type, cost) {
         if(state.coins >= cost) {
             state.coins -= cost;
             if(type === 'heart') state.lives++;
-            if(type === 'skip') next();
+            if(type === 'skip') nextQ();
             updateUI();
         } else alert("Yetersiz 💰");
     }
