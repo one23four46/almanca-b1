@@ -3,144 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedDeutsch Academy</title>
+    <title>MedDeutsch Pro Academy</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
+            --medical-blue: #0f4c75;
+            --medical-light: #3282b8;
             --duo-green: #58cc02;
-            --duo-green-dark: #46a302;
-            --duo-blue: #1cb0f6;
             --duo-red: #ff4b4b;
-            --duo-gray: #afafaf;
-            --text-color: #4b4b4b;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #fff;
-            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            background-attachment: fixed;
             margin: 0;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
+            color: #1b262c;
+        }
+
+        /* Tıbbi Arka Plan Deseni */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.3;
+            z-index: -1;
         }
 
         #app {
             width: 100%;
             max-width: 500px;
             padding: 20px;
-        }
-
-        .header-stats {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        /* Karşılama Ekranı */
+        #screen-welcome {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--medical-blue);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 2px solid #e5e5e5;
-            margin-bottom: 30px;
-        }
-
-        .stat { font-weight: bold; font-size: 1.2rem; }
-
-        .card {
-            border: 2px solid #e5e5e5;
-            border-radius: 18px;
-            padding: 30px;
+            color: white;
+            z-index: 1000;
             text-align: center;
-            box-shadow: 0 4px 0 #e5e5e5;
-            margin-bottom: 20px;
+            transition: opacity 0.5s ease;
         }
 
+        /* Şık Kartlar */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
+            border: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Modern Butonlar */
         .btn {
             cursor: pointer;
             border: none;
-            border-radius: 14px;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 16px 25px;
+            border-radius: 18px;
+            font-weight: 800;
+            padding: 18px 25px;
             width: 100%;
-            transition: all 0.1s;
+            font-size: 16px;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn-green {
-            background: var(--duo-green);
-            color: white;
-            box-shadow: 0 5px 0 var(--duo-green-dark);
-        }
-
-        .btn-green:active {
-            box-shadow: none;
-            transform: translateY(4px);
-        }
+        .btn-welcome { background: white; color: var(--medical-blue); margin-top: 20px; width: auto; }
+        .btn-green { background: var(--duo-green); color: white; box-shadow: 0 6px 0 #46a302; }
+        .btn-blue { background: var(--medical-light); color: white; box-shadow: 0 6px 0 #205295; }
+        .btn:active { transform: translateY(4px); box-shadow: none; }
+        .btn:hover { filter: brightness(1.1); transform: scale(1.02); }
 
         .option-btn {
             background: white;
-            border: 2px solid #e5e5e5;
-            box-shadow: 0 4px 0 #e5e5e5;
+            color: #333;
+            text-align: left;
             margin-bottom: 12px;
-            color: var(--text-color);
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 0 #e0e0e0;
             text-transform: none;
         }
 
-        .option-btn:hover { background-color: #f7f7f7; }
+        /* Üst Bar */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 15px;
+        }
 
-        .hidden { display: none; }
+        .stat-box { display: flex; flex-direction: column; align-items: center; }
+        .stat-label { font-size: 10px; font-weight: bold; color: #777; }
+        .stat-value { font-size: 18px; font-weight: bold; }
 
-        .quiz-question { font-size: 26px; font-weight: bold; margin-bottom: 10px; color: #1cb0f6; }
-        
-        .progress-bar {
-            height: 12px;
-            background: #e5e5e5;
-            border-radius: 10px;
+        .progress-container {
             flex-grow: 1;
+            height: 12px;
+            background: #eee;
+            border-radius: 10px;
             margin: 0 15px;
             overflow: hidden;
         }
+        .progress-fill { height: 100%; background: var(--duo-green); width: 0%; transition: 0.4s; }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--duo-green);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
+        .hidden { display: none; }
+        .quiz-q { font-size: 32px; font-weight: bold; color: var(--medical-blue); margin-bottom: 10px; }
+        
+        /* Animasyonlar */
+        .correct-ans { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .wrong-ans { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; animation: shake 0.3s; }
+        
         @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            100% { transform: translateX(0); }
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
-        .wrong { animation: shake 0.2s; border-color: var(--duo-red) !important; color: var(--duo-red); }
     </style>
 </head>
 <body>
 
-<div id="app">
-    <div class="header-stats">
-        <span id="hearts" style="color: var(--duo-red);">❤️ 5</span>
-        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
-        <span id="score" style="color: var(--duo-blue);">⭐ 0</span>
+    <div id="screen-welcome">
+        <div style="font-size: 100px;">🧬</div>
+        <h1 style="font-size: 36px; margin: 10px;">MedDeutsch Academy</h1>
+        <p style="opacity: 0.8; padding: 0 20px;">Tıp dünyasının kapılarını Almanca ile açmaya hazır mısın?</p>
+        <button class="btn btn-welcome" onclick="closeWelcome()">DEVAM ET</button>
     </div>
 
-    <div id="screen-home">
-        <div class="card">
-            <div style="font-size: 60px; margin-bottom: 10px;">🩺</div>
-            <h2 style="margin: 0;">MedDeutsch Academy</h2>
-            <p style="color: var(--duo-gray);">Tıp Almancası Alıştırmaları</p>
+    <div id="app" class="hidden">
+        <div class="header">
+            <div class="stat-box"><span class="stat-label">CAN</span><span id="hearts" style="color:var(--duo-red)">❤️ 10</span></div>
+            <div class="progress-container"><div id="fill" class="progress-fill"></div></div>
+            <div class="stat-box"><span class="stat-label">PUAN</span><span id="score" style="color:var(--medical-light)">⭐ 0</span></div>
+            <div class="stat-box"><span class="stat-label">REKOR</span><span id="high-score" style="color:#f39c12">🏆 0</span></div>
         </div>
-        <button class="btn btn-green" onclick="startQuiz()">Alıştırmaya Başla</button>
-    </div>
 
-    <div id="screen-quiz" class="hidden">
-        <div class="card">
-            <div id="question-text" class="quiz-question">Kelime</div>
-            <button onclick="speakCurrentWord()" style="background:#f0f0f0; border:none; border-radius: 50%; width: 45px; height: 45px; cursor:pointer; font-size: 20px;">🔊</button>
+        <div id="screen-home">
+            <div class="card">
+                <div style="font-size: 60px;">🩺</div>
+                <h2 style="color: var(--medical-blue);">Hoş Geldiniz</h2>
+                <p>Kendi rekorunu kırmak için kelime maratonuna başla.</p>
+            </div>
+            <button class="btn btn-green" onclick="startQuiz()">Alıştırmaya Başla</button>
         </div>
-        <div id="options-container"></div>
+
+        <div id="screen-quiz" class="hidden">
+            <div class="card">
+                <div id="q-text" class="quiz-q">...</div>
+                <button onclick="speak()" style="font-size:24px; border:none; background:#e1f1ff; border-radius:50%; width:55px; height:55px; cursor:pointer; color:var(--medical-blue);">🔊</button>
+            </div>
+            <div id="options"></div>
+        </div>
+
+        <div id="screen-over" class="hidden">
+            <div class="card">
+                <div style="font-size: 70px;">👨‍⚕️</div>
+                <h2 style="color:var(--duo-red)">Canlar Tükendi!</h2>
+                <p>Pes etme! Tıp uzun bir yolculuktur.</p>
+                <div style="font-size: 40px; font-weight: bold; margin: 15px 0;" id="final-score">0 XP</div>
+            </div>
+            <button class="btn btn-blue" onclick="location.reload()">Yeniden Dene</button>
+        </div>
     </div>
-</div>
 
 <script>
-    // SENİN ORİJİNAL KELİME LİSTEN (Hepsini buraya taşıdım)
+    // --- BURAYA ORIJINAL LİSTENİ YAPIŞTIR ---
     const VOCAB = [
   {id:1,de:"der Arzt",tr:"doktor (erkek)",cat:"Genel",ex:"Der Arzt untersucht den Patienten.",level:"A1"},
   {id:2,de:"die Ärztin",tr:"doktor (kadın)",cat:"Genel",ex:"Die Ärztin verschreibt ein Medikament.",level:"A1"},
@@ -649,89 +695,112 @@
   {id:505,de:"der Pflegegrad",tr:"bakım derecesi",cat:"Genel",ex:"Der Pflegegrad bestimmt den Leistungsumfang.",level:"C1"},
 ];
 
-    let gameState = {
-        score: 0,
-        hearts: 5,
-        currentQuestion: null,
-        totalAsked: 0
-    };
+    let state = { score: 0, hearts: 10, current: null, count: 0, highScore: localStorage.getItem('medHighScore') || 0 };
 
-    function switchScreen(id) {
-        document.getElementById('screen-home').classList.add('hidden');
-        document.getElementById('screen-quiz').classList.add('hidden');
-        document.getElementById(id).classList.remove('hidden');
+    function closeWelcome() {
+        document.getElementById('screen-welcome').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            updateUI();
+        }, 500);
     }
 
     function startQuiz() {
-        gameState.hearts = 5;
-        gameState.score = 0;
-        gameState.totalAsked = 0;
-        updateStats();
-        nextQuestion();
-        switchScreen('screen-quiz');
+        state.score = 0; state.hearts = 10; state.count = 0;
+        updateUI();
+        nextQ();
+        switchScreen('quiz');
     }
 
-    function nextQuestion() {
-        const correctWord = VOCAB[Math.floor(Math.random() * VOCAB.length)];
-        gameState.currentQuestion = correctWord;
+    function switchScreen(id) {
+        ['home', 'quiz', 'over'].forEach(s => document.getElementById('screen-'+s).classList.add('hidden'));
+        document.getElementById('screen-'+id).classList.remove('hidden');
+    }
 
-        let options = [correctWord.tr];
-        while(options.length < 4) {
-            let randomTr = VOCAB[Math.floor(Math.random() * VOCAB.length)].tr;
-            if(!options.includes(randomTr)) options.push(randomTr);
+    function nextQ() {
+        state.current = VOCAB[Math.floor(Math.random() * VOCAB.length)];
+        let opts = [state.current.tr];
+        while(opts.length < 4) {
+            let r = VOCAB[Math.floor(Math.random() * VOCAB.length)].tr;
+            if(!opts.includes(r)) opts.push(r);
         }
-        options.sort(() => 0.5 - Math.random());
+        opts.sort(() => Math.random() - 0.5);
 
-        document.getElementById('question-text').innerText = correctWord.de;
-        const container = document.getElementById('options-container');
-        container.innerHTML = "";
-        
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = "btn option-btn";
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(opt, btn);
-            container.appendChild(btn);
+        document.getElementById('q-text').innerText = state.current.de;
+        const div = document.getElementById('options');
+        div.innerHTML = "";
+        opts.forEach(o => {
+            const b = document.createElement('button');
+            b.className = "btn option-btn";
+            b.innerText = o;
+            b.onclick = () => check(o, b);
+            div.appendChild(b);
         });
     }
 
-    function checkAnswer(selected, btnElement) {
-        if(selected === gameState.currentQuestion.tr) {
-            gameState.score += 10;
-            gameState.totalAsked++;
-            btnElement.style.backgroundColor = "#e1f5ee";
-            btnElement.style.borderColor = "var(--duo-green)";
-            btnElement.style.color = "var(--duo-green)";
-            
-            // Progress Bar'ı ilerlet (Her 10 soruda bir tam tur gibi hayal et)
-            let progress = (gameState.totalAsked % 10) * 10;
-            document.getElementById('progress-fill').style.width = (progress === 0 ? 100 : progress) + "%";
+    function check(selected, btn) {
+        const btns = document.querySelectorAll('.option-btn');
+        btns.forEach(b => b.style.pointerEvents = 'none');
 
-            setTimeout(nextQuestion, 500);
+        if(selected === state.current.tr) {
+            state.score += 10; state.count++;
+            btn.classList.add('correct-ans');
+            
+            // Konfeti ve Ses
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+            playTone(800, 0.2);
+
+            // Rekor Kontrolü
+            if(state.score > state.highScore) {
+                state.highScore = state.score;
+                localStorage.setItem('medHighScore', state.highScore);
+            }
+
+            document.getElementById('fill').style.width = (state.count * 10 % 101) + "%";
+            setTimeout(nextQ, 600);
         } else {
-            gameState.hearts--;
-            btnElement.classList.add('wrong');
-            if(gameState.hearts <= 0) {
-                alert("Canın bitti! Skorun: " + gameState.score);
-                switchScreen('screen-home');
+            state.hearts--;
+            btn.classList.add('wrong-ans');
+            playTone(200, 0.3);
+            
+            if(state.hearts <= 0) {
+                setTimeout(() => {
+                    document.getElementById('final-score').innerText = state.score + " XP";
+                    switchScreen('over');
+                }, 600);
+            } else {
+                setTimeout(() => {
+                    btn.classList.remove('wrong-ans');
+                    btns.forEach(b => b.style.pointerEvents = 'auto');
+                }, 800);
             }
         }
-        updateStats();
+        updateUI();
     }
 
-    function updateStats() {
-        document.getElementById('hearts').innerText = "❤️ " + gameState.hearts;
-        document.getElementById('score').innerText = "⭐ " + gameState.score;
+    function updateUI() {
+        document.getElementById('hearts').innerText = "❤️ " + state.hearts;
+        document.getElementById('score').innerText = "⭐ " + state.score;
+        document.getElementById('high-score').innerText = "🏆 " + state.highScore;
     }
 
-    function speakCurrentWord() {
-        if (!gameState.currentQuestion) return;
-        const msg = new SpeechSynthesisUtterance(gameState.currentQuestion.de);
-        msg.lang = 'de-DE';
-        msg.rate = 0.8;
-        window.speechSynthesis.speak(msg);
+    function playTone(freq, dur) {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.frequency.value = freq; o.connect(g); g.connect(ctx.destination);
+        g.gain.setValueAtTime(0.1, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + dur);
+        o.start(); o.stop(ctx.currentTime + dur);
+    }
+
+    function speak() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(state.current.de);
+        u.lang = 'de-DE'; u.rate = 0.8;
+        window.speechSynthesis.speak(u);
     }
 </script>
-
 </body>
 </html>
