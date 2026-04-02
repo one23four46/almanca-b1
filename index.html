@@ -946,82 +946,307 @@ nurse: {
             { article: "die", de: "Krankenkasse", tr: "Sağlık Sigortası", en: "Health insurance", category: "Basics", example: "Ihre Versichertenkarte bitte.", ex_tr: "Sigorta kartınız lütfen." }
         ],
   fallbeispiele: [
-    {
-      title: "Sabah Bakımı – Kalp Yetmezliği Olan Hasta",
-      de_title: "Morgenpflege bei herzinsuffizienter Patientin",
-      level: "B1",
-      type: "Grundpflege",
-      teaser_tr: "Bay Müller, 74 yaşında ve kalp yetmezliği tanısı var. Sabah bakımında dikkat edilmesi gereken noktalar.",
-      teaser_de: "Herr Müller, 74 Jahre, mit Herzinsuffizienz. Morgenroutine mit wichtigen Beobachtungspunkten.",
-      sections: [
-        {
-          title_tr: "Klinik Tablo", title_de: "Klinisches Bild",
-          text_tr: "Bay Müller (74), şiddetli kalp yetmezliği (<strong>schwere Herzinsuffizienz</strong>) NYHA III tanısıyla kardiyoloji servisinde yatmaktadır. Bu sabah hemşire günaydın diyerek odaya giriyor ve vitallerini ölçüyor.",
-          text_de: "Herr Müller (74 Jahre) liegt auf der kardiologischen Station mit der Diagnose <strong>schwere Herzinsuffizienz</strong> NYHA III. Die Pflegerin betritt das Zimmer, begrüßt ihn freundlich und misst zunächst die <strong>Vitalzeichen</strong>."
-        },
-        {
-          title_tr: "Diyalog", title_de: "Dialog",
-          dialog: [
-            { speaker: "Pflegerin", de: "Guten Morgen, Herr Müller! Wie haben Sie geschlafen?", tr: "Günaydın Bay Müller! Nasıl uyudunuz?" },
-            { speaker: "Patient", de: "Nicht so gut. Ich hatte wieder Luftnot, besonders wenn ich mich flach hinlege.", tr: "Pek iyi değil. Düz uzanınca yine nefes darlığım oldu." },
-            { speaker: "Pflegerin", de: "Das ist wichtig. Ich erhöhe den Kopfteil des Bettes – das macht die Atmung leichter. Haben Sie auch Schmerzen in der Brust?", tr: "Bu önemli. Yatağın baş kısmını kaldırıyorum – nefes almayı kolaylaştırır. Göğüs ağrınız da var mı?" },
-            { speaker: "Patient", de: "Nein, Schmerzen nicht. Aber meine Beine sind heute Morgen wieder sehr dick.", tr: "Hayır, ağrı yok. Ama bacaklarım bu sabah yine çok şişmiş." },
-            { speaker: "Pflegerin", de: "Ich werde die Ödeme genau dokumentieren und den Arzt informieren. Ich messe jetzt Ihren Blutdruck und die Sauerstoffsättigung.", tr: "Ödemleri detaylı belgeleyeceğim ve doktoru haberdar edeceğim. Şimdi kan basıncınızı ve oksijen satürasyonunuzu ölçüyorum." }
-          ]
-        },
-        {
-          title_tr: "Bulgular ve Planlama", title_de: "Befunde und Planung",
-          text_de: "Die Messung ergibt: <strong>Blutdruck 148/92 mmHg</strong>, <strong>Herzfrequenz 96/min</strong>, <strong>Sauerstoffsättigung 91 %</strong>. Die Pflegerin dokumentiert dies im <strong>Pflegeprotokoll</strong> und benachrichtigt die Ärztin. Aufgrund der reduzierten Belastbarkeit wird die <strong>Mobilisation</strong> nur mit Begleitung durchgeführt. Das <strong>Gewicht</strong> wird täglich kontrolliert, da eine Gewichtszunahme von mehr als 1 kg in 24 Stunden auf eine Flüssigkeitsretention hinweist.",
-          text_tr: "Ölçüm sonuçları: <strong>Kan basıncı 148/92 mmHg</strong>, <strong>kalp atım hızı 96/dk</strong>, <strong>oksijen satürasyonu %91</strong>. Hemşire bunu bakım protokolüne kaydeder ve doktoru bilgilendirir. Azalmış tolerans nedeniyle <strong>mobilizasyon</strong> yalnızca eşlik eşliğinde yapılır. <strong>Ağırlık</strong> her gün kontrol edilir; 24 saat içinde 1 kg'dan fazla artış sıvı retansiyonuna işaret eder."
-        }
-      ]
-    },
-    {
-      title: "Übergabe – Nachtschicht",
-      de_title: "Übergabe von der Nacht- zur Frühschicht",
-      level: "B2",
-      type: "Kommunikation",
-      teaser_tr: "Gece vardiyasından sabah vardiyasına SBAR yöntemiyle hasta devri.",
-      teaser_de: "Strukturierte Übergabe mit SBAR-Methode von der Nacht- zur Frühschicht.",
-      sections: [
-        {
-          title_tr: "SBAR Yöntemi", title_de: "SBAR-Methode",
-          text_de: "Die <strong>SBAR-Methode</strong> (Situation – Background – Assessment – Recommendation) ist der Standard für eine sichere und vollständige <strong>Übergabe</strong> in deutschen Krankenhäusern.",
-          text_tr: "Alman hastanelerinde güvenli ve eksiksiz <strong>hasta devri</strong> için standart: <strong>SBAR yöntemi</strong> (Durum – Arka plan – Değerlendirme – Öneri)."
-        },
-        {
-          title_tr: "Diyalog – Hasta Devri", title_de: "Dialog – Übergabe",
-          dialog: [
-            { speaker: "Nachtpfleger", de: "Situation: Herr Bauer, Zimmer 12, 68 Jahre, post-OP Tag 2 nach Hüft-TEP. In der Nacht hat er dreimal geklingelt wegen Schmerzen.", tr: "Durum: Bay Bauer, oda 12, 68 yaşında, kalça protezi ameliyatının 2. günü. Gece üç kez ağrı nedeniyle zil çaldı." },
-            { speaker: "Frühpfleger", de: "Hat er seine Bedarfsmedikation bekommen?", tr: "Gerektiğinde ilaç aldı mı?" },
-            { speaker: "Nachtpfleger", de: "Background: Ja, um 01:30 und 04:00 Uhr habe ich je 500 mg Paracetamol i.v. verabreicht. Diclofenac ist kontraindiziert wegen der Niereninsuffizienz.", tr: "Arka plan: Evet, 01:30 ve 04:00'de ikişer kez 500 mg Parasetamol i.v. verdim. Böbrek yetmezliği nedeniyle Diklofenak kontrendike." },
-            { speaker: "Nachtpfleger", de: "Assessment: Ich vermute, dass die Schmerzeinstellung noch nicht optimal ist – NRS lag konstant bei 6.", tr: "Değerlendirme: Ağrı kontrolünün henüz yeterli olmadığını düşünüyorum – NRS sürekli 6'da kaldı." },
-            { speaker: "Nachtpfleger", de: "Recommendation: Bitte sprich heute Morgen mit der Ärztin über eine Anpassung des Schmerzschemas.", tr: "Öneri: Lütfen bu sabah doktorla ağrı protokolünün düzenlenmesi hakkında konuş." }
-          ]
-        }
-      ]
-    },
-    {
-      title: "Dekubitusprophylaxe",
-      de_title: "Pflegemaßnahmen zur Dekubitusprophylaxe",
-      level: "B1",
-      type: "Prophylaxe",
-      teaser_tr: "Yatağa bağlı hastalarda bası yarası oluşumunu önlemek için uygulanan bakım adımları.",
-      teaser_de: "Systematische Pflegemaßnahmen zur Vermeidung von Druckgeschwüren bei bettlägerigen Patienten.",
-      sections: [
-        {
-          title_tr: "Risk Değerlendirmesi", title_de: "Risikoeinschätzung",
-          text_de: "Die <strong>Braden-Skala</strong> oder der <strong>Norton-Score</strong> werden verwendet, um das Dekubitusrisiko einzuschätzen. Frau Schmidt (82 Jahre) hat einen Norton-Score von 14 – sie gilt als <strong>gefährdet</strong>. Die wichtigsten Risikofaktoren: <strong>Immobilität</strong>, schlechter Ernährungszustand (<strong>Kachexie</strong>), eingeschränkte Wahrnehmung und <strong>Inkontinenz</strong>.",
-          text_tr: "<strong>Braden Skalası</strong> veya <strong>Norton Skoru</strong>, bası yarası riskini değerlendirmek için kullanılır. Bayan Schmidt (82) Norton Skoru 14 – <strong>risk altında</strong> sayılır. En önemli risk faktörleri: <strong>immobilite</strong>, kötü beslenme durumu (<strong>kaşeksi</strong>), sınırlı algı ve <strong>inkontinans</strong>."
-        },
-        {
-          title_tr: "Planlanan Önlemler", title_de: "Geplante Maßnahmen",
-          text_de: "Folgende Pflegemaßnahmen werden geplant und im <strong>Pflegeplan</strong> dokumentiert: <strong>Umlagerung</strong> alle 2 Stunden nach dem <strong>30°-Schema</strong>, Einsatz einer <strong>Wechseldruckmatratze</strong>, tägliche <strong>Hautinspektion</strong> aller gefährdeten Körperstellen (Fersen, Steißbein, Schulterblätter) sowie <strong>Hautpflege</strong> mit feuchtigkeitserhaltenden Cremes.",
-          text_tr: "Aşağıdaki bakım önlemleri planlanır ve <strong>bakım planına</strong> kaydedilir: <strong>30° şemasına</strong> göre her 2 saatte bir <strong>pozisyon değiştirme</strong>, <strong>değişen basınçlı şilte</strong> kullanımı, tüm risk bölgelerinin (topuklar, kuyruk sokumu, kürek kemikleri) günlük <strong>cilt muayenesi</strong> ve nemlendirici kremlerle <strong>cilt bakımı</strong>."
-        }
-      ]
-    }
-  ],
+            {
+                title: "Akuter Myokardinfarkt",
+                subtitle: "Kardiyoloji • Acil Müdahale",
+                icon: "❤️",
+                fields: [
+                    { label: "Patient", value: "Herr Müller (65) - Brustschmerzen <br><small style='color:var(--muted)'>Göğüs ağrısı olan 65 yaşındaki hasta</small>", highlight: true },
+                    { label: "Symptome", value: "Kaltschweißigkeit, Dyspnoe <br><small style='color:var(--muted)'>Soğuk terleme, nefes darlığı</small>" },
+                    { label: "Maßnahmen", value: "Notarzt rufen, EKG, O2-Gabe <br><small style='color:var(--muted)'>Doktor çağırma, EKG, Oksijen verme</small>" }
+                ]
+            },
+            {
+                title: "Hyperglykämie",
+                subtitle: "Diabetes Mellitus",
+                icon: "🩸",
+                fields: [
+                    { label: "Patient", value: "Frau Schmidt (72) - BZ: 450 mg/dl <br><small style='color:var(--muted)'>Kan şekeri 450 olan hasta</small>", highlight: true },
+                    { label: "Symptome", value: "Azetongeruch, Polyurie <br><small style='color:var(--muted)'>Aseton kokusu, sık idrar</small>" },
+                    { label: "Maßnahmen", value: "Insulingabe, Flüssigkeit <br><small style='color:var(--muted)'>İnsülin uygulaması, sıvı desteği</small>" }
+                ]
+            },
+            {
+                title: "Hypoglykämie",
+                subtitle: "Unterzuckerung",
+                icon: "🍬",
+                fields: [
+                    { label: "Patient", value: "Herr Demir (50) - BZ: 45 mg/dl <br><small style='color:var(--muted)'>Kan şekeri 45 olan hasta</small>", highlight: true },
+                    { label: "Symptome", value: "Zittern, Heißhunger, Verwirrtheit <br><small style='color:var(--muted)'>Titreme, aşırı açlık, kafa karışıklığı</small>" },
+                    { label: "Maßnahmen", value: "Traubenzucker, Saft <br><small style='color:var(--muted)'>Dekstroz (şeker), meyve suyu</small>" }
+                ]
+            },
+            {
+                title: "Dekubitus Grad II",
+                subtitle: "Wundmanagement",
+                icon: "🩹",
+                fields: [
+                    { label: "Befund", value: "Blasenbildung am Sakrum <br><small style='color:var(--muted)'>Kuyruk sokumunda su toplanması/yara</small>", highlight: true },
+                    { label: "Pflege", value: "Druckentlastung, Verbandwechsel <br><small style='color:var(--muted)'>Basıncı azaltma, pansuman değişimi</small>" },
+                    { label: "Ziel", value: "Infektionsprophylaxe <br><small style='color:var(--muted)'>Enfeksiyonu önleme</small>" }
+                ]
+            },
+            {
+                title: "Pneumonie",
+                subtitle: "Atemwegserkrankung",
+                icon: "🫁",
+                fields: [
+                    { label: "Symptome", value: "Fieber, produktiver Husten <br><small style='color:var(--muted)'>Ateş, balgamlı öksürük</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Inhalation, Lagerung (V-A-T) <br><small style='color:var(--muted)'>Buhar verme, özel pozisyonlar</small>" },
+                    { label: "Labor", value: "Leukozyten erhöht <br><small style='color:var(--muted)'>Lökosit (iltihap) yüksekliği</small>" }
+                ]
+            },
+            {
+                title: "Apoplex (Schlaganfall)",
+                subtitle: "Neurologie",
+                icon: "🧠",
+                fields: [
+                    { label: "Check", value: "FAST-Test positiv <br><small style='color:var(--muted)'>Felç testi pozitif</small>", highlight: true },
+                    { label: "Symptome", value: "Lähmung, Sprachstörung <br><small style='color:var(--muted)'>Felç durumu, konuşma bozukluğu</small>" },
+                    { label: "Maßnahmen", value: "Stroke Unit, Zeit dokumentieren <br><small style='color:var(--muted)'>İnme ünitesi, zaman kaydı</small>" }
+                ]
+            },
+            {
+                title: "Thrombose",
+                subtitle: "Gefäßerkrankung",
+                icon: "🦵",
+                fields: [
+                    { label: "Befund", value: "Bein geschwollen und rot <br><small style='color:var(--muted)'>Bacak şiş ve kırmızı</small>", highlight: true },
+                    { label: "Gefahr", value: "Lungenembolie <br><small style='color:var(--muted)'>Akciğer embolisi riski</small>" },
+                    { label: "Maßnahmen", value: "Bettruhe, Heparin <br><small style='color:var(--muted)'>Yatak istirahati, kan sulandırıcı</small>" }
+                ]
+            },
+            {
+                title: "Zystitis",
+                subtitle: "Harnwegsinfekt",
+                icon: "🚽",
+                fields: [
+                    { label: "Symptome", value: "Brennen beim Wasserlassen <br><small style='color:var(--muted)'>İdrar yaparken yanma</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Viel Trinken, Urinstix <br><small style='color:var(--muted)'>Bol sıvı, idrar çubuğu testi</small>" },
+                    { label: "Arznei", value: "Antibiotika <br><small style='color:var(--muted)'>Antibiyotik</small>" }
+                ]
+            },
+            {
+                title: "Fraktur (Oberschenkel)",
+                subtitle: "Orthopädie",
+                icon: "🦴",
+                fields: [
+                    { label: "Status", value: "Post-Operativ <br><small style='color:var(--muted)'>Ameliyat sonrası</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Mobilisation, Analgetika <br><small style='color:var(--muted)'>Hareketlendirme, ağrı kesici</small>" },
+                    { label: "Pflege", value: "Wundkontrolle <br><small style='color:var(--muted)'>Yara kontrolü</small>" }
+                ]
+            },
+            {
+                title: "Dehydration",
+                subtitle: "Flüssigkeitsmangel",
+                icon: "🌵",
+                fields: [
+                    { label: "Befund", value: "Stehende Hautfalten <br><small style='color:var(--muted)'>Ciltte kırışıklık (sıvı kaybı)</small>", highlight: true },
+                    { label: "Symptome", value: "Verwirrtheit, trockener Mund <br><small style='color:var(--muted)'>Kafa karışıklığı, kuru ağız</small>" },
+                    { label: "Plan", value: "Infusionstherapie <br><small style='color:var(--muted)'>Serum tedavisi</small>" }
+                ]
+            },
+            {
+                title: "Aszites",
+                subtitle: "Leberzirrhose",
+                icon: "🎈",
+                fields: [
+                    { label: "Befund", value: "Bauchumfang erhöht <br><small style='color:var(--muted)'>Karın çevresinde artış (sıvı)</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Gewichtskontrolle, Punktion <br><small style='color:var(--muted)'>Kilo takibi, sıvı boşaltma</small>" },
+                    { label: "Pflege", value: "Eiweißreiche Kost <br><small style='color:var(--muted)'>Proteinli beslenme</small>" }
+                ]
+            },
+            {
+                title: "Ileus",
+                subtitle: "Darmverschluss",
+                icon: "🚫",
+                fields: [
+                    { label: "Symptome", value: "Kein Stuhlgang, Erbrechen <br><small style='color:var(--muted)'>Dışkı yapamama, kusma</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Nüchtern bleiben, Magensonde <br><small style='color:var(--muted)'>Aç kalma, mide sondası</small>" },
+                    { label: "Gefahr", value: "Perforation <br><small style='color:var(--muted)'>Delinme riski</small>" }
+                ]
+            },
+            {
+                title: "Anämie",
+                subtitle: "Blutarmut",
+                icon: "⚪",
+                fields: [
+                    { label: "Symptome", value: "Blässe, Müdigkeit <br><small style='color:var(--muted)'>Solgunluk, yorgunluk</small>", highlight: true },
+                    { label: "Labor", value: "Hb-Wert niedrig <br><small style='color:var(--muted)'>Hemoglobin düşük</small>" },
+                    { label: "Therapie", value: "Eisentabletten <br><small style='color:var(--muted)'>Demir hapları</small>" }
+                ]
+            },
+            {
+                title: "Parkinson-Syndrom",
+                subtitle: "Neurologie",
+                icon: "🤝",
+                fields: [
+                    { label: "Symptome", value: "Tremor, Rigor, Akinese <br><small style='color:var(--muted)'>Titreme, sertlik, hareketsizlik</small>", highlight: true },
+                    { label: "Sturzgefahr", value: "Sehr hoch <br><small style='color:var(--muted)'>Düşme riski çok yüksek</small>" },
+                    { label: "Hilfe", value: "Gehtraining <br><small style='color:var(--muted)'>Yürüme eğitimi</small>" }
+                ]
+            },
+            {
+                title: "Demenz",
+                subtitle: "Geriatrie",
+                icon: "🧩",
+                fields: [
+                    { label: "Patient", value: "Orientierungslos <br><small style='color:var(--muted)'>Yönünü/Zamanı şaşırmış</small>", highlight: true },
+                    { label: "Pflege", value: "Validierung, Struktur <br><small style='color:var(--muted)'>Doğrulama, sabit düzen</small>" },
+                    { label: "Gefahr", value: "Weglauftendenz <br><small style='color:var(--muted)'>Kaçıp gitme eğilimi</small>" }
+                ]
+            },
+            {
+                title: "Herzinsuffizienz",
+                subtitle: "Kardiologie",
+                icon: "💔",
+                fields: [
+                    { label: "Symptome", value: "Ödeme, Atemnot <br><small style='color:var(--muted)'>Ödemler, nefes darlığı</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Flüssigkeitsbilanz <br><small style='color:var(--muted)'>Sıvı takibi (giriş-çıkış)</small>" },
+                    { label: "Wiegen", value: "Täglich morgens <br><small style='color:var(--muted)'>Her sabah tartılma</small>" }
+                ]
+            },
+            {
+                title: "Epileptischer Anfall",
+                subtitle: "Neurologie",
+                icon: "⚡",
+                fields: [
+                    { label: "Maßnahmen", value: "Patient schützen, Zeit stoppen <br><small style='color:var(--muted)'>Hastayı koru, süreyi tut</small>", highlight: true },
+                    { label: "Verbot", value: "Nichts in den Mund stecken <br><small style='color:var(--muted)'>Ağza bir şey sokulmaz</small>" },
+                    { label: "Danach", value: "Stabile Seitenlage <br><small style='color:var(--muted)'>Stabil yan yatış pozisyonu</small>" }
+                ]
+            },
+            {
+                title: "Lungenembolie",
+                subtitle: "Notfall",
+                icon: "⚠️",
+                fields: [
+                    { label: "Symptome", value: "Plötzliche Atemnot, Angst <br><small style='color:var(--muted)'>Ani nefes darlığı, korku</small>", highlight: true },
+                    { label: "Maßnahmen", value: "O2-Gabe, Oberkörper hoch <br><small style='color:var(--muted)'>Oksijen, üst gövde yukarı</small>" },
+                    { label: "Arzt", value: "Sofort alarmieren <br><small style='color:var(--muted)'>Hemen haber ver</small>" }
+                ]
+            },
+            {
+                title: "MRSA Infektion",
+                subtitle: "Hygiene",
+                icon: "☣️",
+                fields: [
+                    { label: "Status", value: "Isolation <br><small style='color:var(--muted)'>İzolasyon (ayrı oda)</small>", highlight: true },
+                    { label: "Schutz", value: "Kittel, Maske, Handschuhe <br><small style='color:var(--muted)'>Önlük, maske, eldiven</small>" },
+                    { label: "Hygiene", value: "Händedesinfektion <br><small style='color:var(--muted)'>El dezenfeksiyonu</small>" }
+                ]
+            },
+            {
+                title: "Osteoporose",
+                subtitle: "Knochenbau",
+                icon: "🦴",
+                fields: [
+                    { label: "Symptome", value: "Knochenbrüche, Rückenschmerz <br><small style='color:var(--muted)'>Kemik kırıkları, sırt ağrısı</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Sturzprophylaxe, Kalzium <br><small style='color:var(--muted)'>Düşmeyi önleme, kalsiyum</small>" },
+                    { label: "Zufuhr", value: "Vitamin D <br><small style='color:var(--muted)'>D Vitamini takviyesi</small>" }
+                ]
+            },
+            {
+                title: "Obstipation",
+                subtitle: "Verdauung",
+                icon: "💩",
+                fields: [
+                    { label: "Symptome", value: "Harter Stuhlgang, Blähungen <br><small style='color:var(--muted)'>Sert dışkı, şişkinlik</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Ballaststoffe, Bewegung <br><small style='color:var(--muted)'>Lifli gıda, hareket</small>" },
+                    { label: "Hilfe", value: "Einlauf / Klistier <br><small style='color:var(--muted)'>Lavman</small>" }
+                ]
+            },
+            {
+                title: "Dekompensiertes Herz",
+                subtitle: "Kardiologie",
+                icon: "🚨",
+                fields: [
+                    { label: "Symptome", value: "Rasselgeräusche beim Atmen <br><small style='color:var(--muted)'>Nefeste hırıltı (su toplama)</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Diuretika geben <br><small style='color:var(--muted)'>İdrar söktürücü verme</small>" },
+                    { label: "Lagerung", value: "Herzbett-Lagerung <br><small style='color:var(--muted)'>Kalp-yatak pozisyonu</small>" }
+                ]
+            },
+            {
+                title: "Chronische Wunde",
+                subtitle: "Chirurgie",
+                icon: "🩸",
+                fields: [
+                    { label: "Befund", value: "Ulcus Cruris <br><small style='color:var(--muted)'>Bacak ülseri (iyileşmeyen yara)</small>", highlight: true },
+                    { label: "Pflege", value: "Kompressionstherapie <br><small style='color:var(--muted)'>Kompresyon (bası) tedavisi</small>" },
+                    { label: "Doku", value: "Wundtagebuch <br><small style='color:var(--muted)'>Yara günlük kaydı</small>" }
+                ]
+            },
+            {
+                title: "Sepsis",
+                subtitle: "Notfall",
+                icon: "🌡️",
+                fields: [
+                    { label: "Symptome", value: "Hohes Fieber, Verwirrtheit <br><small style='color:var(--muted)'>Yüksek ateş, kafa karışıklığı</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Blutkulturen, Antibiotika <br><small style='color:var(--muted)'>Kan kültürü, antibiyotik</small>" },
+                    { label: "Gefahr", value: "Septischer Schock <br><small style='color:var(--muted)'>Septik şok riski</small>" }
+                ]
+            },
+            {
+                title: "Gastritis",
+                subtitle: "Gastroenterologie",
+                icon: "🤢",
+                fields: [
+                    { label: "Symptome", value: "Magenschmerzen, Übelkeit <br><small style='color:var(--muted)'>Mide ağrısı, bulantı</small>", highlight: true },
+                    { label: "Diät", value: "Schonkost <br><small style='color:var(--muted)'>Mideyi yormayan diyet</small>" },
+                    { label: "Verbot", value: "Kaffee, Alkohol <br><small style='color:var(--muted)'>Kahve ve alkol yasak</small>" }
+                ]
+            },
+            {
+                title: "Asthma Bronchiale",
+                subtitle: "Pulmonologie",
+                icon: "💨",
+                fields: [
+                    { label: "Symptome", value: "Giemen, Atemnot <br><small style='color:var(--muted)'>Hırıltı, nefes darlığı</small>", highlight: true },
+                    { label: "Hilfe", value: "Dosieraerosol (Spray) <br><small style='color:var(--muted)'>Fısfıs (sprey) ilaç</small>" },
+                    { label: "Lagerung", value: "Kutschersitz <br><small style='color:var(--muted)'>Arabacı oturuşu (nefes için)</small>" }
+                ]
+            },
+            {
+                title: "Harnverhalt",
+                subtitle: "Urologie",
+                icon: "💧",
+                fields: [
+                    { label: "Status", value: "Blase prall gefüllt <br><small style='color:var(--muted)'>Mesane aşırı dolu</small>", highlight: true },
+                    { label: "Symptome", value: "Schmerzen, kein Urinfluss <br><small style='color:var(--muted)'>Ağrı, idrar yapamama</small>" },
+                    { label: "Maßnahmen", value: "Einmalkatheterisierung <br><small style='color:var(--muted)'>Tek seferlik sonda</small>" }
+                ]
+            },
+            {
+                title: "Präoperative Pflege",
+                subtitle: "Chirurgie",
+                icon: "🔪",
+                fields: [
+                    { label: "Check", value: "Nüchternheit prüfen <br><small style='color:var(--muted)'>Açlık durumunu kontrol et</small>", highlight: true },
+                    { label: "Aufgabe", value: "OP-Hemd anziehen <br><small style='color:var(--muted)'>Ameliyat önlüğü giydirme</small>" },
+                    { label: "Wichtig", value: "Schmuck ablegen <br><small style='color:var(--muted)'>Takıları çıkartma</small>" }
+                ]
+            },
+            {
+                title: "Postoperative Pflege",
+                subtitle: "Chirurgie",
+                icon: "🛌",
+                fields: [
+                    { label: "Check", value: "Nachblutung kontrollieren <br><small style='color:var(--muted)'>Kanama kontrolü</small>", highlight: true },
+                    { label: "Vital", value: "Blutdruck, Puls <br><small style='color:var(--muted)'>Tansiyon ve nabız</small>" },
+                    { label: "Schmerz", value: "Bedarfsmedikation <br><small style='color:var(--muted)'>Gerektiğinde ağrı kesici</small>" }
+                ]
+            },
+            {
+                title: "Aspiration",
+                subtitle: "Notfall",
+                icon: "⚠️",
+                fields: [
+                    { label: "Symptome", value: "Plötzlicher Husten, Zyanose <br><small style='color:var(--muted)'>Ani öksürük, morarma</small>", highlight: true },
+                    { label: "Maßnahmen", value: "Absaugen, Oberkörper vor <br><small style='color:var(--muted)'>Vakumla çekme, öne eğme</small>" },
+                    { label: "Check", value: "Mundraum leer? <br><small style='color:var(--muted)'>Ağız içi boş mu?</small>" }
+                ]
+            }
+        ],
   dokumentation: [
     {
       icon: "📋",
