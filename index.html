@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PflegeAkademy: Professional Edition v3</title>
+    <title>PflegeAkademy: Master Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,69 +13,78 @@
         #app { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; padding: 15px; position: relative; background: #f8fafc; }
 
         /* ÜST PANEL */
-        .top-panel { background: var(--dark); color: white; padding: 20px; border-radius: 25px; margin-bottom: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .xp-container { background: #334155; height: 8px; border-radius: 10px; margin: 12px 0; overflow: hidden; }
-        #xp-bar { background: linear-gradient(90deg, #38bdf8, #818cf8); height: 100%; width: 0%; transition: 0.5s ease; }
+        .top-panel { background: var(--dark); color: white; padding: 20px; border-radius: 20px; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-bottom: 4px solid var(--n-blue); }
+        .xp-container { background: #334155; height: 10px; border-radius: 10px; margin: 12px 0; overflow: hidden; border: 1px solid #475569; }
+        #xp-bar { background: linear-gradient(90deg, #38bdf8, #818cf8); height: 100%; width: 0%; transition: width 0.5s ease; }
         .stats-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; color: #cbd5e1; }
 
         /* SORU KARTI */
-        .q-card { background: white; border-radius: 30px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #e2e8f0; }
-        .vaka { background: #f1f5f9; padding: 15px; border-radius: 15px; border-left: 6px solid var(--n-blue); font-size: 13px; text-align: left; margin-bottom: 15px; color: #475569; line-height: 1.5; font-style: italic; }
-        .opt { background: white; border: 2px solid #f1f5f9; border-radius: 20px; padding: 16px; margin-bottom: 10px; width: 100%; font-weight: 700; cursor: pointer; text-align: left; transition: 0.2s; }
+        .q-card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #e2e8f0; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .vaka { background: #f1f5f9; padding: 15px; border-radius: 15px; border-left: 5px solid var(--n-blue); font-size: 13px; text-align: left; margin-bottom: 20px; color: #475569; font-style: italic; }
+        .opt { background: white; border: 2px solid #e2e8f0; border-radius: 15px; padding: 16px; margin-bottom: 10px; width: 100%; font-weight: 700; cursor: pointer; text-align: left; transition: 0.2s; font-family: 'Poppins'; font-size: 14px; color: #1e293b; }
+        .opt:hover:not(:disabled) { border-color: var(--n-blue); background: #f0f9ff; }
         .opt.correct { background: var(--m-green); color: white; border-color: var(--m-green); }
         .opt.wrong { background: var(--d-red); color: white; border-color: var(--d-red); }
 
         /* MARKET (DOSYA GÖRÜNÜMÜ) */
-        .archive-folder { background: #cbd5e1; padding: 8px; border-radius: 15px 15px 5px 5px; width: 100%; max-width: 420px; }
+        .archive-folder { background: #cbd5e1; padding: 10px; border-radius: 15px 15px 10px 10px; width: 100%; max-width: 420px; }
         .archive-content { background: var(--paper); padding: 15px; border-radius: 5px; max-height: 65vh; overflow-y: auto; border: 1px solid #94a3b8; }
-        .file-item { display: flex; background: white; border: 1px solid #e5e7eb; margin-bottom: 10px; border-radius: 4px; cursor: pointer; }
-        .file-icon { width: 50px; background: #f8fafc; display: flex; align-items: center; justify-content: center; font-size: 24px; border-right: 1px dashed #cbd5e1; }
+        .file-item { display: flex; background: white; border: 1px solid #e5e7eb; margin-bottom: 10px; border-radius: 8px; cursor: pointer; align-items: center; transition: 0.2s; }
+        .file-item:hover:not(.locked) { transform: scale(1.02); border-color: var(--n-blue); }
+        .file-icon { width: 50px; height: 50px; background: #f8fafc; display: flex; align-items: center; justify-content: center; font-size: 24px; border-right: 1px dashed #cbd5e1; border-radius: 8px 0 0 8px; }
         .file-info { padding: 10px; flex: 1; }
-        .file-info b { display: block; font-size: 12px; color: var(--dark); text-transform: uppercase; }
-        .file-info span { font-size: 11px; color: #64748b; }
-        .price-tag { background: #f1f5f9; padding: 4px 8px; font-weight: 900; font-size: 11px; border-radius: 4px; margin: 10px; border: 1px solid #cbd5e1; }
+        .file-info b { display: block; font-size: 13px; color: var(--dark); }
+        .file-info span { font-size: 11px; color: #64748b; display: block; margin-top: 2px; }
+        .price-tag { background: #fffbeb; color: #b45309; padding: 5px 10px; font-weight: 900; font-size: 12px; border-radius: 6px; margin: 10px; border: 1px solid #fde68a; }
+        .file-item.locked { opacity: 0.6; filter: grayscale(1); cursor: not-allowed; }
 
         /* KOMBO & HEDİYE */
-        #combo-text { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); font-family: 'Montserrat'; font-size: 50px; color: var(--w-gold); opacity: 0; pointer-events: none; z-index: 1000; text-shadow: 2px 2px 0 #000; }
-        .combo-anim { animation: comboPop 0.7s forwards; }
-        @keyframes comboPop { 0% { scale: 0.5; opacity: 0; } 50% { scale: 1.3; opacity: 1; } 100% { scale: 1; opacity: 0; transform: translate(-50%, -120%); } }
+        #combo-text { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); font-family: 'Montserrat'; font-size: 45px; color: var(--w-gold); opacity: 0; pointer-events: none; z-index: 1000; text-shadow: 2px 2px 0 #000; }
+        .combo-anim { animation: comboPop 0.8s forwards; }
+        @keyframes comboPop { 0% { scale: 0.5; opacity: 0; } 40% { scale: 1.2; opacity: 1; } 100% { scale: 1; opacity: 0; transform: translate(-50%, -100%); } }
 
-        .gift-overlay { position: fixed; inset: 0; background: var(--dark); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .gift-box { font-size: 120px; cursor: pointer; transition: transform 0.1s; filter: drop-shadow(0 0 30px gold); }
-        .gift-txt { color: white; font-family: 'Montserrat'; font-size: 20px; margin-top: 20px; animation: pulse 0.6s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .gift-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .gift-box { font-size: 130px; cursor: pointer; transition: transform 0.1s; filter: drop-shadow(0 0 30px gold); }
+        .gift-txt { color: white; font-family: 'Montserrat'; font-size: 22px; margin-top: 20px; animation: pulse 0.8s infinite; text-align: center; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); color: var(--w-gold); } }
 
         /* MODALLAR */
         .overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .modal-card { background: white; padding: 30px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; }
+        .modal-card { background: white; padding: 30px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .hidden { display: none !important; }
-        .primary-btn { background: var(--n-blue); color: white; padding: 15px 30px; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 15px; }
+        .primary-btn { background: var(--n-blue); color: white; padding: 16px; border: none; border-radius: 15px; font-weight: 800; font-family: 'Poppins'; cursor: pointer; width: 100%; margin-top: 20px; font-size: 15px; transition: 0.2s; }
+        .primary-btn:active { transform: scale(0.96); }
+        
+        .shield-badge { background: var(--n-blue); color: white; padding: 2px 6px; border-radius: 5px; font-size: 10px; margin-left: 5px; vertical-align: middle; }
     </style>
 </head>
 <body>
 
     <div id="login-overlay" class="overlay" style="background: #f8fafc;">
-        <div class="modal-card" style="box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-            <div style="font-size: 60px;">🎓</div>
-            <h1 style="font-family:'Montserrat'; color:var(--dark);">PflegeAkademy</h1>
-            <p style="font-size: 14px; color: #64748b; margin-bottom: 25px;">Tıbbi Terminoloji ve Vaka Yönetimi Portalı</p>
-            <input type="text" id="u-name" placeholder="Adınız Soyadınız" style="width:100%; padding:18px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px; text-align:center;">
-            <button onclick="greetNurse()" class="primary-btn">EĞİTİME BAŞLA</button>
+        <div class="modal-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px solid #e2e8f0;">
+            <div style="font-size: 70px; margin-bottom: 10px;">🏥</div>
+            <h1 style="font-family:'Montserrat'; color:var(--dark); margin: 0;">PflegeAkademy</h1>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 25px;">Tıbbi Almanca Eğitim Platformu</p>
+            <input type="text" id="u-name" placeholder="Adınız Soyadınız" style="width:100%; padding:18px; border-radius:12px; border:2px solid #e2e8f0; margin-bottom:15px; text-align:center; font-family: 'Poppins'; font-size: 15px;">
+            <button onclick="greetNurse()" class="primary-btn">SİSTEME GİRİŞ YAP</button>
         </div>
     </div>
 
     <div id="nurse-overlay" class="overlay hidden">
         <div class="modal-card">
-            <h2 id="n-title" style="color:var(--n-blue);">Sayın Meslektaşım</h2>
-            <p style="font-size: 15px; color: #475569; line-height: 1.6; text-align: left;">Sisteme hoş geldiniz. Eğitim sürecinde her <b>5 başarılı ardışık cevap</b>, tarafınıza bir "Teşvik Paketi" tanımlanmasını sağlayacaktır. <br><br>Lütfen paket içeriğini onaylamadan klinik simülasyona devam etmeyiniz. Başarılar dileriz.</p>
-            <button onclick="startApp()" class="primary-btn" style="background: var(--m-green);">ANLAŞILDI</button>
+            <h2 style="color:var(--n-blue); font-family: 'Montserrat';">Merhaba!</h2>
+            <p style="font-size: 14px; color: #475569; line-height: 1.6; text-align: left;">
+                PflegeAkademy'ye hoş geldin. Eğitim süreci boyunca üst üste <b>5 doğru cevap</b> verirsen sürpriz bir hediye paketi kazanacaksın.<br><br>
+                Ayrıca marketten eksiklerini gidermeyi ve seviye atladıkça yeni kilitleri açmayı unutma. Hazırsan başlayalım!
+            </p>
+            <button onclick="startApp()" class="primary-btn" style="background: var(--m-green);">HAZIRIM, BAŞLA</button>
         </div>
     </div>
 
     <div id="gift-lock" class="gift-overlay hidden">
-        <div onclick="clickGift()" style="text-align:center;">
+        <div onclick="clickGift()" style="text-align:center; user-select: none;">
             <div id="gift-emoji" class="gift-box">🎁</div>
-            <div class="gift-txt">VERİ PAKETİ AÇILIYOR... <br><small>SÜREKLİ TIKLAYIN</small></div>
+            <div class="gift-txt">SÜREKLİ TIKLA!<br><small style="font-size: 14px; font-weight: 400;">(Paketi Patlat)</small></div>
         </div>
     </div>
 
@@ -85,91 +94,108 @@
         <div class="top-panel">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div>
-                    <div id="rank-name" style="font-size:10px; font-weight:900; color:var(--n-blue); text-transform:uppercase; letter-spacing:1px;">ADAY</div>
-                    <div id="u-display" style="font-weight:700;">Kullanıcı</div>
+                    <div id="rank-name" style="font-size:10px; font-weight:900; color:var(--n-blue); text-transform:uppercase; letter-spacing:1px;">STAJYER</div>
+                    <div id="u-display" style="font-weight:700;">Hemşire</div>
                 </div>
-                <button onclick="openShop()" style="background:var(--w-gold); border:none; padding:8px 15px; border-radius:10px; font-weight:900; cursor:pointer;">📁 ARŞİV</button>
+                <button onclick="openShop()" style="background:var(--w-gold); color:#1e293b; border:none; padding:10px 15px; border-radius:12px; font-weight:900; font-family:'Montserrat'; cursor:pointer;">🛒 MARKET</button>
             </div>
             <div class="xp-container"><div id="xp-bar"></div></div>
             <div class="stats-row">
                 <span>💰 <span id="c-val">0</span></span>
-                <span>LEVEL <span id="l-val">1</span></span>
-                <span>❤️ <span id="h-val">5</span></span>
+                <span>LVL <span id="l-val">1</span></span>
+                <span>❤️ <span id="h-val">5</span><span id="shield-val" class="shield-badge hidden">🛡️ 0</span></span>
             </div>
         </div>
 
         <div class="q-card">
-            <div class="vaka" id="v-txt">Vaka Analizi...</div>
-            <h2 id="q-word" style="margin: 10px 0 25px 0;">Terim</h2>
+            <div class="vaka" id="v-txt">Yükleniyor...</div>
+            <h2 id="q-word" style="margin: 0 0 25px 0; font-size: 26px; color: var(--dark);">Kelime</h2>
             <div id="opt-grid"></div>
         </div>
     </div>
 
     <div id="shop-overlay" class="overlay hidden" onclick="toggle('shop-overlay', false)">
         <div class="archive-folder" onclick="event.stopPropagation()">
-            <div style="padding:5px 10px; font-weight:800; font-size:11px; color:#1e293b;">BİRİM ENVANTER KAYITLARI</div>
+            <div style="padding:5px 10px 15px 10px; font-weight:800; font-size:12px; color:#1e293b; text-align: center;">🏥 HASTANE ENVANTERİ</div>
             <div class="archive-content" id="shop-list"></div>
-            <button onclick="toggle('shop-overlay', false)" class="primary-btn" style="border-radius:0 0 10px 10px; margin:0; background:#64748b;">KAPAT</button>
+            <button onclick="toggle('shop-overlay', false)" class="primary-btn" style="border-radius:10px; margin-top: 15px; background:#64748b;">DOSYAYI KAPAT</button>
         </div>
     </div>
 
     <div id="res-overlay" class="overlay hidden">
         <div class="modal-card">
-            <div id="res-ico" style="font-size:60px;">📊</div>
-            <h2 id="res-ttl">BİLGİ</h2>
-            <p id="res-dsc" style="color:#64748b;"></p>
-            <button id="res-btn" onclick="closeRes()" class="primary-btn">ONAYLA</button>
+            <div id="res-ico" style="font-size:65px; margin-bottom: 10px;">📊</div>
+            <h2 id="res-ttl" style="font-family: 'Montserrat'; margin: 0 0 10px 0;">BİLGİ</h2>
+            <p id="res-dsc" style="color:#475569; font-size: 14px; margin-bottom: 20px;"></p>
+            <button id="res-btn" class="primary-btn">DEVAM ET</button>
         </div>
     </div>
 
 <script>
     const DATA = [
-        { de: "Blutentnahme", tr: "Kan alma", vaka: "Wir müssen für das Labor eine Blutentnahme durchführen." },
-        { de: "Wundversorgung", tr: "Yara bakımı", vaka: "Die Wundversorgung muss steril erfolgen." },
-        { de: "Lungenentzündung", tr: "Zatürre", vaka: "Der Patient hat Fieber und Verdacht auf Lungenentzündung." },
-        { de: "EKG schreiben", tr: "EKG çekmek", vaka: "Können Sie bitte bei Herrn Müller ein EKG schreiben?" }
+        { de: "Blutdruck", tr: "Tansiyon", vaka: "Der Blutdruck des Patienten ist zu hoch." },
+        { de: "Schmerzmittel", tr: "Ağrı kesici", vaka: "Geben Sie ihm ein Schmerzmittel." },
+        { de: "Fieberthermometer", tr: "Ateş ölçer", vaka: "Wir müssen die Temperatur mit dem Fieberthermometer messen." },
+        { de: "Verband", tr: "Sargı / Pansuman", vaka: "Der Verband muss gewechselt werden." },
+        { de: "Spritze", tr: "Şırınga", vaka: "Ziehen Sie das Medikament in die Spritze auf." },
+        { de: "Notaufnahme", tr: "Acil servis", vaka: "Bringen Sie den Patienten sofort in die Notaufnahme." }
     ];
 
-    const RANKS = ["Stajer Hemşire", "Lisanslı Hemşire", "Kıdemli Hemşire", "Servis Sorumlu Hemşiresi", "Başhemşire", "Akademisyen"];
+    const RANKS = ["Stajyer Hemşire", "Asistan Hemşire", "Lisanslı Hemşire", "Kıdemli Hemşire", "Servis Şefi", "Başhemşire", "Hastane Müdürü"];
     
-    // 30 FARKLI ÖDÜL/OLAY HAVUZU
+    // 30 ÇEŞİT ÖDÜL VE CEZA HAVUZU
     const REWARDS = [
-        { i: "💰", t: "Ek Ödeme", d: "+250 Para", fn: () => st.coins += 250 },
-        { i: "💰", t: "Nöbet Primi", d: "+500 Para", fn: () => st.coins += 500 },
-        { i: "📉", t: "Maddi Kesinti", d: "-100 Para Gitti", fn: () => st.coins = Math.max(0, st.coins-100) },
-        { i: "💉", t: "Vitamin Takviyesi", d: "+1 Can", fn: () => st.lives += 1 },
-        { i: "💉", t: "Acil Kit", d: "+3 Can", fn: () => st.lives += 3 },
-        { i: "💔", t: "Yorgunluk", d: "-1 Can Gitti", fn: () => st.lives-- },
-        { i: "🎓", t: "Seminer Notu", d: "+200 XP", fn: () => st.xp += 200 },
-        { i: "🎓", t: "Konferans", d: "+500 XP", fn: () => st.xp += 500 },
-        { i: "🎁", t: "Şanslı Gün", d: "Bir Paket Daha!", fn: () => setTimeout(()=>toggle('gift-lock',true),1000) },
-        { i: "☕", t: "Kahve Molası", d: "+50 XP", fn: () => st.xp += 50 },
-        { i: "🧹", t: "Ek Mesai", d: "+100 Para", fn: () => st.coins += 100 },
-        { i: "📋", t: "Evrak Hatası", d: "-50 XP", fn: () => st.xp = Math.max(0, st.xp-50) },
-        { i: "🚑", t: "Hızlı Sevk", d: "+300 Para", fn: () => st.coins += 300 },
-        { i: "🤒", t: "Enfeksiyon", d: "-1 Can", fn: () => st.lives-- },
-        { i: "🧼", t: "Hijyen Ödülü", d: "+150 Para", fn: () => st.coins += 150 },
-        { i: "📖", t: "Makale Okuma", d: "+300 XP", fn: () => st.xp += 300 },
-        { i: "🧬", t: "Laboratuvar Primi", d: "+400 Para", fn: () => st.coins += 400 },
-        { i: "🍕", t: "Hastane İkramı", d: "+1 Can", fn: () => st.lives += 1 },
-        { i: "🏢", t: "Döner Sermaye", d: "+1000 Para", fn: () => st.coins += 1000 },
-        { i: "🛑", t: "İdari Ceza", d: "-300 Para", fn: () => st.coins = Math.max(0, st.coins-300) },
-        { i: "✨", t: "Süper Vizit", d: "+800 XP", fn: () => st.xp += 800 },
-        { i: "🧊", t: "Soğuk Zincir", d: "+200 Para", fn: () => st.coins += 200 },
-        { i: "🩺", t: "Stetoskop Hediye", d: "+100 XP", fn: () => st.xp += 100 },
-        { i: "📞", t: "Konsültasyon", d: "+150 XP", fn: () => st.xp += 150 },
-        { i: "🧴", t: "Sterilizasyon", d: "+50 Para", fn: () => st.coins += 50 },
-        { i: "🦷", t: "Diş Kontrolü", d: "+20 Para", fn: () => st.coins += 20 },
-        { i: "🍎", t: "Diyet Menü", d: "+1 Can", fn: () => st.lives += 1 },
-        { i: "🎫", t: "Otopark Kartı", d: "+50 XP", fn: () => st.xp += 50 },
-        { i: "📦", t: "Lojistik Destek", d: "+400 Para", fn: () => st.coins += 400 },
-        { i: "💎", t: "Yılın Hemşiresi", d: "+2000 Para", fn: () => st.coins += 2000 }
+        { i: "💰", t: "Maaş Primi", d: "+200 Para Kazandın!", fn: () => st.coins += 200 },
+        { i: "💰", t: "Nöbet Ücreti", d: "+400 Para Kazandın!", fn: () => st.coins += 400 },
+        { i: "💎", t: "Büyük İkramiye", d: "+1000 Para Kazandın!", fn: () => st.coins += 1000 },
+        { i: "📉", t: "Tıbbi Hata", d: "-100 Para Kesildi!", fn: () => st.coins = Math.max(0, st.coins-100) },
+        { i: "📉", t: "Geç Kalma", d: "-50 Para Kesildi!", fn: () => st.coins = Math.max(0, st.coins-50) },
+        { i: "💸", t: "Kafeterya Borcu", d: "-200 Para Gitti!", fn: () => st.coins = Math.max(0, st.coins-200) },
+        { i: "💉", t: "Vitamin Desteği", d: "+1 Can Kazandın!", fn: () => st.lives += 1 },
+        { i: "🚑", t: "Acil Çantası", d: "+2 Can Kazandın!", fn: () => st.lives += 2 },
+        { i: "🏥", t: "Tam İyileşme", d: "Canın Fullendi (+5)!", fn: () => st.lives += 5 },
+        { i: "🤕", t: "İş Kazası", d: "-1 Can Gitti!", fn: () => st.lives-- },
+        { i: "🤒", t: "Grip Oldun", d: "-2 Can Gitti!", fn: () => st.lives -= 2 },
+        { i: "🎓", t: "Hızlı Öğrenme", d: "+150 XP Kazandın!", fn: () => st.xp += 150 },
+        { i: "📚", t: "Seminer Başarısı", d: "+300 XP Kazandın!", fn: () => st.xp += 300 },
+        { i: "🔬", t: "Araştırma", d: "+500 XP Kazandın!", fn: () => st.xp += 500 },
+        { i: "📋", t: "Eksik Evrak", d: "-100 XP Silindi!", fn: () => st.xp = Math.max(0, st.xp-100) },
+        { i: "🛡️", t: "Maske Buldun", d: "+1 Koruma Kalkanı", fn: () => st.shields++ },
+        { i: "🛡️", t: "Eldiven Kutusu", d: "+2 Koruma Kalkanı", fn: () => st.shields += 2 },
+        { i: "🎁", t: "Çifte Şans", d: "Bir Hediye Paketi Daha!", fn: () => queue.push('gift') },
+        { i: "☕", t: "Kahve Ismarlandı", d: "+50 Para", fn: () => st.coins += 50 },
+        { i: "🧹", t: "Ekstra Temizlik", d: "+80 XP", fn: () => st.xp += 80 },
+        { i: "😡", t: "Hasta Şikayeti", d: "-150 Para", fn: () => st.coins = Math.max(0, st.coins-150) },
+        { i: "🏆", t: "Ayın Elemanı", d: "+800 Para", fn: () => st.coins += 800 },
+        { i: "🩹", t: "Pansuman Kiti", d: "+1 Can", fn: () => st.lives++ },
+        { i: "📞", t: "Acil Çağrı", d: "+200 XP", fn: () => st.xp += 200 },
+        { i: "🚗", t: "Otopark Cezası", d: "-300 Para", fn: () => st.coins = Math.max(0, st.coins-300) },
+        { i: "🍰", t: "Doğum Günü", d: "+500 XP", fn: () => st.xp += 500 },
+        { i: "😴", t: "Nöbette Uyuma", d: "-1 Can, -50 Para", fn: () => { st.lives--; st.coins = Math.max(0, st.coins-50); } },
+        { i: "✨", t: "Süper Vizit", d: "+2 Can, +200 Para", fn: () => { st.lives+=2; st.coins+=200; } },
+        { i: "📝", t: "Sınav Başarısı", d: "+400 XP", fn: () => st.xp += 400 },
+        { i: "⚖️", t: "Denge", d: "Hiçbir şey olmadı.", fn: () => {} }
     ];
 
-    let st = { xp: 0, coins: 200, lives: 5, level: 1, streak: 0, busy: false, name: "", giftClicks: 0, hasShield: false };
+    // MARKET: EN AZ 10 ÜRÜN
+    const SHOP_ITEMS = [
+        { id: 'h1', n: "Hızlı Serum", d: "+1 Can Kazandırır", p: 300, l: 1, i: "💉" },
+        { id: 'h2', n: "Süper Serum", d: "+3 Can Kazandırır", p: 800, l: 3, i: "🚑" },
+        { id: 'g1', n: "Teşvik Paketi", d: "Sürpriz Kutu Aç", p: 250, l: 2, i: "🎁" },
+        { id: 's1', n: "Steril Maske", d: "1 Hata Koruması Sağlar", p: 500, l: 3, i: "😷" },
+        { id: 's2', n: "Çelik Eldiven", d: "2 Hata Koruması Sağlar", p: 900, l: 5, i: "🧤" },
+        { id: 'x1', n: "Nöbet Dosyası", d: "+1000 XP Puanı", p: 800, l: 5, i: "📂" },
+        { id: 'x2', n: "Uzmanlık Tezi", d: "+2500 XP Puanı", p: 1800, l: 10, i: "📚" },
+        { id: 'x3', n: "Klinik Araştırma", d: "+5000 XP Puanı", p: 3500, l: 15, i: "🔬" },
+        { id: 'h3', n: "VIP Dinlenme", d: "+5 Can Kazandırır", p: 1200, l: 12, i: "🛌" },
+        { id: 'x4', n: "Başhekim Referansı", d: "+10000 XP Puanı", p: 6000, l: 20, i: "👑" }
+    ];
+
+    let st = { xp: 0, coins: 200, lives: 5, level: 1, streak: 0, shields: 0, busy: false, name: "", giftClicks: 0 };
+    let queue = []; // OLAY SIRALAYICI (TAKILMAYI ÖNLER)
 
     function greetNurse() {
-        st.name = document.getElementById('u-name').value || "Meslektaşım";
+        st.name = document.getElementById('u-name').value || "Hemşire";
         document.getElementById('u-display').innerText = st.name;
         toggle('login-overlay', false); toggle('nurse-overlay', true);
     }
@@ -181,57 +207,98 @@
         document.getElementById('h-val').innerText = st.lives;
         document.getElementById('l-val').innerText = st.level;
         
-        let rankIdx = Math.min(Math.floor((st.level - 1) / 2), RANKS.length - 1);
+        let rankIdx = Math.min(Math.floor((st.level - 1) / 3), RANKS.length - 1);
         document.getElementById('rank-name').innerText = RANKS[rankIdx];
 
-        let nx = st.level * 400; // Zorlaşan XP
+        if(st.shields > 0) {
+            let sb = document.getElementById('shield-val');
+            sb.innerText = `🛡️ ${st.shields}`;
+            sb.classList.remove('hidden');
+        } else {
+            document.getElementById('shield-val').classList.add('hidden');
+        }
+
+        let nx = st.level * 400;
         document.getElementById('xp-bar').style.width = (st.xp / nx * 100) + "%";
         
         if(st.xp >= nx) {
-            triggerLevelUp();
+            st.level++;
+            st.xp = 0;
+            st.coins += (st.level * 100);
+            queue.push('levelup'); // Seviye atlamayı sıraya ekle
         }
     }
 
-    function triggerLevelUp() {
-        st.busy = true;
-        document.getElementById('res-ico').innerText = "🎖️";
-        document.getElementById('res-ttl').innerText = "TERFİ ALDINIZ";
-        document.getElementById('res-dsc').innerHTML = `Tebrikler ${st.name}, <b>Seviye ${st.level + 1}</b> oldunuz.`;
-        document.getElementById('res-btn').onclick = () => {
-            st.level++; 
-            st.xp = 0; 
-            st.coins += (st.level * 100);
-            toggle('res-overlay', false);
+    // TAKILMAYI ÖNLEYEN ANA MERKEZ
+    function processQueue() {
+        upUI();
+        if (queue.length > 0) {
+            let action = queue.shift();
+            if (action === 'levelup') showLevelUp();
+            else if (action === 'gift') { toggle('gift-lock', true); }
+        } else {
             st.busy = false;
-            upUI(); // ANLIK GÜNCELLEME BURADA
+            next(); // Eğer sırada olay yoksa yepyeni soruya geç!
+        }
+    }
+
+    function showLevelUp() {
+        document.getElementById('res-ico').innerText = "🎊";
+        document.getElementById('res-ttl').innerText = "SEVİYE ATLADIN!";
+        document.getElementById('res-dsc').innerHTML = `Tebrikler ${st.name}! Başarıyla <b>Seviye ${st.level}</b> oldun.<br>Maaşın arttı ve yeni kilitler açıldı.`;
+        
+        let btn = document.getElementById('res-btn');
+        btn.innerText = "SONRAKİ SORUYA GEÇ";
+        btn.onclick = () => { 
+            toggle('res-overlay', false); 
+            processQueue(); // Pencere kapanınca sırayı kontrol et
         };
         toggle('res-overlay', true);
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     }
 
     function next() {
-        if(st.busy) return;
         let q = DATA[Math.floor(Math.random()*DATA.length)];
         document.getElementById('v-txt').innerText = q.vaka;
         document.getElementById('q-word').innerText = q.de;
         let opts = [q.tr, ...DATA.filter(d => d.tr !== q.tr).map(d => d.tr)].slice(0, 4).sort(() => Math.random() - 0.5);
+        
         const grid = document.getElementById('opt-grid'); grid.innerHTML = "";
         opts.forEach(o => {
             const b = document.createElement('button'); b.className = "opt"; b.innerText = o;
             b.onclick = () => {
                 if(st.busy) return;
-                st.busy = true;
+                st.busy = true; // Soru tıklandı, sistemi kilitle
+                
                 if(o === q.tr) {
-                    b.classList.add('correct'); st.xp += 80; st.coins += (20 + (st.level * 5)); st.streak++;
+                    b.classList.add('correct'); 
+                    st.xp += 80; 
+                    st.coins += (20 + (st.level * 5)); 
+                    st.streak++;
                     showCombo(st.streak);
-                    if(st.streak >= 5) { st.streak = 0; setTimeout(() => toggle('gift-lock', true), 800); }
+                    
+                    if(st.streak >= 5) { 
+                        st.streak = 0; 
+                        queue.push('gift'); // Hediyeyi sıraya ekle
+                    }
                 } else {
                     b.classList.add('wrong');
-                    if(st.hasShield) { st.hasShield = false; alert("Ekipman Korudu!"); } else { st.lives--; }
                     st.streak = 0;
-                    if(st.lives <= 0) location.reload();
+                    if(st.shields > 0) { 
+                        st.shields--; 
+                        setTimeout(() => alert("Kalkanın seni bir hatadan korudu!"), 10);
+                    } else { 
+                        st.lives--; 
+                    }
+                    if(st.lives <= 0) {
+                        alert("Canın bitti! Oyun baştan başlıyor.");
+                        location.reload();
+                        return;
+                    }
                 }
-                upUI(); setTimeout(() => { st.busy = false; if(!document.getElementById('gift-lock').classList.contains('hidden')) return; next(); }, 800);
+                
+                // 800ms animasyon/gösterim süresi, sonra sırayı işlet
+                setTimeout(() => { processQueue(); }, 800); 
             };
             grid.appendChild(b);
         });
@@ -241,22 +308,22 @@
         if(c < 2) return;
         const ct = document.getElementById('combo-text');
         ct.innerText = `KOMBO X${c}`;
-        ct.classList.remove('combo-anim'); void ct.offsetWidth; ct.classList.add('combo-anim');
+        ct.classList.remove('combo-anim'); 
+        void ct.offsetWidth; 
+        ct.classList.add('combo-anim');
     }
 
     function openShop() {
         const list = document.getElementById('shop-list'); list.innerHTML = "";
-        const items = [
-            { id: 'heart', n: "Hızlı Serum", d: "+1 Can İadesi", p: 300, l: 1, i: "💉" },
-            { id: 'gift', n: "Teşvik Paketi", d: "Rastgele Kazanım", p: 250, l: 3, i: "🎁" },
-            { id: 'shield', n: "Steril Ekipman", d: "Hata Koruması", p: 600, l: 5, i: "🛡️" },
-            { id: 'xp', n: "Tıbbi Tez", d: "+2000 XP Puanı", p: 1200, l: 15, i: "📂" },
-            { id: 'xp2', n: "Klinik Araştırma", d: "+5000 XP Puanı", p: 3000, l: 25, i: "🧬" }
-        ];
-        items.forEach(it => {
+        SHOP_ITEMS.forEach(it => {
             const lk = st.level < it.l;
-            const div = document.createElement('div'); div.className = `file-item ${lk?'locked':''}`;
-            div.innerHTML = `<div class="file-icon">${lk?'🔒':it.i}</div><div class="file-info"><b>${it.n}</b><span>${lk?'Seviye '+it.l+' Kilidi':it.d}</span></div><div class="price-tag">${it.p} 💰</div>`;
+            const div = document.createElement('div'); 
+            div.className = `file-item ${lk ? 'locked' : ''}`;
+            div.innerHTML = `
+                <div class="file-icon">${lk ? '🔒' : it.i}</div>
+                <div class="file-info"><b>${it.n}</b><span>${lk ? 'Seviye ' + it.l + ' Gerekli' : it.d}</span></div>
+                <div class="price-tag">${it.p} 💰</div>
+            `;
             if(!lk) div.onclick = () => buy(it.id, it.p, it.n);
             list.appendChild(div);
         });
@@ -264,37 +331,56 @@
     }
 
     function buy(id, cost, name) {
-        if(st.coins < cost) { alert("Bakiye Yetersiz!"); return; }
+        if(st.coins < cost) { alert("Yetersiz Bakiye!"); return; }
         st.coins -= cost;
-        if(id === 'gift') { toggle('shop-overlay', false); toggle('gift-lock', true); }
-        else if(id === 'heart') st.lives++;
-        else if(id === 'shield') st.hasShield = true;
-        else if(id.startsWith('xp')) st.xp += (id==='xp'?2000:5000);
-        upUI(); alert(name + " envantere eklendi.");
+        
+        if(id === 'g1') { queue.push('gift'); toggle('shop-overlay', false); processQueue(); return; }
+        else if(id === 'h1') st.lives += 1;
+        else if(id === 'h2') st.lives += 3;
+        else if(id === 'h3') st.lives += 5;
+        else if(id === 's1') st.shields += 1;
+        else if(id === 's2') st.shields += 2;
+        else if(id === 'x1') st.xp += 1000;
+        else if(id === 'x2') st.xp += 2500;
+        else if(id === 'x3') st.xp += 5000;
+        else if(id === 'x4') st.xp += 10000;
+        
+        upUI(); 
+        alert(name + " satın alındı!");
     }
 
     function clickGift() {
         st.giftClicks++;
         let s = 1 + (st.giftClicks * 0.4);
         document.getElementById('gift-emoji').style.transform = `scale(${s})`;
+        
         if(st.giftClicks >= 6) {
             document.getElementById('gift-emoji').style.transform = `scale(0)`;
             confetti({ particleCount: 200, spread: 80, origin: { y: 0.5 } });
-            let r = REWARDS[Math.floor(Math.random()*REWARDS.length)];
-            r.fn();
+            
+            let r = REWARDS[Math.floor(Math.random() * REWARDS.length)];
+            r.fn(); // Ödül fonksiyonunu çalıştır
+            
             setTimeout(() => {
                 toggle('gift-lock', false);
                 document.getElementById('res-ico').innerText = r.i;
                 document.getElementById('res-ttl').innerText = r.t;
                 document.getElementById('res-dsc').innerText = r.d;
-                document.getElementById('res-btn').onclick = () => { toggle('res-overlay',false); upUI(); next(); };
+                
+                let btn = document.getElementById('res-btn');
+                btn.innerText = "DEVAM ET";
+                btn.onclick = () => { 
+                    toggle('res-overlay', false); 
+                    processQueue(); // Kutu kapanınca sırayı devam ettir
+                };
                 toggle('res-overlay', true);
-                st.giftClicks = 0; document.getElementById('gift-emoji').style.transform = `scale(1)`;
+                
+                st.giftClicks = 0; 
+                document.getElementById('gift-emoji').style.transform = `scale(1)`;
             }, 400);
         }
     }
 
-    function closeRes() { toggle('res-overlay', false); upUI(); }
     function toggle(id, show) { document.getElementById(id).classList.toggle('hidden', !show); }
 </script>
 </body>
