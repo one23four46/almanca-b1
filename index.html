@@ -829,44 +829,122 @@ const DATA = {
 // ─────────────────── NURSE ───────────────────────
 nurse: {
   wortschatz: [
-    // Vitales & Körper
-    { de: "der Blutdruck", article: "der", tr: "kan basıncı", en: "blood pressure", category: "Vitalzeichen", example: "Der <em>Blutdruck</em> des Patienten beträgt 140/90 mmHg – ich messe ihn erneut in einer Stunde.", ex_tr: "Hastanın kan basıncı 140/90 mmHg – bir saat içinde tekrar ölçeceğim." },
-    { de: "die Herzfrequenz", article: "die", tr: "kalp atım hızı", en: "heart rate", category: "Vitalzeichen", example: "Die <em>Herzfrequenz</em> liegt bei 98 Schlägen pro Minute und ist unregelmäßig.", ex_tr: "Kalp atım hızı dakikada 98 atım ve düzensiz." },
-    { de: "die Sauerstoffsättigung", article: "die", tr: "oksijen satürasyonu", en: "oxygen saturation", category: "Vitalzeichen", example: "Die <em>Sauerstoffsättigung</em> ist auf 89 % gesunken, ich verabreiche O₂.", ex_tr: "%89'a düşen oksijen satürasyonu için O₂ uyguluyorum." },
-    { de: "die Körpertemperatur", article: "die", tr: "vücut ısısı", en: "body temperature", category: "Vitalzeichen", example: "Die <em>Körpertemperatur</em> beträgt 38,7 °C – ich informiere die Ärztin.", ex_tr: "Vücut ısısı 38,7 °C – doktoru bilgilendiriyorum." },
-    { de: "die Atemfrequenz", article: "die", tr: "solunum sayısı", en: "respiratory rate", category: "Vitalzeichen", example: "Die <em>Atemfrequenz</em> hat sich auf 24 Züge pro Minute erhöht.", ex_tr: "Solunum sayısı dakikada 24'e yükseldi." },
-    // Pflege
-    { de: "die Körperpflege", article: "die", tr: "kişisel bakım", en: "personal care / hygiene", category: "Pflege", example: "Die <em>Körperpflege</em> beim bettlägerigen Patienten erfolgt morgens zwischen 7 und 9 Uhr.", ex_tr: "Yatağa bağlı hastanın kişisel bakımı sabah 7-9 arasında yapılır." },
-    { de: "die Lagerung", article: "die", tr: "pozisyon verme", en: "positioning", category: "Pflege", example: "Zur Dekubitusprophylaxe wird die <em>Lagerung</em> alle zwei Stunden gewechselt.", ex_tr: "Bası yarası önleme için pozisyon verme her iki saatte bir değiştirilir." },
-    { de: "die Mobilisation", article: "die", tr: "mobilizasyon / hareket ettirme", en: "mobilisation", category: "Pflege", example: "Der Arzt hat die schrittweise <em>Mobilisation</em> ab heute genehmigt.", ex_tr: "Doktor bugünden itibaren kademeli mobilizasyona onay verdi." },
-    { de: "die Wundversorgung", article: "die", tr: "yara bakımı", en: "wound care", category: "Pflege", example: "Die <em>Wundversorgung</em> am linken Unterschenkel wurde mit sterilem Material durchgeführt.", ex_tr: "Sol alt bacaktaki yara bakımı steril malzeme ile yapıldı." },
-    { de: "das Dekubitus", article: "das", tr: "bası yarası", en: "pressure sore / bedsore", category: "Pflege", example: "Am Steißbein hat sich ein <em>Dekubitus</em> Grad II entwickelt – Wundmanagement wurde eingeleitet.", ex_tr: "Kuyruk sokumunda II. derece bası yarası oluştu – yara yönetimi başlatıldı." },
-    // Medikamente
-    { de: "die Schmerzskala", article: "die", tr: "ağrı skalası", en: "pain scale", category: "Medikamente", example: "Auf der <em>Schmerzskala</em> von 0 bis 10 gibt der Patient einen Wert von 7 an.", ex_tr: "0-10 ağrı skalasında hasta 7 değeri veriyor." },
-    { de: "die Bedarfsmedikation", article: "die", tr: "gerektiğinde ilaç", en: "as-needed medication / PRN", category: "Medikamente", example: "Die <em>Bedarfsmedikation</em> mit 500 mg Paracetamol wurde um 14:30 Uhr verabreicht.", ex_tr: "500 mg Parasetamol ile gerektiğinde ilaç saat 14:30'da verildi." },
-    { de: "die Infusion", article: "die", tr: "infüzyon / serum", en: "infusion / drip", category: "Medikamente", example: "Die <em>Infusion</em> läuft mit 100 ml/h – die Laufrate wurde vom Arzt angeordnet.", ex_tr: "İnfüzyon saatte 100 ml hızında akıyor – hız doktor tarafından emredildi." },
-    { de: "subkutan", article: "–", tr: "deri altı (s.c.)", en: "subcutaneous", category: "Medikamente", example: "Das Insulin wird <em>subkutan</em> in den Bauch injiziert.", ex_tr: "İnsülin karın bölgesine deri altı enjeksiyonu olarak yapılır." },
-    { de: "intravenös", article: "–", tr: "damar içi (i.v.)", en: "intravenous", category: "Medikamente", example: "Das Antibiotikum wird zweimal täglich <em>intravenös</em> über 30 Minuten verabreicht.", ex_tr: "Antibiyotik günde iki kez 30 dakikalık damar içi infüzyon olarak verilir." },
-    // Kommunikation
-    { de: "die Übergabe", article: "die", tr: "hasta devri / teslim-devir", en: "patient handover", category: "Kommunikation", example: "Bei der <em>Übergabe</em> berichtet die Frühschicht: 'Herr Müller hat heute Nacht dreimal geklingelt.'", ex_tr: "Teslim-devirde sabah vardiyası raporluyor: 'Bay Müller bu gece üç kez zil çaldı.'" },
-    { de: "die Pflegeplanung", article: "die", tr: "bakım planlaması", en: "care planning", category: "Kommunikation", example: "Die <em>Pflegeplanung</em> wird täglich aktualisiert und im System dokumentiert.", ex_tr: "Bakım planlaması her gün güncellenir ve sisteme kaydedilir." },
-    { de: "das Pflegeprotokoll", article: "das", tr: "bakım protokolü", en: "care protocol / nursing notes", category: "Kommunikation", example: "Alle Maßnahmen wurden im <em>Pflegeprotokoll</em> lückenlos eingetragen.", ex_tr: "Tüm uygulamalar bakım protokolüne eksiksiz kaydedildi." },
-    { de: "der Pflegebericht", article: "der", tr: "bakım raporu", en: "nursing report", category: "Kommunikation", example: "Im <em>Pflegebericht</em> steht: 'Patient äußerte Schmerzen beim Umlagern.'", ex_tr: "Bakım raporunda şu yazıyor: 'Hasta pozisyon değiştirirken ağrı ifade etti.'" },
-    { de: "die Einwilligung", article: "die", tr: "onam / rıza", en: "consent / agreement", category: "Kommunikation", example: "Vor dem Eingriff muss die schriftliche <em>Einwilligung</em> des Patienten vorliegen.", ex_tr: "İşlem öncesinde hastanın yazılı rızası alınmış olmalıdır." },
-    // Diagnose & Erkrankungen
-    { de: "die Herzinsuffizienz", article: "die", tr: "kalp yetmezliği", en: "heart failure / cardiac insufficiency", category: "Diagnosen", example: "Der Patient mit <em>Herzinsuffizienz</em> zeigt heute stärker ausgeprägte Ödeme an den Beinen.", ex_tr: "Kalp yetmezliği olan hastada bugün bacaklarda daha belirgin ödem görülüyor." },
-    { de: "das Ödem", article: "das", tr: "ödem", en: "edema / oedema", category: "Diagnosen", example: "Das <em>Ödem</em> am linken Fußknöchel hat zugenommen – ich berichte dem Arzt.", ex_tr: "Sol ayak bileğindeki ödem artmış – doktora bildiriyorum." },
-    { de: "der Diabetes mellitus", article: "der", tr: "şeker hastalığı", en: "diabetes mellitus", category: "Diagnosen", example: "Wegen <em>Diabetes mellitus</em> messen wir den Blutzucker viermal täglich.", ex_tr: "Şeker hastalığı nedeniyle kan şekerini günde dört kez ölçüyoruz." },
-    { de: "die Dyspnoe", article: "die", tr: "nefes darlığı", en: "dyspnea / breathlessness", category: "Diagnosen", example: "Der Patient klagt über <em>Dyspnoe</em> bei leichter Belastung – SpO₂ kontrollieren.", ex_tr: "Hasta hafif eforla bile nefes darlığından şikâyetçi – SpO₂ kontrol et." },
-    { de: "die Kachexie", article: "die", tr: "kaşeksi / aşırı zayıflık", en: "cachexia / wasting", category: "Diagnosen", example: "Durch die <em>Kachexie</em> ist das Dekubitusrisiko stark erhöht.", ex_tr: "Kaşeksi nedeniyle bası yarası riski büyük ölçüde artmıştır." },
-    // Sicherheit
-    { de: "die Sturzprophylaxe", article: "die", tr: "düşme önleme", en: "fall prevention", category: "Sicherheit", example: "Aufgrund des Sturzrisikos wurden Bettgitter und die <em>Sturzprophylaxe</em> dokumentiert.", ex_tr: "Düşme riski nedeniyle yatak koruyucuları takıldı ve düşme önleme protokolü kayıt altına alındı." },
-    { de: "das Bettgitter", article: "das", tr: "yatak koruyucusu / yatak kafesi", en: "bed rail / cot side", category: "Sicherheit", example: "Das <em>Bettgitter</em> bleibt nachts hochgestellt – Patient ist desorientiiert.", ex_tr: "Yatak koruyucusu geceleri yukarıda kalıyor – hasta desoriyante." },
-    { de: "der Notruf", article: "der", tr: "acil çağrı", en: "emergency call", category: "Sicherheit", example: "Bei einem <em>Notruf</em> immer ruhig bleiben und den Standort klar ansagen.", ex_tr: "Acil çağrıda her zaman sakin kal ve konumu açıkça söyle." },
-    { de: "die Isolation", article: "die", tr: "izolasyon / tecrit", en: "isolation", category: "Sicherheit", example: "Der MRSA-positive Patient befindet sich in <em>Isolation</em> – Schutzkittel anziehen!", ex_tr: "MRSA pozitif hasta izolasyonda – koruyucu önlük giy!" },
-    { de: "die Reanimation", article: "die", tr: "resüsitasyon / CPR", en: "resuscitation / CPR", category: "Sicherheit", example: "Die <em>Reanimation</em> wurde um 03:12 Uhr begonnen und nach 25 Minuten erfolgreich beendet.", ex_tr: "Resüsitasyon saat 03:12'de başlatıldı ve 25 dakika sonra başarıyla sonlandırıldı." },
-    { de: "die Patientenverfügung", article: "die", tr: "hasta vasiyeti / önceden hazırlanmış direktifler", en: "advance directive / living will", category: "Sicherheit", example: "In der <em>Patientenverfügung</em> hat der Patient festgelegt, dass er keine Reanimation wünscht.", ex_tr: "Hasta vasiyetinde hasta, resüsitasyon istemediğini belirtmiş." },
-  ],
+            // --- TEMEL KAVRAMLAR (BASICS) ---
+            { article: "die", de: "Aufnahme", tr: "Hasta Kayıt / Kabul", en: "Admission", category: "Basics", example: "Wir machen jetzt Ihre Aufnahme.", ex_tr: "Şimdi kaydınızı yapıyoruz." },
+            { article: "die", de: "Station", tr: "Servis / Bölüm", en: "Ward", category: "Basics", example: "Er liegt auf der inneren Station.", ex_tr: "Dahiliye servisinde yatıyor." },
+            { article: "die", de: "Übergabe", tr: "Nöbet Devri / Teslimi", en: "Handover", category: "Basics", example: "Die Übergabe beginnt pünktlich.", ex_tr: "Nöbet devri zamanında başlıyor." },
+            { article: "die", de: "Schicht", tr: "Vardiya", en: "Shift", category: "Basics", example: "Ich habe heute Spätschicht.", ex_tr: "Bugün akşam vardiyam var." },
+            { article: "das", de: "Pflegebett", tr: "Bakım Yatağı", en: "Nursing bed", category: "Basics", example: "Das Bett ist höhenverstellbar.", ex_tr: "Yatak yüksekliği ayarlanabilir." },
+            { article: "die", de: "Klingel", tr: "Çağrı Zili", en: "Call bell", category: "Basics", example: "Drücken Sie die Klingel.", ex_tr: "Zile basın." },
+            { article: "die", de: "Visite", tr: "Vizit", en: "Ward round", category: "Basics", example: "Die Visite kommt gleich.", ex_tr: "Vizit birazdan gelecek." },
+            { article: "die", de: "Entlassung", tr: "Taburcu", en: "Discharge", category: "Basics", example: "Die Entlassung ist geplant.", ex_tr: "Taburcu planlandı." },
+            { article: "der", de: "Patientenbrief", tr: "Epikriz Belgesi", en: "Medical report", category: "Basics", example: "Hier ist Ihr Entlassbrief.", ex_tr: "İşte çıkış belgeniz." },
+            { article: "die", de: "Notaufnahme", tr: "Acil Servis", en: "Emergency room", category: "Basics", example: "Er kam über die Notaufnahme.", ex_tr: "Acil servisten geldi." },
+
+            // --- YAŞAM BULGULARI (VITAL) ---
+            { article: "die", de: "Vitalzeichen", tr: "Yaşam Bulguları", en: "Vital signs", category: "Vital", example: "Messen Sie bitte die Vitalzeichen.", ex_tr: "Lütfen yaşam bulgularını ölçün." },
+            { article: "der", de: "Blutdruck (RR)", tr: "Tansiyon", en: "Blood pressure", category: "Vital", example: "Der Blutdruck ist etwas zu hoch.", ex_tr: "Tansiyon biraz fazla yüksek." },
+            { article: "der", de: "Puls", tr: "Nabız", en: "Pulse", category: "Vital", example: "Der Puls ist regelmäßig.", ex_tr: "Nabız düzenli." },
+            { article: "das", de: "Fieber", tr: "Ateş", en: "Fever", category: "Vital", example: "Haben Sie heute Fieber?", ex_tr: "Bugün ateşiniz var mı?" },
+            { article: "die", de: "Sättigung", tr: "Oksijen Satürasyonu", en: "Oxygen saturation", category: "Vital", example: "Die Sättigung liegt bei 98%.", ex_tr: "Satürasyon %98." },
+            { article: "die", de: "Atmung", tr: "Solunum", en: "Breathing", category: "Vital", example: "Die Atmung ist flach.", ex_tr: "Solunum yüzeysel." },
+            { article: "das", de: "Körpergewicht", tr: "Vücut Ağırlığı", en: "Body weight", category: "Vital", example: "Wir wiegen Sie jeden Montag.", ex_tr: "Sizi her Pazartesi tartıyoruz." },
+            { article: "die", de: "Temperatur", tr: "Vücut Isısı", en: "Temperature", category: "Vital", example: "Die Temperatur ist gesunken.", ex_tr: "Vücut ısısı düştü." },
+            { article: "der", de: "Blutzucker (BZ)", tr: "Kan Şekeri", en: "Blood sugar", category: "Vital", example: "BZ-Messung vor dem Essen.", ex_tr: "Yemekten önce şeker ölçümü." },
+            { article: "die", de: "Skala", tr: "Ağrı Skalası (1-10)", en: "Pain scale", category: "Vital", example: "Wie stark ist der Schmerz (1-10)?", ex_tr: "Ağrı ne kadar şiddetli (1-10)?" },
+
+            // --- BAKIM VE HİJYEN (CARE) ---
+            { article: "die", de: "Grundpflege", tr: "Temel Bakım", en: "Basic care", category: "Care", example: "Hilfe bei der Grundpflege.", ex_tr: "Temel bakımda yardım." },
+            { article: "die", de: "Körperpflege", tr: "Vücut Temizliği", en: "Personal hygiene", category: "Care", example: "Soll ich beim Waschen helfen?", ex_tr: "Yıkanmanıza yardım edeyim mi?" },
+            { article: "die", de: "Mundpflege", tr: "Ağız Bakımı", en: "Oral care", category: "Care", example: "Mundpflege nach dem Essen.", ex_tr: "Yemekten sonra ağız bakımı." },
+            { article: "die", de: "Intimpflege", tr: "Genital Bakım", en: "Perineal care", category: "Care", example: "Wir machen jetzt die Intimpflege.", ex_tr: "Genital bakımı yapıyoruz." },
+            { article: "die", de: "Mobilisation", tr: "Hareket Ettirme", en: "Mobilization", category: "Care", example: "Mobilisation nach der OP.", ex_tr: "Ameliyat sonrası hareket." },
+            { article: "das", de: "Lagerungskissen", tr: "Destek Yastığı", en: "Positioning pillow", category: "Care", example: "Nehmen Sie das Kissen.", ex_tr: "Yastığı alın." },
+            { article: "die", de: "Dekubitusprophylaxe", tr: "Yatak Yarası Önleme", en: "Pressure sore prevention", category: "Care", example: "Alle 2 Stunden lagern.", ex_tr: "Her 2 saatte bir pozisyon verin." },
+            { article: "die", de: "Thromboseprophylaxe", tr: "Pıhtı Önleme", en: "Thrombosis prevention", category: "Care", example: "Tragen Sie die Strümpfe.", ex_tr: "Çorapları giyin." },
+            { article: "das", de: "Waschbecken", tr: "Lavabo", en: "Wash basin", category: "Care", example: "Zum Waschbecken gehen.", ex_tr: "Lavaboya gitmek." },
+            { article: "die", de: "Zahnprothese", tr: "Diş Protezi", en: "Dentures", category: "Care", example: "Prothese im Becher reinigen.", ex_tr: "Protezi bardakta temizlemek." },
+
+            // --- TIBBİ İŞLEMLER (MED) ---
+            { article: "die", de: "Medikamente", tr: "İlaçlar", en: "Medications", category: "Med", example: "Nehmen Sie die Medikamente.", ex_tr: "İlaçları alın." },
+            { article: "die", de: "Tablette", tr: "Hap / Tablet", en: "Tablet", category: "Med", example: "Eine Tablette morgens.", ex_tr: "Sabahları bir tablet." },
+            { article: "die", de: "Infusion", tr: "Serum / İnfüzyon", en: "Infusion", category: "Med", example: "Die Infusion ist leer.", ex_tr: "Serum bitti (boş)." },
+            { article: "die", de: "Injektion", tr: "Enjeksiyon", en: "Injection", category: "Med", example: "Eine intramuskuläre Injektion.", ex_tr: "Kas içi bir enjeksiyon." },
+            { article: "die", de: "Blutabnahme", tr: "Kan Alma", en: "Blood sampling", category: "Med", example: "Kurzer Piks.", ex_tr: "Kısa bir batma." },
+            { article: "der", de: "Verband", tr: "Sargı / Pansuman", en: "Bandage", category: "Med", example: "Verbandwechsel am Vormittag.", ex_tr: "Öğleden önce pansuman değişimi." },
+            { article: "die", de: "Wunde", tr: "Yara", en: "Wound", category: "Med", example: "Die Wunde nässt.", ex_tr: "Yara sızdırıyor (akıntılı)." },
+            { article: "die", de: "Kanüle", tr: "Kanül", en: "Cannula", category: "Med", example: "Die Kanüle muss raus.", ex_tr: "Kanül çıkmalı." },
+            { article: "das", de: "Pflaster", tr: "Yara Bandı", en: "Plaster", category: "Med", example: "Soll ich ein Pflaster kleben?", ex_tr: "Yara bandı yapıştırayım mı?" },
+            { article: "die", de: "Salbe", tr: "Merhem / Krem", en: "Ointment", category: "Med", example: "Dünn die Salbe auftragen.", ex_tr: "Merhemi ince bir tabaka sürün." },
+            { article: "der", de: "Tropf", tr: "Serum Seti", en: "Drip", category: "Med", example: "Er hängt am Tropf.", ex_tr: "Seruma bağlı." },
+            { article: "die", de: "Narkose", tr: "Narkoz", en: "Anesthesia", category: "Med", example: "Die Narkose wirkt.", ex_tr: "Narkoz etkisini gösteriyor." },
+
+            // --- VÜCUT VE ORGANLAR (ANATOMY) ---
+            { article: "der", de: "Kopf", tr: "Baş / Kafa", en: "Head", category: "Anatomy", example: "Haben Sie Kopfschmerzen?", ex_tr: "Baş ağrınız var mı?" },
+            { article: "der", de: "Rücken", tr: "Sırt", en: "Back", category: "Anatomy", example: "Der Rücken tut weh.", ex_tr: "Sırtı ağrıyor." },
+            { article: "der", de: "Bauch", tr: "Karın", en: "Abdomen", category: "Anatomy", example: "Ist der Bauch weich?", ex_tr: "Karın yumuşak mı?" },
+            { article: "das", de: "Herz", tr: "Kalp", en: "Heart", category: "Anatomy", example: "Das Herz schlägt schnell.", ex_tr: "Kalp hızlı atıyor." },
+            { article: "die", de: "Lunge", tr: "Akciğer", en: "Lung", category: "Anatomy", example: "Die Lunge wird abgehört.", ex_tr: "Akciğer dinleniyor." },
+            { article: "die", de: "Niere", tr: "Böbrek", en: "Kidney", category: "Anatomy", example: "Die Niere arbeitet gut.", ex_tr: "Böbrek iyi çalışıyor." },
+            { article: "die", de: "Leber", tr: "Karaciğer", en: "Liver", category: "Anatomy", example: "Die Leberwerte sind hoch.", ex_tr: "Karaciğer değerleri yüksek." },
+            { article: "das", de: "Bein", tr: "Bacak", en: "Leg", category: "Anatomy", example: "Das linke Bein ist dick.", ex_tr: "Sol bacak şiş." },
+            { article: "der", de: "Arm", tr: "Kol", en: "Arm", category: "Anatomy", example: "Den Arm ruhig halten.", ex_tr: "Kolu sabit tutun." },
+            { article: "die", de: "Haut", tr: "Cilt / Deri", en: "Skin", category: "Anatomy", example: "Die Haut ist trocken.", ex_tr: "Cilt kuru." },
+
+            // --- SEMPTOMLAR (SYMPTOMS) ---
+            { article: "die", de: "Schmerzen", tr: "Ağrılar", en: "Pain", category: "Symptoms", example: "Wo genau sind die Schmerzen?", ex_tr: "Ağrılar tam olarak nerede?" },
+            { article: "die", de: "Übelkeit", tr: "Mide Bulantısı", en: "Nausea", category: "Symptoms", example: "Mir ist übel.", ex_tr: "Midem bulanıyor." },
+            { article: "der", de: "Schwindel", tr: "Baş Dönmesi", en: "Dizziness", category: "Symptoms", example: "Haben Sie Schwindel?", ex_tr: "Başınız dönüyor mu?" },
+            { article: "die", de: "Atemnot", tr: "Nefes Darlığı", en: "Shortness of breath", category: "Symptoms", example: "Akute Atemnot.", ex_tr: "Akut nefes darlığı." },
+            { article: "der", de: "Husten", tr: "Öksürük", en: "Cough", category: "Symptoms", example: "Haben Sie Husten mit Auswurf?", ex_tr: "Balgamlı öksürüğünüz var mı?" },
+            { article: "die", de: "Verstopfung", tr: "Kabızlık", en: "Constipation", category: "Symptoms", example: "Seit drei Tagen Verstopfung.", ex_tr: "Üç gündür kabızlık." },
+            { article: "der", de: "Durchfall", tr: "İshal", en: "Diarrhea", category: "Symptoms", example: "Der Stuhlgang ist flüssig.", ex_tr: "Dışkı sıvı formda." },
+            { article: "das", de: "Erbrechen", tr: "Kusma", en: "Vomiting", category: "Symptoms", example: "Er musste mehrmals erbrechen.", ex_tr: "Birkaç kez kusması gerekti." },
+            { article: "die", de: "Müdigkeit", tr: "Yorgunluk", en: "Fatigue", category: "Symptoms", example: "Extreme Müdigkeit.", ex_tr: "Aşırı yorgunluk." },
+            { article: "die", de: "Angst", tr: "Korku", en: "Anxiety", category: "Symptoms", example: "Haben Sie Angst vor der OP?", ex_tr: "Ameliyattan korkuyor musunuz?" },
+
+            // --- BESLENME VE BOŞALTIM (DIET/ELIMINATION) ---
+            { article: "nüchtern", de: "nüchtern", tr: "Aç (Tıbbi)", en: "Fasting", category: "Diet", example: "Bleiben Sie bitte nüchtern.", ex_tr: "Lütfen aç kalın." },
+            { article: "die", de: "Flüssigkeit", tr: "Sıvı", en: "Fluid", category: "Diet", example: "Viel Flüssigkeit trinken.", ex_tr: "Bol sıvı içmek." },
+            { article: "der", de: "Hunger", tr: "Açlık", en: "Hunger", category: "Diet", example: "Haben Sie schon Hunger?", ex_tr: "Acıktınız mı?" },
+            { article: "der", de: "Durst", tr: "Susuzluk", en: "Thirst", category: "Diet", example: "Ich habe großen Durst.", ex_tr: "Çok susadım." },
+            { article: "der", de: "Urin", tr: "İdrar", en: "Urine", category: "Diet", example: "Der Urin ist konzentriert.", ex_tr: "İdrar yoğun (koyu)." },
+            { article: "der", de: "Stuhlgang", tr: "Dışkılama", en: "Stool", category: "Diet", example: "Wann war der letzte Stuhlgang?", ex_tr: "Son dışkılama ne zamandı?" },
+            { article: "der", de: "Katheter", tr: "Sonda / Kateter", en: "Catheter", category: "Diet", example: "Beutel leeren.", ex_tr: "Torbayı boşaltmak." },
+            { article: "die", de: "Bettpfanne", tr: "Sürgü", en: "Bedpan", category: "Diet", example: "Ich bringe die Bettpfanne.", ex_tr: "Sürgüyü getiriyorum." },
+            { article: "die", de: "Diät", tr: "Diyet", en: "Diet", category: "Diet", example: "Leichte Vollkost Diät.", ex_tr: "Hafif tam gıda diyeti." },
+
+            // --- EKİPMANLAR (TOOLS) ---
+            { article: "der", de: "Rollstuhl", tr: "Tekerlekli Sandalye", en: "Wheelchair", category: "Tools", example: "Wir brauchen den Rollstuhl.", ex_tr: "Tekerlekli sandalyeye ihtiyacımız var." },
+            { article: "der", de: "Rollator", tr: "Yürüteç", en: "Walker", category: "Tools", example: "Gehen mit dem Rollator.", ex_tr: "Yürüteçle yürümek." },
+            { article: "die", de: "Gehstützen", tr: "Koltuk Değneği", en: "Crutches", category: "Tools", example: "Er nutzt Gehstützen.", ex_tr: "Koltuk değneği kullanıyor." },
+            { article: "die", de: "Spritze", tr: "Enjektör / İğne", en: "Syringe", category: "Tools", example: "Eine neue Spritze holen.", ex_tr: "Yeni bir enjektör getirmek." },
+            { article: "die", de: "Handschuhe", tr: "Eldiven", en: "Gloves", category: "Tools", example: "Handschuhe anziehen.", ex_tr: "Eldiven giymek." },
+            { article: "der", de: "Mundschutz", tr: "Maske", en: "Mask", category: "Tools", example: "Bitte Mundschutz tragen.", ex_tr: "Lütfen maske takın." },
+            { article: "das", de: "Stethoskop", tr: "Stetoskop", en: "Stethoscope", category: "Tools", example: "Wo ist mein Stethoskop?", ex_tr: "Stetoskopum nerede?" },
+            { article: "das", de: "Thermometer", tr: "Derece / Termometre", en: "Thermometer", category: "Tools", example: "Das Ohr-Thermometer.", ex_tr: "Kulaktan ateş ölçer." },
+
+            // --- MESLEKİ İLETİŞİM (COMMUNICATION) ---
+            { article: "die", de: "Hilfe", tr: "Yardım", en: "Help", category: "Comm", example: "Ich brauche Hilfe.", ex_tr: "Yardıma ihtiyacım var." },
+            { article: "der", de: "Kollege", tr: "Meslektaş", en: "Colleague", category: "Comm", example: "Mein Kollege kommt gleich.", ex_tr: "Meslektaşım birazdan gelecek." },
+            { article: "das", de: "Team", tr: "Ekip", en: "Team", category: "Comm", example: "Wir sind ein gutes Team.", ex_tr: "İyi bir ekibiz." },
+            { article: "der", de: "Arzt", tr: "Doktor", en: "Doctor", category: "Comm", example: "Der Arzt informiert Sie.", ex_tr: "Doktor sizi bilgilendirecek." },
+            { article: "die", de: "Angehörigen", tr: "Hasta Yakınları", en: "Relatives", category: "Comm", example: "Gespräch mit den Angehörigen.", ex_tr: "Hasta yakınlarıyla görüşme." },
+            { article: "die", de: "Zustimmung", tr: "Onay / Rıza", en: "Consent", category: "Comm", example: "Haben wir die Zustimmung?", ex_tr: "Onayımız var mı?" },
+            { article: "die", de: "Verschwiegenheit", tr: "Gizlilik", en: "Confidentiality", category: "Comm", example: "Ärztliche Schweigepflicht.", ex_tr: "Doktorun sır saklama yükümlülüğü." },
+
+            // --- EKSTRALAR (EXTRA) ---
+            { article: "der", de: "Gips", tr: "Alçı", en: "Plaster cast", category: "Med", example: "Das Bein ist im Gips.", ex_tr: "Bacak alçıda." },
+            { article: "die", de: "Allergie", tr: "Alerji", en: "Allergy", category: "Symptoms", example: "Haben Sie Allergien?", ex_tr: "Alerjiniz var mı?" },
+            { article: "die", de: "Pille", tr: "Doğum Kontrol Hapı / İlaç", en: "Pill", category: "Med", example: "Die tägliche Pille.", ex_tr: "Günlük hap." },
+            { article: "die", de: "Operation (OP)", tr: "Ameliyat", en: "Surgery", category: "Basics", example: "Die OP dauert zwei Stunden.", ex_tr: "Ameliyat iki saat sürüyor." },
+            { article: "der", de: "Schock", tr: "Şok", en: "Shock", category: "Symptoms", example: "Er steht unter Schock.", ex_tr: "Şokta." },
+            { article: "die", de: "Infektion", tr: "Enfeksiyon", en: "Infection", category: "Symptoms", example: "Vermeidung von Infektionen.", ex_tr: "Enfeksiyonlardan kaçınma." },
+            { article: "die", de: "Heilung", tr: "İyileşme", en: "Healing", category: "Basics", example: "Gute Heilung!", ex_tr: "İyi iyileşmeler!" },
+            { article: "der", de: "Befund", tr: "Bulgu", en: "Finding", category: "Basics", example: "Der Befund ist unauffällig.", ex_tr: "Bulgu normal (dikkat çekici değil)." },
+            { article: "die", de: "Laborwerte", tr: "Laboratuvar Değerleri", en: "Lab results", category: "Basics", example: "Laborwerte sind da.", ex_tr: "Laboratuvar sonuçları geldi." },
+            { article: "die", de: "Krankenkasse", tr: "Sağlık Sigortası", en: "Health insurance", category: "Basics", example: "Ihre Versichertenkarte bitte.", ex_tr: "Sigorta kartınız lütfen." }
+        ],
   fallbeispiele: [
     {
       title: "Sabah Bakımı – Kalp Yetmezliği Olan Hasta",
