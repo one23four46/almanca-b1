@@ -3,190 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedDeutsch Pro Academy</title>
+    <title>MedDeutsch Academy by ASIL</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --medical-blue: #0f4c75;
-            --medical-light: #3282b8;
-            --duo-green: #58cc02;
-            --duo-red: #ff4b4b;
-            --glass: rgba(255, 255, 255, 0.9);
+            --med-blue: #00a8cc; --med-dark: #005073;
+            --med-light: #e1f5fe; --duo-green: #58cc02;
+            --duo-red: #ff4b4b; --glass: rgba(255, 255, 255, 0.95);
         }
-
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-            background-attachment: fixed;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            color: #1b262c;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0; display: flex; justify-content: center; min-height: 100vh;
         }
+        #app { width: 100%; max-width: 480px; padding: 20px; z-index: 1; }
 
-        /* Tıbbi Arka Plan Deseni */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-        #app {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Karşılama Ekranı */
+        /* KARŞILAMA EKRANI */
         #screen-welcome {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--medical-blue);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            z-index: 1000;
-            text-align: center;
-            transition: opacity 0.5s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, #ffffff, #e1f5fe);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; text-align: center;
+        }
+        .welcome-art { font-size: 100px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        
+        .fancy-title {
+            font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 45px;
+            background: linear-gradient(to right, #005073, #00a8cc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0;
+        }
+        .asil-tag {
+            position: absolute; bottom: 40px; font-size: 14px; font-weight: 700;
+            color: var(--med-blue); letter-spacing: 3px; border-top: 2px solid rgba(0,168,204,0.1); padding-top: 15px;
         }
 
-        /* Şık Kartlar */
+        /* KART VE BUTON SÜSLEMELERİ */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
-            border: none;
-            margin-bottom: 20px;
-            text-align: center;
+            background: var(--glass); border-radius: 30px; padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid white; text-align: center; margin-bottom: 25px;
         }
-
-        /* Modern Butonlar */
         .btn {
-            cursor: pointer;
-            border: none;
-            border-radius: 18px;
-            font-weight: 800;
-            padding: 18px 25px;
-            width: 100%;
-            font-size: 16px;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            cursor: pointer; border: none; border-radius: 20px; font-family: 'Montserrat', sans-serif;
+            font-weight: 800; padding: 20px; width: 100%; text-transform: uppercase; transition: 0.3s;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1); font-size: 16px;
         }
-
-        .btn-welcome { background: white; color: var(--medical-blue); margin-top: 20px; width: auto; }
-        .btn-green { background: var(--duo-green); color: white; box-shadow: 0 6px 0 #46a302; }
-        .btn-blue { background: var(--medical-light); color: white; box-shadow: 0 6px 0 #205295; }
-        .btn:active { transform: translateY(4px); box-shadow: none; }
-        .btn:hover { filter: brightness(1.1); transform: scale(1.02); }
+        .btn-main { background: linear-gradient(135deg, var(--med-blue), var(--med-dark)); color: white; }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 11px 0 rgba(0,0,0,0.15); }
+        .btn-main:active { transform: translateY(5px); box-shadow: none; }
 
         .option-btn {
-            background: white;
-            color: #333;
-            text-align: left;
-            margin-bottom: 12px;
-            border: 2px solid #e0e0e0;
-            box-shadow: 0 4px 0 #e0e0e0;
-            text-transform: none;
+            background: white; border: 2px solid #edf2f7; color: #333; margin-bottom: 15px;
+            text-align: left; padding-left: 25px; text-transform: none; box-shadow: 0 4px 0 #edf2f7;
         }
+        .option-btn:hover { border-color: var(--med-blue); background: #f0fbff; }
 
-        /* Üst Bar */
+        /* ÜST PANEL */
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 15px;
+            background: white; border-radius: 22px; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
-
-        .stat-box { display: flex; flex-direction: column; align-items: center; }
-        .stat-label { font-size: 10px; font-weight: bold; color: #777; }
-        .stat-value { font-size: 18px; font-weight: bold; }
-
-        .progress-container {
-            flex-grow: 1;
-            height: 12px;
-            background: #eee;
-            border-radius: 10px;
-            margin: 0 15px;
-            overflow: hidden;
-        }
-        .progress-fill { height: 100%; background: var(--duo-green); width: 0%; transition: 0.4s; }
+        .progress-bar { flex-grow: 1; height: 14px; background: #eee; border-radius: 10px; margin: 0 15px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--duo-green); width: 0%; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         .hidden { display: none; }
-        .quiz-q { font-size: 32px; font-weight: bold; color: var(--medical-blue); margin-bottom: 10px; }
-        
-        /* Animasyonlar */
-        .correct-ans { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
-        .wrong-ans { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; animation: shake 0.3s; }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
+        .correct { background: #d1fae5 !important; border-color: #10b981 !important; color: #065f46 !important; }
+        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; animation: shake 0.4s; }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 60%{transform:translateX(10px)} }
     </style>
 </head>
 <body>
 
     <div id="screen-welcome">
-        <div style="font-size: 100px;">🧬</div>
-        <h1 style="font-size: 36px; margin: 10px;">MedDeutsch Academy</h1>
-        <p style="opacity: 0.8; padding: 0 20px;">Tıp dünyasının kapılarını Almanca ile açmaya hazır mısın?</p>
-        <button class="btn btn-welcome" onclick="closeWelcome()">DEVAM ET</button>
+        <div class="welcome-art">👨‍⚕️</div>
+        <h1 class="fancy-title">MEDDEUTSCH</h1>
+        <h2 style="font-weight: 300; letter-spacing: 5px; color: var(--med-blue); margin: 0;">ACADEMY</h2>
+        <button class="btn btn-main" style="width: auto; padding: 20px 50px; margin-top: 40px;" onclick="enterApp()">BAŞLAMAK İÇİN TIKLAYIN</button>
+        <div class="asil-tag">ASIL TARAFINDAN GELİŞTİRİLDİ</div>
     </div>
 
     <div id="app" class="hidden">
         <div class="header">
-            <div class="stat-box"><span class="stat-label">CAN</span><span id="hearts" style="color:var(--duo-red)">❤️ 10</span></div>
-            <div class="progress-container"><div id="fill" class="progress-fill"></div></div>
-            <div class="stat-box"><span class="stat-label">PUAN</span><span id="score" style="color:var(--medical-light)">⭐ 0</span></div>
-            <div class="stat-box"><span class="stat-label">REKOR</span><span id="high-score" style="color:#f39c12">🏆 0</span></div>
+            <span id="hearts" style="color:var(--duo-red); font-weight:800; font-size:18px;">❤️ 10</span>
+            <div class="progress-bar"><div id="bar" class="progress-fill"></div></div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                <span id="score" style="color:var(--med-blue); font-weight:800;">⭐ 0 XP</span>
+                <span id="high" style="color:#f59e0b; font-size:11px; font-weight:700;">🏆 REKOR: 0</span>
+            </div>
         </div>
 
         <div id="screen-home">
             <div class="card">
-                <div style="font-size: 60px;">🩺</div>
-                <h2 style="color: var(--medical-blue);">Hoş Geldiniz</h2>
-                <p>Kendi rekorunu kırmak için kelime maratonuna başla.</p>
+                <div style="font-size: 60px; margin-bottom: 10px;">🧬</div>
+                <h2 style="color: var(--med-dark); margin-bottom: 5px;">Hoş Geldiniz</h2>
+                <p style="color: #777; font-size: 14px;">Tıp Almancası maratonuna katıl ve en yüksek skoru yap!</p>
             </div>
-            <button class="btn btn-green" onclick="startQuiz()">Alıştırmaya Başla</button>
+            <button class="btn btn-main" onclick="startQuiz()">ALIŞTIRMAYA BAŞLA</button>
         </div>
 
         <div id="screen-quiz" class="hidden">
             <div class="card">
-                <div id="q-text" class="quiz-q">...</div>
-                <button onclick="speak()" style="font-size:24px; border:none; background:#e1f1ff; border-radius:50%; width:55px; height:55px; cursor:pointer; color:var(--medical-blue);">🔊</button>
+                <div id="q-text" style="font-size: 32px; font-weight: 800; color: var(--med-dark); margin-bottom: 15px;">...</div>
+                <button onclick="speak()" style="border:none; background:var(--med-light); border-radius:50%; width:60px; height:60px; cursor:pointer; color:var(--med-blue); font-size:26px;">🔊</button>
             </div>
             <div id="options"></div>
         </div>
 
         <div id="screen-over" class="hidden">
             <div class="card">
-                <div style="font-size: 70px;">👨‍⚕️</div>
-                <h2 style="color:var(--duo-red)">Canlar Tükendi!</h2>
-                <p>Pes etme! Tıp uzun bir yolculuktur.</p>
-                <div style="font-size: 40px; font-weight: bold; margin: 15px 0;" id="final-score">0 XP</div>
+                <div style="font-size: 80px;">💔</div>
+                <h2 style="color:var(--duo-red); font-family:'Montserrat';">CANIN TÜKENDİ!</h2>
+                <div id="final-xp" style="font-size: 50px; font-weight: 800; margin: 15px 0; color: var(--med-dark);">0 XP</div>
+                <p style="color: #666;">Doktor, pes etmek sana yakışmaz!</p>
             </div>
-            <button class="btn btn-blue" onclick="location.reload()">Yeniden Dene</button>
+            <button class="btn btn-main" onclick="location.reload()">BAŞA DÖN VE DENE</button>
         </div>
     </div>
 
 <script>
-    // --- BURAYA ORIJINAL LİSTENİ YAPIŞTIR ---
+    // KISALTILMIŞ TEMEL KELİME LİSTESİ
     const VOCAB = [
   {id:1,de:"der Arzt",tr:"doktor (erkek)",cat:"Genel",ex:"Der Arzt untersucht den Patienten.",level:"A1"},
   {id:2,de:"die Ärztin",tr:"doktor (kadın)",cat:"Genel",ex:"Die Ärztin verschreibt ein Medikament.",level:"A1"},
@@ -694,11 +631,11 @@
   {id:504,de:"die Pflegeversicherung",tr:"bakım sigortası",cat:"Genel",ex:"Die Pflegeversicherung deckt Pflegekosten.",level:"C1"},
   {id:505,de:"der Pflegegrad",tr:"bakım derecesi",cat:"Genel",ex:"Der Pflegegrad bestimmt den Leistungsumfang.",level:"C1"},
 ];
+    let state = { score: 0, hearts: 10, current: null, count: 0, high: localStorage.getItem('asil_med_rekor') || 0 };
 
-    let state = { score: 0, hearts: 10, current: null, count: 0, highScore: localStorage.getItem('medHighScore') || 0 };
-
-    function closeWelcome() {
+    function enterApp() {
         document.getElementById('screen-welcome').style.opacity = '0';
+        document.getElementById('screen-welcome').style.transform = 'scale(1.1)';
         setTimeout(() => {
             document.getElementById('screen-welcome').classList.add('hidden');
             document.getElementById('app').classList.remove('hidden');
@@ -708,14 +645,9 @@
 
     function startQuiz() {
         state.score = 0; state.hearts = 10; state.count = 0;
-        updateUI();
-        nextQ();
-        switchScreen('quiz');
-    }
-
-    function switchScreen(id) {
-        ['home', 'quiz', 'over'].forEach(s => document.getElementById('screen-'+s).classList.add('hidden'));
-        document.getElementById('screen-'+id).classList.remove('hidden');
+        updateUI(); nextQ();
+        document.getElementById('screen-home').classList.add('hidden');
+        document.getElementById('screen-quiz').classList.remove('hidden');
     }
 
     function nextQ() {
@@ -739,40 +671,32 @@
         });
     }
 
-    function check(selected, btn) {
-        const btns = document.querySelectorAll('.option-btn');
-        btns.forEach(b => b.style.pointerEvents = 'none');
+    function check(val, btn) {
+        const all = document.querySelectorAll('.option-btn');
+        all.forEach(x => x.style.pointerEvents = 'none');
 
-        if(selected === state.current.tr) {
+        if(val === state.current.tr) {
             state.score += 10; state.count++;
-            btn.classList.add('correct-ans');
-            
-            // Konfeti ve Ses
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+            btn.classList.add('correct');
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 }, colors: ['#58cc02', '#00a8cc'] });
             playTone(800, 0.2);
-
-            // Rekor Kontrolü
-            if(state.score > state.highScore) {
-                state.highScore = state.score;
-                localStorage.setItem('medHighScore', state.highScore);
-            }
-
-            document.getElementById('fill').style.width = (state.count * 10 % 101) + "%";
-            setTimeout(nextQ, 600);
+            if(state.score > state.high) { state.high = state.score; localStorage.setItem('asil_med_rekor', state.high); }
+            document.getElementById('bar').style.width = (state.count * 10 % 101) + "%";
+            setTimeout(nextQ, 700);
         } else {
             state.hearts--;
-            btn.classList.add('wrong-ans');
-            playTone(200, 0.3);
-            
+            btn.classList.add('wrong');
+            playTone(150, 0.4);
             if(state.hearts <= 0) {
                 setTimeout(() => {
-                    document.getElementById('final-score').innerText = state.score + " XP";
-                    switchScreen('over');
+                    document.getElementById('final-xp').innerText = state.score + " XP";
+                    document.getElementById('screen-quiz').classList.add('hidden');
+                    document.getElementById('screen-over').classList.remove('hidden');
                 }, 600);
             } else {
                 setTimeout(() => {
-                    btn.classList.remove('wrong-ans');
-                    btns.forEach(b => b.style.pointerEvents = 'auto');
+                    btn.classList.remove('wrong');
+                    all.forEach(x => x.style.pointerEvents = 'auto');
                 }, 800);
             }
         }
@@ -781,14 +705,13 @@
 
     function updateUI() {
         document.getElementById('hearts').innerText = "❤️ " + state.hearts;
-        document.getElementById('score').innerText = "⭐ " + state.score;
-        document.getElementById('high-score').innerText = "🏆 " + state.highScore;
+        document.getElementById('score').innerText = "⭐ " + state.score + " XP";
+        document.getElementById('high').innerText = "🏆 REKOR: " + state.high;
     }
 
     function playTone(freq, dur) {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const o = ctx.createOscillator();
-        const g = ctx.createGain();
+        const o = ctx.createOscillator(); const g = ctx.createGain();
         o.frequency.value = freq; o.connect(g); g.connect(ctx.destination);
         g.gain.setValueAtTime(0.1, ctx.currentTime);
         g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + dur);
