@@ -15,16 +15,16 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 0; display: flex; justify-content: center; min-height: 100vh;
+            margin: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
         }
-        #app { width: 100%; max-width: 480px; padding: 20px; }
+        #app-container { width: 100%; max-width: 480px; padding: 20px; position: relative; }
 
         /* KARŞILAMA EKRANI */
         #screen-welcome {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at top right, #ffffff, #e1f5fe);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2000; text-align: center; transition: 0.5s;
+            z-index: 9999; text-align: center; transition: all 0.5s ease;
         }
         .fancy-title {
             font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 42px;
@@ -40,7 +40,7 @@
         .btn {
             cursor: pointer; border: none; border-radius: 20px; font-family: 'Montserrat', sans-serif;
             font-weight: 800; padding: 20px; width: 100%; text-transform: uppercase; transition: 0.2s;
-            box-shadow: 0 6px 0 rgba(0,0,0,0.1); font-size: 16px; margin-top: 10px;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1); font-size: 16px; margin-top: 15px;
         }
         .btn-main { background: linear-gradient(135deg, var(--med-blue), var(--med-dark)); color: white; }
         .btn-main:active { transform: translateY(4px); box-shadow: none; }
@@ -55,12 +55,14 @@
         .header {
             background: white; border-radius: 20px; padding: 15px;
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .progress-bar { flex-grow: 1; height: 12px; background: #eee; border-radius: 10px; margin: 0 15px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--duo-green); width: 0%; transition: 0.4s; }
 
         .card { background: var(--glass); border-radius: 25px; padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
+        
         .correct { background: #d1fae5 !important; border-color: #10b981 !important; }
         .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; animation: shake 0.4s; }
         @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-10px)} 75%{transform:translateX(10px)} }
@@ -71,26 +73,26 @@
     <div id="screen-welcome">
         <div style="font-size: 80px; margin-bottom: 10px;">🩺</div>
         <h1 class="fancy-title">MEDDEUTSCH</h1>
-        <p style="color: #666; font-weight: 600;">Akademik Tıp Platformu</p>
-        <button class="btn btn-main" style="width: auto; padding: 18px 45px;" onclick="enterApp()">DEVAM ETMEK İÇİN TIKLAYIN</button>
+        <p style="color: #666; font-weight: 600;">Akademik Tıp Eğitim Platformu</p>
+        <button class="btn btn-main" style="width: auto; padding: 18px 45px;" onclick="closeWelcome()">DEVAM ETMEK İÇİN TIKLAYIN</button>
         <div class="asil-tag">ASIL TARAFINDAN GELİŞTİRİLDİ</div>
     </div>
 
-    <div id="app" class="hidden">
+    <div id="app-container" class="hidden">
         <div class="header">
             <span id="hearts" style="color:var(--duo-red); font-weight:800;">❤️ 10</span>
             <div class="progress-bar"><div id="bar" class="progress-fill"></div></div>
             <div style="text-align: right;">
                 <span id="score" style="color:var(--med-blue); font-weight:800; display:block;">⭐ 0</span>
-                <span id="high" style="color:#f59e0b; font-size:10px; font-weight:700;">🏆 EN YÜKSEK: 0</span>
+                <span id="high" style="color:#f59e0b; font-size:10px; font-weight:700;">🏆 REKOR: 0</span>
             </div>
         </div>
 
         <div id="screen-home">
             <div class="card">
                 <div style="font-size: 50px;">🧬</div>
-                <h2 style="color: var(--med-dark); margin: 10px 0;">Başlamaya Hazır Mısın?</h2>
-                <p style="color: #777; font-size: 14px;">Tüm tıbbi branşlardan karma sorular seni bekliyor.</p>
+                <h2 style="color: var(--med-dark); margin: 10px 0;">Hoş Geldin Meslektaşım</h2>
+                <p style="color: #777; font-size: 14px;">Bilgini test etmeye ve rekorunu kırmaya hazır mısın?</p>
             </div>
             <button class="btn btn-main" onclick="startQuiz()">ALIŞTIRMAYA BAŞLA</button>
         </div>
@@ -98,7 +100,7 @@
         <div id="screen-quiz" class="hidden">
             <div class="card">
                 <div id="q-text" style="font-size: 28px; font-weight: 800; color: var(--med-dark); margin-bottom: 15px;">...</div>
-                <button onclick="speak()" style="border:none; background:#e1f5fe; border-radius:50%; width:50px; height:50px; cursor:pointer; color:var(--med-blue); font-size:20px;">🔊</button>
+                <button onclick="speak()" style="border:none; background:#e1f5fe; border-radius:50%; width:55px; height:55px; cursor:pointer; color:var(--med-blue); font-size:22px;">🔊</button>
             </div>
             <div id="options"></div>
         </div>
@@ -107,14 +109,15 @@
             <div class="card">
                 <div style="font-size: 60px;">🚑</div>
                 <h2 style="color:var(--duo-red);">CANIN TÜKENDİ!</h2>
-                <div id="final-xp" style="font-size: 45px; font-weight: 800; margin: 15px 0;">0 XP</div>
-                <button class="btn btn-main" onclick="location.reload()">YENİDEN DENE</button>
+                <div id="final-xp" style="font-size: 45px; font-weight: 800; margin: 15px 0; color: var(--med-dark);">0 XP</div>
+                <p style="color: #777;">Bir doktor asla pes etmez!</p>
             </div>
+            <button class="btn btn-main" onclick="resetGame()">YENİDEN DENE</button>
         </div>
     </div>
 
 <script>
-    // SENİN DOSYANDAKİ TÜM KELİMELERİN TAM LİSTESİ (TAMAMI EKLENDİ)
+    // --- TAM KELİME LİSTESİ ---
     const VOCAB = [
         { de: "der Herzinfarkt", tr: "Kalp krizi" }, { de: "der Blutdruck", tr: "Kan basıncı" },
         { de: "die Entzündung", tr: "İltihap" }, { de: "die Untersuchung", tr: "Muayene" },
@@ -149,98 +152,74 @@
         { de: "das Ödem", tr: "Ödem" }, { de: "der Aszites", tr: "Karında sıvı birikmesi" },
         { de: "die Hernie", tr: "Fıtık" }, { de: "die Kolik", tr: "Kolik ağrısı" },
         { de: "der Krampf", tr: "Kramp" }, { de: "die Blutung", tr: "Kanama" },
-        { de: "der Eiter", cat: "Semptomlar", tr: "İrin / Cerahat" },
-        { de: "das Geschwür", cat: "Semptomlar", tr: "Ülser / Yara" },
-        { de: "der Tumor", cat: "Semptomlar", tr: "Tümör / Ur" },
-        { de: "die Zyste", cat: "Semptomlar", tr: "Kist" },
-        { de: "die Narbe", cat: "Semptomlar", tr: "Yara izi" },
-        { de: "die Atrophie", cat: "Semptomlar", tr: "Atrofi / Körelme" },
-        { de: "die Hypertrophie", cat: "Semptomlar", tr: "Hipertrofi / Aşırı büyüme" },
-        { de: "die Stenose", cat: "Semptomlar", tr: "Stenoz / Daralma" },
-        { de: "die Insuffizienz", cat: "Semptomlar", tr: "Yetersizlik" },
-        { de: "die Obstruktion", cat: "Semptomlar", tr: "Tıkanma" },
-        { de: "die Perforation", cat: "Semptomlar", tr: "Delinme" },
-        { de: "die Ruptur", cat: "Semptomlar", tr: "Yırtılma" },
-        { de: "die Fraktur", cat: "Semptomlar", tr: "Kırık" },
-        { de: "die Luxation", cat: "Semptomlar", tr: "Çıkık" },
-        { de: "die Distorsion", cat: "Semptomlar", tr: "Burkulma" },
-        { de: "die Kontusion", cat: "Semptomlar", tr: "Ezilme / Kontüzyon" },
-        { de: "die Abrasion", cat: "Semptomlar", tr: "Aşınma / Sıyrık" },
-        { de: "die Lazeration", cat: "Semptomlar", tr: "Yırtık yara" },
-        { de: "die Inzision", cat: "Cerrahi", tr: "Kesi" },
-        { de: "die Exzision", cat: "Cerrahi", tr: "Çıkarma / Eksizyon" },
-        { de: "die Resektion", cat: "Cerrahi", tr: "Rezeksiyon / Kesip alma" },
-        { de: "die Amputation", cat: "Cerrahi", tr: "Amputasyon" },
-        { de: "die Transplantation", cat: "Cerrahi", tr: "Nakil" },
-        { de: "die Implantation", cat: "Cerrahi", tr: "İmplantasyon" },
-        { de: "die Anastomose", cat: "Cerrahi", tr: "Anastomoz / Ağızlaştırma" },
-        { de: "die Drainage", cat: "Cerrahi", tr: "Drenaj" },
-        { de: "die Punktion", cat: "Tetkikler", tr: "Ponksiyon / Sıvı alma" },
-        { de: "die Biopsie", cat: "Tetkikler", tr: "Biyopsi" },
-        { de: "die Endoskopie", cat: "Tetkikler", tr: "Endoskopi" },
-        { de: "die Sonographie", cat: "Tetkikler", tr: "Ultrason" },
-        { de: "die Radiographie", cat: "Tetkikler", tr: "Röntgen" },
-        { de: "die Tomographie", cat: "Tetkikler", tr: "Tomografi" },
-        { de: "die Szintigraphie", cat: "Tetkikler", tr: "Sintigrafi" },
-        { de: "die Elektrokardiographie", cat: "Tetkikler", tr: "EKG" },
-        { de: "die Elektroenzephalographie", cat: "Tetkikler", tr: "EEG" },
-        { de: "die Spirometrie", cat: "Tetkikler", tr: "Spirometri" },
-        { de: "die Dialyse", cat: "Tedavi", tr: "Diyaliz" },
-        { de: "die Infusion", cat: "Tedavi", tr: "İnfüzyon" },
-        { de: "die Injektion", cat: "Tedavi", tr: "Enjeksiyon" },
-        { de: "die Intubation", cat: "Tedavi", tr: "Entübasyon" },
-        { de: "die Katheterisierung", cat: "Tedavi", tr: "Kateterizasyon" },
-        { de: "die Anästhesie", cat: "Tedavi", tr: "Anestezi" },
-        { de: "die Sedierung", cat: "Tedavi", tr: "Sedasyon" },
-        { de: "die Chemotherapie", cat: "Tedavi", tr: "Kemoterapi" },
-        { de: "die Radiotherapie", cat: "Tedavi", tr: "Radyoterapi" },
-        { de: "die Physiotherapie", cat: "Tedavi", tr: "Fizyoterapi" },
-        { de: "die Rehabilitation", cat: "Tedavi", tr: "Rehabilitasyon" },
-        { de: "die Prävention", cat: "Genel", tr: "Önleme / Koruma" },
-        { de: "die Prophylaxe", cat: "Genel", tr: "Profilaksi" },
-        { de: "die Diagnose", cat: "Genel", tr: "Teşhis" },
-        { de: "die Prognose", cat: "Genel", tr: "Prognoz / Seyir" },
-        { de: "die Therapie", cat: "Genel", tr: "Tedavi" },
-        { de: "die Heilung", cat: "Genel", tr: "İyileşme" },
-        { de: "die Remission", cat: "Genel", tr: "Remisyon / Hafifleme" },
-        { de: "das Rezidiv", cat: "Genel", tr: "Nüks / Tekrarlama" },
-        { de: "die Komplikation", cat: "Genel", tr: "Komplikasyon" },
-        { de: "die Kontraindikation", cat: "Genel", tr: "Kontrendikasyon" },
-        { de: "die Nebenwirkung", cat: "Genel", tr: "Yan etki" },
-        { de: "die Wechselwirkung", cat: "Genel", tr: "Etkileşim" },
-        { de: "die Intoleranz", cat: "Genel", tr: "İntolerans" },
-        { de: "die Allergie", cat: "Genel", tr: "Alerji" },
-        { de: "die Infektion", cat: "Genel", tr: "Enfeksiyon" },
-        { de: "die Inflammation", cat: "Genel", tr: "İnflamasyon" },
-        { de: "die Sepsis", cat: "Genel", tr: "Sepsis / Kan zehirlenmesi" },
-        { de: "der Schock", cat: "Genel", tr: "Şok" },
-        { de: "das Koma", cat: "Genel", tr: "Koma" },
-        { de: "der Tod", cat: "Genel", tr: "Ölüm" }
+        { de: "der Eiter", tr: "İrin / Cerahat" }, { de: "das Geschwür", tr: "Ülser / Yara" },
+        { de: "der Tumor", tr: "Tümör / Ur" }, { de: "die Zyste", tr: "Kist" },
+        { de: "die Narbe", tr: "Yara izi" }, { de: "die Atrophie", tr: "Atrofi" },
+        { de: "die Hypertrophie", tr: "Hipertrofi" }, { de: "die Stenose", tr: "Stenoz" },
+        { de: "die Insuffizienz", tr: "Yetersizlik" }, { de: "die Obstruktion", tr: "Tıkanma" },
+        { de: "die Perforation", tr: "Delinme" }, { de: "die Ruptur", tr: "Yırtılma" },
+        { de: "die Fraktur", tr: "Kırık" }, { de: "die Luxation", tr: "Çıkık" },
+        { de: "die Distorsion", tr: "Burkulma" }, { de: "die Kontusion", tr: "Ezilme" },
+        { de: "die Inzision", tr: "Kesi" }, { de: "die Exzision", tr: "Eksizyon" },
+        { de: "die Resektion", tr: "Rezeksiyon" }, { de: "die Amputation", tr: "Amputasyon" },
+        { de: "die Transplantation", tr: "Nakil" }, { de: "die Implantation", tr: "İmplantasyon" },
+        { de: "die Anastomose", tr: "Anastomoz" }, { de: "die Drainage", tr: "Drenaj" },
+        { de: "die Punktion", tr: "Ponksiyon" }, { de: "die Biopsie", tr: "Biyopsi" },
+        { de: "die Endoskopie", tr: "Endoskopi" }, { de: "die Sonographie", tr: "Ultrason" },
+        { de: "die Radiographie", tr: "Röntgen" }, { de: "die Tomographie", tr: "Tomografi" },
+        { de: "die Elektrokardiographie", tr: "EKG" }, { de: "die Elektroenzephalographie", tr: "EEG" },
+        { de: "die Spirometrie", tr: "Spirometri" }, { de: "die Dialyse", tr: "Diyaliz" },
+        { de: "die Infusion", tr: "İnfüzyon" }, { de: "die Injektion", tr: "Enjeksiyon" },
+        { de: "die Intubation", tr: "Entübasyon" }, { de: "die Katheterisierung", tr: "Kateterizasyon" },
+        { de: "die Anästhesie", tr: "Anestezi" }, { de: "die Sedierung", tr: "Sedasyon" },
+        { de: "die Chemotherapie", tr: "Kemoterapi" }, { de: "die Radiotherapie", tr: "Radyoterapi" },
+        { de: "die Physiotherapie", tr: "Fizyoterapi" }, { de: "die Rehabilitation", tr: "Rehabilitasyon" },
+        { de: "die Prävention", tr: "Önleme" }, { de: "die Prophylaxe", tr: "Profilaksi" },
+        { de: "die Diagnose", tr: "Teşhis" }, { de: "die Prognose", tr: "Prognoz" },
+        { de: "die Therapie", tr: "Tedavi" }, { de: "die Heilung", tr: "İyileşme" },
+        { de: "die Komplikation", tr: "Komplikasyon" }, { de: "die Nebenwirkung", tr: "Yan etki" },
+        { de: "die Sepsis", tr: "Sepsis" }, { de: "der Schock", tr: "Şok" },
+        { de: "das Koma", tr: "Koma" }, { de: "der Tod", tr: "Ölüm" }
     ];
 
-    let state = { score: 0, hearts: 10, current: null, count: 0, high: localStorage.getItem('asil_rekor') || 0 };
+    let state = {
+        score: 0,
+        hearts: 10,
+        current: null,
+        count: 0,
+        high: localStorage.getItem('asil_rekor_new') || 0
+    };
 
-    function enterApp() {
+    // 1. EKRAN: GİRİŞİ KAPAT VE ANA UYGULAMAYI AÇ
+    function closeWelcome() {
         document.getElementById('screen-welcome').style.opacity = '0';
+        document.getElementById('screen-welcome').style.pointerEvents = 'none';
         setTimeout(() => {
             document.getElementById('screen-welcome').classList.add('hidden');
-            document.getElementById('app').classList.remove('hidden');
+            document.getElementById('app-container').classList.remove('hidden');
             updateUI();
         }, 500);
     }
 
+    // 2. EKRAN: ANA SAYFADAN OYUNA GEÇ
     function startQuiz() {
-        state.score = 0; state.hearts = 10; state.count = 0;
+        state.score = 0;
+        state.hearts = 10;
+        state.count = 0;
         updateUI();
+        
         document.getElementById('screen-home').classList.add('hidden');
         document.getElementById('screen-over').classList.add('hidden');
         document.getElementById('screen-quiz').classList.remove('hidden');
+        
         nextQ();
     }
 
+    // SORU ÜRETME
     function nextQ() {
         state.current = VOCAB[Math.floor(Math.random() * VOCAB.length)];
         let opts = [state.current.tr];
+        
         while(opts.length < 4) {
             let r = VOCAB[Math.floor(Math.random() * VOCAB.length)].tr;
             if(!opts.includes(r)) opts.push(r);
@@ -250,29 +229,38 @@
         document.getElementById('q-text').innerText = state.current.de;
         const div = document.getElementById('options');
         div.innerHTML = "";
+        
         opts.forEach(o => {
             const b = document.createElement('button');
             b.className = "btn option-btn";
             b.innerText = o;
-            b.onclick = () => check(o, b);
+            b.onclick = () => checkAnswer(o, b);
             div.appendChild(b);
         });
     }
 
-    function check(val, btn) {
+    // CEVAP KONTROL
+    function checkAnswer(val, btn) {
         const all = document.querySelectorAll('.option-btn');
         all.forEach(x => x.style.pointerEvents = 'none');
 
         if(val === state.current.tr) {
-            state.score += 10; state.count++;
+            state.score += 10;
+            state.count++;
             btn.classList.add('correct');
-            confetti({ particleCount: 80, spread: 70, origin: { y: 0.8 } });
-            if(state.score > state.high) { state.high = state.score; localStorage.setItem('asil_rekor', state.high); }
+            confetti({ particleCount: 70, spread: 60, origin: { y: 0.8 } });
+            
+            if(state.score > state.high) {
+                state.high = state.score;
+                localStorage.setItem('asil_rekor_new', state.high);
+            }
+            
             document.getElementById('bar').style.width = (state.count * 10 % 101) + "%";
             setTimeout(nextQ, 700);
         } else {
             state.hearts--;
             btn.classList.add('wrong');
+            
             if(state.hearts <= 0) {
                 setTimeout(() => {
                     document.getElementById('final-xp').innerText = state.score + " XP";
@@ -292,7 +280,12 @@
     function updateUI() {
         document.getElementById('hearts').innerText = "❤️ " + state.hearts;
         document.getElementById('score').innerText = "⭐ " + state.score;
-        document.getElementById('high').innerText = "🏆 EN YÜKSEK: " + state.high;
+        document.getElementById('high').innerText = "🏆 REKOR: " + state.high;
+    }
+
+    function resetGame() {
+        document.getElementById('screen-over').classList.add('hidden');
+        document.getElementById('screen-home').classList.remove('hidden');
     }
 
     function speak() {
