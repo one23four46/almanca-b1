@@ -3,191 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedDeutsch Career Pro - ASIL</title>
+    <title>PflegeDeutsch Pro - ASIL</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0ea5e9; --secondary: #6366f1;
-            --success: #22c55e; --danger: #ef4444;
-            --warning: #f59e0b; --bg: #f8fafc;
+            --nurse-blue: #0ea5e9; --med-green: #10b981; --warning-gold: #f59e0b;
+            --danger-red: #ef4444; --bg: #f1f5f9;
         }
 
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        #app-container { width: 100%; max-width: 450px; padding: 20px; position: relative; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; min-height: 100vh; }
+        #app { width: 100%; max-width: 480px; padding: 15px; position: relative; }
 
-        /* GİRİŞ EKRANI */
+        /* GİRİŞ */
         #login-screen {
-            position: fixed; inset: 0; background: white; z-index: 1000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;
+            position: fixed; inset: 0; background: white; z-index: 2000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
-        .login-card { background: #f1f5f9; padding: 30px; border-radius: 30px; width: 80%; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .input-name { width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #e2e8f0; margin: 20px 0; font-family: inherit; font-weight: 600; text-align: center; font-size: 16px; }
 
-        /* MARKET SİSTEMİ */
-        .market-overlay {
-            position: fixed; bottom: -100%; left: 0; width: 100%; background: white;
-            border-radius: 30px 30px 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-            transition: 0.4s; z-index: 500; padding: 25px; box-sizing: border-box;
+        /* MARKET - ARTIK HEP GÖRÜNÜR */
+        .market-header {
+            background: white; border-radius: 20px; padding: 12px; margin-bottom: 15px;
+            display: flex; justify-content: space-around; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid var(--nurse-blue);
         }
-        .market-overlay.active { bottom: 0; }
-        .shop-item { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 12px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #e2e8f0; }
-
-        /* OYUN KARTLARI */
-        .case-card { 
-            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-            border-radius: 25px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            text-align: center; margin-bottom: 20px; border: 1px solid #e0f2fe;
-            position: relative; animation: slideIn 0.5s ease-out;
+        .shop-item { 
+            text-align: center; cursor: pointer; transition: 0.2s; padding: 5px; border-radius: 10px;
         }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .shop-item:active { transform: scale(0.9); }
+        .shop-icon { font-size: 20px; display: block; }
+        .shop-price { font-size: 10px; font-weight: 800; color: var(--warning-gold); }
 
-        .visual-icon { font-size: 60px; margin-bottom: 15px; display: block; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
-        
-        .timer-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        #timer-fill { height: 100%; width: 100%; background: var(--primary); transition: linear 1s; }
+        /* OYUN KARTI */
+        .card {
+            background: white; border-radius: 30px; padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
+            border-bottom: 5px solid var(--nurse-blue); margin-bottom: 20px;
+        }
 
-        .btn { cursor: pointer; border: none; border-radius: 18px; font-family: 'Montserrat', sans-serif; font-weight: 800; transition: 0.2s; }
-        .btn-main { background: var(--primary); color: white; padding: 15px 25px; box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3); }
-        .btn-opt { background: white; color: #334155; border: 2px solid #f1f5f9; padding: 14px; width: 100%; margin-bottom: 10px; text-align: left; }
-        .btn-opt:hover { border-color: var(--primary); transform: translateX(5px); background: #f0f9ff; }
+        .vaka-box {
+            background: #eff6ff; border-radius: 15px; padding: 15px;
+            font-size: 13px; color: #1e40af; margin-bottom: 15px; line-height: 1.5;
+            border-left: 4px solid var(--nurse-blue); text-align: left;
+        }
 
-        .rank-tag { background: var(--warning); color: white; padding: 3px 10px; border-radius: 8px; font-size: 10px; letter-spacing: 1px; }
+        /* BUTONLAR */
+        .opt-btn {
+            background: white; border: 2px solid #e2e8f0; border-radius: 18px;
+            padding: 16px; width: 100%; margin-bottom: 12px; font-weight: 600;
+            text-align: left; cursor: pointer; transition: 0.3s; display: flex; align-items: center;
+        }
+        .opt-btn:hover { border-color: var(--nurse-blue); background: #f0f9ff; }
+
+        .progress-container { height: 8px; background: #e2e8f0; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        #progress-bar { height: 100%; width: 100%; background: var(--nurse-blue); transition: linear 1s; }
+
+        .badge { background: var(--nurse-blue); color: white; padding: 2px 10px; border-radius: 10px; font-size: 10px; font-weight: 800; }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <div class="login-card">
-            <span style="font-size: 50px;">🩺</span>
-            <h1 style="font-family:'Montserrat'; margin: 10px 0;">MedDeutsch</h1>
-            <p style="font-size: 13px; color: #64748b;">Mesleki kariyerinize hoş geldiniz Herr/Frau Doktor.</p>
-            <input type="text" id="user-name" class="input-name" placeholder="Adınızı giriniz...">
-            <button class="btn btn-main" onclick="startApp()">KLİNİĞE GİRİŞ YAP</button>
+        <div style="text-align: center;">
+            <span style="font-size: 60px;">👩‍⚕️</span>
+            <h1 style="font-family:'Montserrat'; color:var(--nurse-blue); margin:10px 0;">PflegeDeutsch</h1>
+            <p style="font-size: 14px; color: #64748b;">Hemşirelik Kariyerine Hoş Geldiniz.</p>
+            <input type="text" id="user-name" placeholder="Adınız Soyadınız" style="width:100%; padding:15px; border-radius:15px; border:2px solid #ddd; margin:20px 0; text-align:center;">
+            <button onclick="startApp()" style="background:var(--nurse-blue); color:white; border:none; padding:15px 40px; border-radius:15px; font-weight:900; cursor:pointer; width:100%;">NÖBETE BAŞLA ➔</button>
         </div>
     </div>
 
-    <div id="app-container" class="hidden">
-        <div style="background:white; padding:15px; border-radius:25px; box-shadow:0 4px 15px rgba(0,0,0,0.03); margin-bottom:20px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                    <span class="rank-tag" id="user-rank">STUDENT</span>
-                    <div style="font-weight:900; font-size:18px;" id="disp-name">Doktor</div>
-                </div>
-                <div style="text-align:right;">
-                    <div style="font-weight:900; color:var(--warning);">💰 <span id="xp-bank">0</span> XP</div>
-                    <div style="font-size:12px; color:#94a3b8;">❤️ <span id="lives">5</span></div>
-                </div>
+    <div id="app" class="hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding:0 5px;">
+            <div>
+                <span class="badge" id="rank-display">SCHÜLER</span>
+                <div style="font-weight:900; font-size:14px;" id="name-display">Hemşire</div>
             </div>
-            <div class="timer-bar"><div id="timer-fill"></div></div>
-            <button class="btn" style="background:#f1f5f9; padding:5px 15px; font-size:11px; width:100%;" onclick="toggleShop(true)">🛒 EKİPMAN MARKETİ</button>
+            <div style="text-align:right;">
+                <div style="font-weight:900; color:var(--warning-gold);">💰 <span id="xp-display">0</span> XP</div>
+                <div style="font-size:12px;">❤️ <span id="lives-display">5</span></div>
+            </div>
         </div>
 
+        <div class="market-header">
+            <div class="shop-item" onclick="buyItem('heart', 50)">
+                <span class="shop-icon">💉</span>
+                <span style="font-size:10px; font-weight:700;">Can Al</span>
+                <span class="shop-price">50 XP</span>
+            </div>
+            <div class="shop-item" onclick="buyItem('time', 30)">
+                <span class="shop-icon">☕</span>
+                <span style="font-size:10px; font-weight:700;">Zaman+</span>
+                <span class="shop-price) ">30 XP</span>
+            </div>
+            <div class="shop-item" onclick="buyItem('skip', 100)">
+                <span class="shop-icon">🚑</span>
+                <span style="font-size:10px; font-weight:700;">Pas Geç</span>
+                <span class="shop-price">100 XP</span>
+            </div>
+        </div>
+
+        <div class="progress-container"><div id="progress-bar"></div></div>
+
         <div id="game-zone">
-            <div class="case-card">
-                <span id="q-icon" class="visual-icon">🩹</span>
-                <div id="vaka-box" style="background:#fff7ed; padding:12px; border-radius:15px; font-size:13px; color:#9a3412; margin-bottom:15px; border:1px solid #ffedd5;" class="hidden">
-                    <b>Befund:</b> <span id="vaka-text">...</span>
+            <div class="card">
+                <div id="vaka-display" class="vaka-box">
+                    <b>PFLEGE-BERICHT:</b> <br> <span id="vaka-text">...</span>
                 </div>
-                <div id="art-label" style="font-size:10px; font-weight:800; color:var(--primary);">ARTIKEL</div>
-                <h2 id="q-word" style="margin:5px 0 15px 0; font-size:26px; font-weight:900;">...</h2>
-                <button onclick="speak()" style="border:none; background:#e0f2fe; padding:12px; border-radius:50%; cursor:pointer;">🔊</button>
+                <span id="q-icon" style="font-size:40px; display:block; margin-bottom:10px;">🩺</span>
+                <div id="art-label" class="badge">DER</div>
+                <h2 id="q-word" style="margin:10px 0; font-size:24px; font-weight:900;">...</h2>
+                <button onclick="speak()" style="border:none; background:#f0f9ff; padding:10px; border-radius:50%; cursor:pointer;">🔊</button>
             </div>
             <div id="options-grid"></div>
         </div>
 
-        <div id="market" class="market-overlay">
-            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-                <h3 style="margin:0;">🛒 Tıbbi Ekipman</h3>
-                <button onclick="toggleShop(false)" style="border:none; background:none; font-weight:900;">✕</button>
-            </div>
-            <div class="shop-item">
-                <span>💉 Defibrilatör (+1 Can)</span>
-                <button class="btn btn-main" style="padding:5px 12px; font-size:12px;" onclick="buyItem('heart', 50)">50 XP</button>
-            </div>
-            <div class="shop-item">
-                <span>☕ Kahve (+5 Saniye)</span>
-                <button class="btn btn-main" style="padding:5px 12px; font-size:12px;" onclick="buyItem('time', 20)">20 XP</button>
-            </div>
-        </div>
-
         <div id="over-screen" class="hidden">
-            <div class="case-card">
-                <h1 style="font-size:40px;">🚑</h1>
-                <h2>Nöbet Bitti!</h2>
-                <div id="mistakes-log" style="text-align:left; background:#fff1f2; padding:15px; border-radius:15px; font-size:12px;"></div>
-                <button class="btn btn-main" style="width:100%; margin-top:20px;" onclick="location.reload()">YENİ NÖBETE BAŞLA</button>
+            <div class="card">
+                <h1 style="font-size:50px;">☕</h1>
+                <h2>Mola Zamanı!</h2>
+                <div id="mistake-list" style="text-align:left; font-size:12px; background:#fff1f2; padding:15px; border-radius:15px; margin:15px 0;"></div>
+                <button onclick="location.reload()" style="background:var(--nurse-blue); color:white; border:none; padding:15px; border-radius:15px; width:100%; font-weight:900;">YENİ NÖBET</button>
             </div>
         </div>
     </div>
 
 <script>
     const DATA = [
-        { de: "Herzinfarkt", art: "der", tr: "Kalp krizi", icon: "🫀", vaka: "Der Patient klagt über retrosternale Schmerzen und kalten Schweiß." },
-        { de: "Lungenentzündung", art: "die", tr: "Zatürre", icon: "🫁", vaka: "Auskultation zeigt Rasselgeräusche; der Patient hat hohes Fieber." },
-        { de: "Bluthochdruck", art: "der", tr: "Hipertansiyon", icon: "🩸", vaka: "Der Wert liegt bei 180/100 mmHg." },
-        { de: "Gehirnerschütterung", art: "die", tr: "Beyin sarsıntısı", icon: "🧠", vaka: "Nach dem Sturz ist der Patient desorientiert und hat Übelkeit." },
-        { de: "Bauchspeicheldrüse", art: "die", tr: "Pankreas", icon: "🤢", vaka: "Dieses Organ ist für die Insulinproduktion verantwortlich." },
-        { de: "Wirbelsäule", art: "die", tr: "Omurga", icon: "🦴", vaka: "Der Patient hat Taubheitsgefühle in den Beinen nach einem Trauma." },
-        { de: "Gallenblase", art: "die", tr: "Safra kesesi", icon: "🍏", vaka: "Kolikartige Schmerzen im rechten Oberbauch nach fettigem Essen." },
-        { de: "Magengeschwür", art: "das", tr: "Mide ülseri", icon: "🥣", vaka: "Brennende Schmerzen im Epigastrium, besser nach dem Essen." }
+        { de: "Blutdruckmessung", art: "die", tr: "Tansiyon ölçümü", icon: "🩺", vaka: "Der Patient hat einen Wert von 140/90 mmHg. Was machen Sie?" },
+        { de: "Körperpflege", art: "die", tr: "Vücut bakımı", icon: "🧼", vaka: "Ein bettlägeriger Patient braucht Hilfe beim Waschen." },
+        { de: "Verbandwechsel", art: "der", tr: "Pansuman değişimi", icon: "🩹", vaka: "Die Wunde am Bein muss neu versorgt werden." },
+        { de: "Medikamentengabe", art: "die", tr: "İlaç verme", icon: "💊", vaka: "Frau Müller muss ihre Tabletten vor dem Essen einnehmen." },
+        { de: "Dekubitusprophylaxe", art: "die", tr: "Yatak yarası önleme", icon: "🛏️", vaka: "Der Patient muss alle 2 Stunden gelagert werden." },
+        { de: "Insulinspritze", art: "die", tr: "İnsülin iğnesi", icon: "💉", vaka: "Der Blutzuckerwert ist hoch. Was bereiten Sie vor?" },
+        { de: "Sturzprophylaxe", art: "die", tr: "Düşmeyi önleme", icon: "🚶", vaka: "Der Patient ist unsicher beim Gehen. Was nutzen Sie?" },
+        { de: "Dokumentation", art: "die", tr: "Dokümantasyon", icon: "📋", vaka: "Alle Pflegemaßnahmen müssen im PC eingetragen werden." }
     ];
 
-    let state = { 
-        name: "Doktor", xp: parseInt(localStorage.getItem('med_xp_v7')) || 0, 
-        lives: 5, current: null, timer: 15, interval: null, mistakes: [] 
-    };
+    let state = { name: "", xp: 0, lives: 5, current: null, timer: 20, interval: null, mistakes: [] };
 
     function startApp() {
-        const input = document.getElementById('user-name').value;
-        if(input) state.name = input;
+        state.name = document.getElementById('user-name').value || "Hemşire";
         document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('app-container').classList.remove('hidden');
-        document.getElementById('disp-name').innerText = "Dr. " + state.name;
-        updateUI();
+        document.getElementById('app').classList.remove('hidden');
+        document.getElementById('name-display').innerText = state.name;
         nextTask();
-    }
-
-    function toggleShop(show) {
-        document.getElementById('market').classList.toggle('active', show);
     }
 
     function buyItem(type, cost) {
         if(state.xp >= cost) {
             state.xp -= cost;
             if(type === 'heart') state.lives++;
-            if(type === 'time') state.timer += 5;
+            if(type === 'time') state.timer += 10;
+            if(type === 'skip') nextTask();
             updateUI();
-            confetti({ particleCount: 30, colors: ['#fbbf24'] });
-        } else { alert("Yetersiz XP!"); }
-    }
-
-    function startTimer() {
-        state.timer = 15;
-        clearInterval(state.interval);
-        state.interval = setInterval(() => {
-            state.timer--;
-            document.getElementById('timer-fill').style.width = (state.timer/15*100) + "%";
-            if(state.timer <= 0) checkResult(false);
-        }, 1000);
+            confetti({ particleCount: 30, colors: ['#f59e0b'] });
+        } else { alert("Yetersiz XP! Soru çözerek kazanabilirsin."); }
     }
 
     function nextTask() {
         state.current = DATA[Math.floor(Math.random() * DATA.length)];
-        
-        // Görsel ve Vaka ayarları
+        document.getElementById('vaka-text').innerText = state.current.vaka;
         document.getElementById('q-icon').innerText = state.current.icon;
         document.getElementById('q-word').innerText = state.current.de;
         document.getElementById('art-label').innerText = state.current.art.toUpperCase();
         
-        if(Math.random() > 0.5) {
-            document.getElementById('vaka-box').classList.remove('hidden');
-            document.getElementById('vaka-text').innerText = state.current.vaka;
-        } else {
-            document.getElementById('vaka-box').classList.add('hidden');
-        }
-
         let opts = [state.current.tr];
         while(opts.length < 4) {
             let r = DATA[Math.floor(Math.random() * DATA.length)].tr;
@@ -199,24 +180,26 @@
         grid.innerHTML = "";
         opts.forEach(o => {
             const b = document.createElement('button');
-            b.className = "btn-opt";
-            b.innerText = o;
-            b.onclick = () => checkResult(o === state.current.tr, b);
+            b.className = "opt-btn";
+            b.innerText = "🔹 " + o;
+            b.onclick = () => check(o === state.current.tr, b);
             grid.appendChild(b);
         });
         startTimer();
     }
 
-    function checkResult(isCorrect, btn) {
+    function check(isCorrect, btn) {
         clearInterval(state.interval);
         if(isCorrect) {
-            state.xp += 15;
-            if(btn) btn.style.background = "#dcfce7";
+            state.xp += 20;
+            btn.style.borderColor = "var(--med-green)";
+            btn.style.background = "#ecfdf5";
             confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
             setTimeout(nextTask, 600);
         } else {
             state.lives--;
-            if(btn) btn.style.background = "#fee2e2";
+            btn.style.borderColor = "var(--danger-red)";
+            btn.style.background = "#fef2f2";
             if(!state.mistakes.find(m => m.de === state.current.de)) state.mistakes.push(state.current);
             if(state.lives <= 0) return endGame();
             setTimeout(nextTask, 800);
@@ -224,20 +207,30 @@
         updateUI();
     }
 
+    function startTimer() {
+        state.timer = 20;
+        clearInterval(state.interval);
+        state.interval = setInterval(() => {
+            state.timer--;
+            document.getElementById('progress-bar').style.width = (state.timer/20*100) + "%";
+            if(state.timer <= 0) check(false, null);
+        }, 1000);
+    }
+
     function updateUI() {
-        document.getElementById('lives').innerText = state.lives;
-        document.getElementById('xp-bank').innerText = state.xp;
-        let r = "STUDENT";
-        if(state.xp > 500) r = "CHEFARZT"; else if(state.xp > 200) r = "FACHARZT";
-        document.getElementById('user-rank').innerText = r;
-        localStorage.setItem('med_xp_v7', state.xp);
+        document.getElementById('xp-display').innerText = state.xp;
+        document.getElementById('lives-display').innerText = state.lives;
+        let rank = "SCHÜLER";
+        if(state.xp > 500) rank = "STATIONSLEITUNG";
+        else if(state.xp > 200) rank = "PFLEGEFACHMANN/FRAU";
+        document.getElementById('rank-display').innerText = rank;
     }
 
     function endGame() {
         document.getElementById('game-zone').classList.add('hidden');
         document.getElementById('over-screen').classList.remove('hidden');
-        document.getElementById('mistakes-log').innerHTML = "<b>HATALARINI NOT AL:</b><br>" + 
-            state.mistakes.map(m => `${m.icon} ${m.art} ${m.de} (${m.tr})`).join('<br>');
+        document.getElementById('mistake-list').innerHTML = "<b>HATALARINI NOT AL:</b><br>" + 
+            state.mistakes.map(m => `• ${m.art} ${m.de} (${m.tr})`).join('<br>');
     }
 
     function speak() {
