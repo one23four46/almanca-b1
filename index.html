@@ -1885,65 +1885,48 @@ function renderQuizCard() {
 // CASES
 // ─────────────────────────────────────────────────
 function renderCases() {
-  const cases = DATA[currentBranch].fallbeispiele;
-  const list = document.getElementById('caseList');
+  const branchData = DATA[currentBranch];
+  const container = document.getElementById('caseList');
+  if (!container) return;
 
-  list.innerHTML = cases.map((c, i) => {
-    const titleText = currentLang === 'de' ? c.de_title : c.title;
-    const teaserText = currentLang === 'de' ? (c.teaser_de || c.teaser_tr) : currentLang === 'en' ? (c.teaser_en || c.teaser_tr) : c.teaser_tr;
-    return `
-      <div class="case-card" id="case-${i}">
-        <div class="case-header" onclick="toggleCase(${i})">
-          <div>
-            <div class="case-meta">
-              <span class="case-badge badge-level">Level ${c.level}</span>
-              <span class="case-badge badge-type">${c.type}</span>
-            </div>
-            <div class="case-title">${titleText}</div>
-            <div class="case-teaser">${teaserText}</div>
+  if (!branchData.fallbeispiele || branchData.fallbeispiele.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--muted);">Bu branş için henüz vaka eklenmemiştir.</div>`;
+    return;
+  }
+
+  container.innerHTML = branchData.fallbeispiele.map(c => `
+    <div class="case-card" onclick="this.classList.toggle('open')">
+      <div class="case-header">
+        <div style="flex:1">
+          <div style="margin-bottom:8px;">
+            <span class="case-badge">${c.level || 'B1/B2'}</span>
           </div>
-          <div class="case-toggle">▾</div>
+          <h3 class="case-title">${c.de_title || c.title}</h3>
+          <p class="case-teaser">${currentLang === 'tr' ? (c.teaser_tr || c.teaser) : (c.teaser_de || c.teaser)}</p>
         </div>
-        <div class="case-body" id="case-body-${i}">
-          ${renderCaseSections(c)}
-        </div>
+        <div class="case-toggle">▼</div>
       </div>
-    `;
-  }).join('');
-}
-
-function renderCaseSections(c) {
-  return c.sections.map(s => {
-    const title = currentLang === 'de' ? (s.title_de || s.title_tr) : currentLang === 'en' ? (s.title_en || s.title_tr) : s.title_tr;
-    let body = '';
-
-    if (s.dialog) {
-      body = `<div class="dialog-box">` + s.dialog.map(line => {
-        const dialogText = line.de;
-        const trans = currentLang === 'tr' ? line.tr : currentLang === 'en' ? (line.en || line.tr) : '';
-        return `
-          <div class="dialog-line">
-            <span class="dialog-speaker">${line.speaker}:</span>
-            <span class="dialog-text">${dialogText}</span>
-            ${trans && currentLang !== 'de' ? `<span class="dialog-translation">→ ${trans}</span>` : ''}
+      <div class="case-body">
+        ${c.sections ? c.sections.map(s => `
+          <div style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:15px;">
+            <h4 style="color:var(--branch-accent); margin-bottom:10px;">${currentLang === 'tr' ? (s.title_tr || s.title_de) : s.title_de}</h4>
+            <p style="line-height:1.6; margin-bottom:10px;">${currentLang === 'tr' ? (s.text_tr || s.text_de) : s.text_de}</p>
+            ${s.dialog ? `
+              <div style="background:var(--bg-offset); padding:15px; border-radius:8px; border-left:4px solid var(--branch-primary);">
+                ${s.dialog.map(d => `
+                  <div style="margin-bottom:8px; font-size:0.95rem;">
+                    <strong style="color:var(--branch-primary)">${d.speaker}:</strong> 
+                    <span>"${d.de}"</span>
+                    ${d.tr ? `<div style="color:var(--muted); font-size:0.85rem; margin-left:10px;">(${d.tr})</div>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
           </div>
-        `;
-      }).join('') + `</div>`;
-    } else {
-      const text = currentLang === 'de' ? (s.text_de || s.text_tr) : currentLang === 'en' ? (s.text_en || s.text_de || s.text_tr) : s.text_tr;
-      body = `<div class="case-text">${text}</div>`;
-      if (currentLang === 'tr' && s.text_de) {
-        body += `<details style="margin-top:10px"><summary style="font-size:0.78rem;color:var(--muted);cursor:pointer">🇩🇪 Almanca metni göster</summary><div class="case-text" style="margin-top:8px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px">${s.text_de}</div></details>`;
-      }
-    }
-
-    return `
-      <div class="case-section">
-        <div class="case-section-title">${title}</div>
-        ${body}
+        `).join('') : '<p>İçerik yükleniyor...</p>'}
       </div>
-    `;
-  }).join('');
+    </div>
+  `).join('');
 }
 
 function toggleCase(i) {
