@@ -3,30 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PflegeAkademy: Master Edition</title>
+    <title>PflegeAkademy: Ultimate Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --n-blue: #0ea5e9; --m-green: #10b981; --w-gold: #f59e0b; --d-red: #ef4444; --dark: #0f172a; --paper: #ffffff; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { font-family: 'Poppins', sans-serif; background: #0f172a; margin: 0; overflow: hidden; height: 100vh; display: flex; justify-content: center; }
-        #app { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; padding: 15px; position: relative; background: #f8fafc; }
+        
+        /* ANA UYGULAMA VE EFEKTLER */
+        #app { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; padding: 15px; position: relative; background: #f8fafc; transition: background 0.3s; }
+        
+        /* SALLANMA VE PARLAMA EFEKTLERİ */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-12px); }
+            40%, 80% { transform: translateX(12px); }
+        }
+        .shake-eff { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        .flash-red { background: #fef2f2 !important; }
+        .flash-green { background: #f0fdf4 !important; }
+
+        /* UÇUŞAN SAYILAR (FLOATING TEXT) */
+        .float-txt { position: absolute; font-family: 'Montserrat'; font-weight: 900; font-size: 22px; pointer-events: none; z-index: 1000; animation: floatUp 1s forwards ease-out; text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(0.8); }
+            50% { transform: translateY(-40px) scale(1.2); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1); }
+        }
 
         /* ÜST PANEL */
-        .top-panel { background: var(--dark); color: white; padding: 20px; border-radius: 20px; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-bottom: 4px solid var(--n-blue); }
+        .top-panel { background: var(--dark); color: white; padding: 20px; border-radius: 20px; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-bottom: 4px solid var(--n-blue); transition: 0.3s; }
         .xp-container { background: #334155; height: 10px; border-radius: 10px; margin: 12px 0; overflow: hidden; border: 1px solid #475569; }
         #xp-bar { background: linear-gradient(90deg, #38bdf8, #818cf8); height: 100%; width: 0%; transition: width 0.5s ease; }
         .stats-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; color: #cbd5e1; }
 
         /* SORU KARTI */
-        .q-card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #e2e8f0; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .vaka { background: #f1f5f9; padding: 15px; border-radius: 15px; border-left: 5px solid var(--n-blue); font-size: 13px; text-align: left; margin-bottom: 20px; color: #475569; font-style: italic; }
-        .opt { background: white; border: 2px solid #e2e8f0; border-radius: 15px; padding: 16px; margin-bottom: 10px; width: 100%; font-weight: 700; cursor: pointer; text-align: left; transition: 0.2s; font-family: 'Poppins'; font-size: 14px; color: #1e293b; }
-        .opt:hover:not(:disabled) { border-color: var(--n-blue); background: #f0f9ff; }
-        .opt.correct { background: var(--m-green); color: white; border-color: var(--m-green); }
-        .opt.wrong { background: var(--d-red); color: white; border-color: var(--d-red); }
+        .q-card { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #e2e8f0; flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .vaka { background: #f1f5f9; padding: 15px; border-radius: 15px; border-left: 5px solid var(--n-blue); font-size: 14px; text-align: left; margin-bottom: 20px; color: #475569; font-style: italic; line-height: 1.5; }
+        .opt { background: white; border: 2px solid #e2e8f0; border-radius: 15px; padding: 16px; margin-bottom: 10px; width: 100%; font-weight: 700; cursor: pointer; text-align: left; transition: 0.2s; font-family: 'Poppins'; font-size: 15px; color: #1e293b; position: relative; overflow: hidden; }
+        .opt:hover:not(:disabled) { border-color: var(--n-blue); background: #f0f9ff; transform: translateY(-2px); }
+        .opt.correct { background: var(--m-green); color: white; border-color: var(--m-green); box-shadow: 0 5px 15px rgba(16,185,129,0.3); transform: scale(1.02); z-index: 2; }
+        .opt.wrong { background: var(--d-red); color: white; border-color: var(--d-red); animation: shake 0.4s; }
 
-        /* MARKET (DOSYA GÖRÜNÜMÜ) */
+        /* DOSYA MARKETİ (MANTIK DÜZELTİLDİ) */
         .archive-folder { background: #cbd5e1; padding: 10px; border-radius: 15px 15px 10px 10px; width: 100%; max-width: 420px; }
         .archive-content { background: var(--paper); padding: 15px; border-radius: 5px; max-height: 65vh; overflow-y: auto; border: 1px solid #94a3b8; }
         .file-item { display: flex; background: white; border: 1px solid #e5e7eb; margin-bottom: 10px; border-radius: 8px; cursor: pointer; align-items: center; transition: 0.2s; }
@@ -39,9 +59,9 @@
         .file-item.locked { opacity: 0.6; filter: grayscale(1); cursor: not-allowed; }
 
         /* KOMBO & HEDİYE */
-        #combo-text { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); font-family: 'Montserrat'; font-size: 45px; color: var(--w-gold); opacity: 0; pointer-events: none; z-index: 1000; text-shadow: 2px 2px 0 #000; }
+        #combo-text { position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%); font-family: 'Montserrat'; font-size: 50px; color: var(--w-gold); opacity: 0; pointer-events: none; z-index: 1000; text-shadow: 2px 2px 0 #000; }
         .combo-anim { animation: comboPop 0.8s forwards; }
-        @keyframes comboPop { 0% { scale: 0.5; opacity: 0; } 40% { scale: 1.2; opacity: 1; } 100% { scale: 1; opacity: 0; transform: translate(-50%, -100%); } }
+        @keyframes comboPop { 0% { scale: 0.5; opacity: 0; } 40% { scale: 1.2; opacity: 1; } 100% { scale: 1; opacity: 0; transform: translate(-50%, -100px); } }
 
         .gift-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .gift-box { font-size: 130px; cursor: pointer; transition: transform 0.1s; filter: drop-shadow(0 0 30px gold); }
@@ -55,7 +75,7 @@
         .primary-btn { background: var(--n-blue); color: white; padding: 16px; border: none; border-radius: 15px; font-weight: 800; font-family: 'Poppins'; cursor: pointer; width: 100%; margin-top: 20px; font-size: 15px; transition: 0.2s; }
         .primary-btn:active { transform: scale(0.96); }
         
-        .shield-badge { background: var(--n-blue); color: white; padding: 2px 6px; border-radius: 5px; font-size: 10px; margin-left: 5px; vertical-align: middle; }
+        .shield-badge { background: var(--w-gold); color: #000; padding: 2px 8px; border-radius: 5px; font-size: 11px; margin-left: 5px; vertical-align: middle; box-shadow: 0 0 10px rgba(245,158,11,0.5); }
     </style>
 </head>
 <body>
@@ -64,7 +84,7 @@
         <div class="modal-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px solid #e2e8f0;">
             <div style="font-size: 70px; margin-bottom: 10px;">🏥</div>
             <h1 style="font-family:'Montserrat'; color:var(--dark); margin: 0;">PflegeAkademy</h1>
-            <p style="font-size: 13px; color: #64748b; margin-bottom: 25px;">Tıbbi Almanca Eğitim Platformu</p>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 25px;">Tıbbi Almanca Eğitim Portalı</p>
             <input type="text" id="u-name" placeholder="Adınız Soyadınız" style="width:100%; padding:18px; border-radius:12px; border:2px solid #e2e8f0; margin-bottom:15px; text-align:center; font-family: 'Poppins'; font-size: 15px;">
             <button onclick="greetNurse()" class="primary-btn">SİSTEME GİRİŞ YAP</button>
         </div>
@@ -72,12 +92,12 @@
 
     <div id="nurse-overlay" class="overlay hidden">
         <div class="modal-card">
-            <h2 style="color:var(--n-blue); font-family: 'Montserrat';">Merhaba!</h2>
+            <h2 style="color:var(--n-blue); font-family: 'Montserrat';">Sisteme Hoş Geldin!</h2>
             <p style="font-size: 14px; color: #475569; line-height: 1.6; text-align: left;">
-                PflegeAkademy'ye hoş geldin. Eğitim süreci boyunca üst üste <b>5 doğru cevap</b> verirsen sürpriz bir hediye paketi kazanacaksın.<br><br>
-                Ayrıca marketten eksiklerini gidermeyi ve seviye atladıkça yeni kilitleri açmayı unutma. Hazırsan başlayalım!
+                Eğitim süresince üst üste <b>5 doğru cevap</b> verirsen "Sürpriz Kutu" kazanacaksın.<br><br>
+                <b>Önemli Bilgi:</b> Marketten alacağın "Kalkanlar", hata yaptığında sadece canını değil, <b style="color:var(--n-blue);">Kombonu da korur!</b> Hatalardan korunmak istiyorsan envanterini güçlü tut.
             </p>
-            <button onclick="startApp()" class="primary-btn" style="background: var(--m-green);">HAZIRIM, BAŞLA</button>
+            <button onclick="startApp()" class="primary-btn" style="background: var(--m-green);">EĞİTİME BAŞLA</button>
         </div>
     </div>
 
@@ -91,13 +111,13 @@
     <div id="combo-text">KOMBO X2</div>
 
     <div id="app" class="hidden">
-        <div class="top-panel">
+        <div class="top-panel" id="t-panel">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div>
                     <div id="rank-name" style="font-size:10px; font-weight:900; color:var(--n-blue); text-transform:uppercase; letter-spacing:1px;">STAJYER</div>
                     <div id="u-display" style="font-weight:700;">Hemşire</div>
                 </div>
-                <button onclick="openShop()" style="background:var(--w-gold); color:#1e293b; border:none; padding:10px 15px; border-radius:12px; font-weight:900; font-family:'Montserrat'; cursor:pointer;">🛒 MARKET</button>
+                <button onclick="openShop()" style="background:var(--w-gold); color:#1e293b; border:none; padding:10px 15px; border-radius:12px; font-weight:900; font-family:'Montserrat'; cursor:pointer; box-shadow: 0 4px 10px rgba(245,158,11,0.3);">🛒 MARKET</button>
             </div>
             <div class="xp-container"><div id="xp-bar"></div></div>
             <div class="stats-row">
@@ -107,7 +127,7 @@
             </div>
         </div>
 
-        <div class="q-card">
+        <div class="q-card" id="q-container">
             <div class="vaka" id="v-txt">Yükleniyor...</div>
             <h2 id="q-word" style="margin: 0 0 25px 0; font-size: 26px; color: var(--dark);">Kelime</h2>
             <div id="opt-grid"></div>
@@ -116,7 +136,7 @@
 
     <div id="shop-overlay" class="overlay hidden" onclick="toggle('shop-overlay', false)">
         <div class="archive-folder" onclick="event.stopPropagation()">
-            <div style="padding:5px 10px 15px 10px; font-weight:800; font-size:12px; color:#1e293b; text-align: center;">🏥 HASTANE ENVANTERİ</div>
+            <div style="padding:5px 10px 15px 10px; font-weight:800; font-size:12px; color:#1e293b; text-align: center;">🏥 KLİNİK ENVANTERİ</div>
             <div class="archive-content" id="shop-list"></div>
             <button onclick="toggle('shop-overlay', false)" class="primary-btn" style="border-radius:10px; margin-top: 15px; background:#64748b;">DOSYAYI KAPAT</button>
         </div>
@@ -133,17 +153,18 @@
 
 <script>
     const DATA = [
-        { de: "Blutdruck", tr: "Tansiyon", vaka: "Der Blutdruck des Patienten ist zu hoch." },
-        { de: "Schmerzmittel", tr: "Ağrı kesici", vaka: "Geben Sie ihm ein Schmerzmittel." },
-        { de: "Fieberthermometer", tr: "Ateş ölçer", vaka: "Wir müssen die Temperatur mit dem Fieberthermometer messen." },
-        { de: "Verband", tr: "Sargı / Pansuman", vaka: "Der Verband muss gewechselt werden." },
-        { de: "Spritze", tr: "Şırınga", vaka: "Ziehen Sie das Medikament in die Spritze auf." },
-        { de: "Notaufnahme", tr: "Acil servis", vaka: "Bringen Sie den Patienten sofort in die Notaufnahme." }
+        { de: "Blutdruck", tr: "Tansiyon", vaka: "Der Blutdruck des Patienten ist extrem hoch, wir müssen eingreifen." },
+        { de: "Schmerzmittel", tr: "Ağrı kesici", vaka: "Der Patient klagt über starke Schmerzen, geben Sie ihm ein Schmerzmittel." },
+        { de: "Fieberthermometer", tr: "Ateş ölçer", vaka: "Bitte messen Sie die Temperatur mit dem Fieberthermometer." },
+        { de: "Verband", tr: "Sargı / Pansuman", vaka: "Die Wunde blutet noch, der Verband muss sofort gewechselt werden." },
+        { de: "Spritze", tr: "Şırınga", vaka: "Ziehen Sie das Medikament steril in die Spritze auf." },
+        { de: "Notaufnahme", tr: "Acil servis", vaka: "Nach dem Unfall wurde der Fahrer direkt in die Notaufnahme gebracht." },
+        { de: "Rollstuhl", tr: "Tekerlekli sandalye", vaka: "Frau Schmidt kann nicht laufen, bringen Sie bitte einen Rollstuhl." }
     ];
 
-    const RANKS = ["Stajyer Hemşire", "Asistan Hemşire", "Lisanslı Hemşire", "Kıdemli Hemşire", "Servis Şefi", "Başhemşire", "Hastane Müdürü"];
+    const RANKS = ["Stajyer Hemşire", "Asistan Hemşire", "Lisanslı Hemşire", "Kıdemli Hemşire", "Servis Şefi", "Başhemşire", "Klinik Direktörü"];
     
-    // 30 ÇEŞİT ÖDÜL VE CEZA HAVUZU
+    // 30 ÇEŞİT ÖDÜL (DENGELENDİ)
     const REWARDS = [
         { i: "💰", t: "Maaş Primi", d: "+200 Para Kazandın!", fn: () => st.coins += 200 },
         { i: "💰", t: "Nöbet Ücreti", d: "+400 Para Kazandın!", fn: () => st.coins += 400 },
@@ -160,7 +181,7 @@
         { i: "📚", t: "Seminer Başarısı", d: "+300 XP Kazandın!", fn: () => st.xp += 300 },
         { i: "🔬", t: "Araştırma", d: "+500 XP Kazandın!", fn: () => st.xp += 500 },
         { i: "📋", t: "Eksik Evrak", d: "-100 XP Silindi!", fn: () => st.xp = Math.max(0, st.xp-100) },
-        { i: "🛡️", t: "Maske Buldun", d: "+1 Koruma Kalkanı", fn: () => st.shields++ },
+        { i: "🛡️", t: "Maske Buldun", d: "+1 Koruma Kalkanı (Kombo Korur)", fn: () => st.shields++ },
         { i: "🛡️", t: "Eldiven Kutusu", d: "+2 Koruma Kalkanı", fn: () => st.shields += 2 },
         { i: "🎁", t: "Çifte Şans", d: "Bir Hediye Paketi Daha!", fn: () => queue.push('gift') },
         { i: "☕", t: "Kahve Ismarlandı", d: "+50 Para", fn: () => st.coins += 50 },
@@ -177,22 +198,23 @@
         { i: "⚖️", t: "Denge", d: "Hiçbir şey olmadı.", fn: () => {} }
     ];
 
-    // MARKET: EN AZ 10 ÜRÜN
+    // MARKET (MANTIK HATASI DÜZELTİLDİ)
+    // Can fiyatları daha ucuz. Kalkan (Kombo koruduğu için) daha pahalı.
     const SHOP_ITEMS = [
-        { id: 'h1', n: "Hızlı Serum", d: "+1 Can Kazandırır", p: 300, l: 1, i: "💉" },
-        { id: 'h2', n: "Süper Serum", d: "+3 Can Kazandırır", p: 800, l: 3, i: "🚑" },
-        { id: 'g1', n: "Teşvik Paketi", d: "Sürpriz Kutu Aç", p: 250, l: 2, i: "🎁" },
-        { id: 's1', n: "Steril Maske", d: "1 Hata Koruması Sağlar", p: 500, l: 3, i: "😷" },
-        { id: 's2', n: "Çelik Eldiven", d: "2 Hata Koruması Sağlar", p: 900, l: 5, i: "🧤" },
+        { id: 'h1', n: "Hızlı Serum", d: "+1 Can İadesi", p: 250, l: 1, i: "💉" },
+        { id: 'h2', n: "Vitamin Kompleksi", d: "+2 Can İadesi", p: 450, l: 2, i: "💊" },
+        { id: 'h3', n: "Nöbet Molası", d: "+5 Can İadesi", p: 1000, l: 10, i: "🛌" },
+        { id: 's1', n: "Steril Maske", d: "1 Hata & Kombo Koruması", p: 600, l: 3, i: "😷" },
+        { id: 's2', n: "Çelik Eldiven", d: "2 Hata & Kombo Koruması", p: 1100, l: 5, i: "🧤" },
+        { id: 'g1', n: "Teşvik Paketi", d: "Sürpriz Kutu Aç", p: 300, l: 2, i: "🎁" },
         { id: 'x1', n: "Nöbet Dosyası", d: "+1000 XP Puanı", p: 800, l: 5, i: "📂" },
         { id: 'x2', n: "Uzmanlık Tezi", d: "+2500 XP Puanı", p: 1800, l: 10, i: "📚" },
         { id: 'x3', n: "Klinik Araştırma", d: "+5000 XP Puanı", p: 3500, l: 15, i: "🔬" },
-        { id: 'h3', n: "VIP Dinlenme", d: "+5 Can Kazandırır", p: 1200, l: 12, i: "🛌" },
         { id: 'x4', n: "Başhekim Referansı", d: "+10000 XP Puanı", p: 6000, l: 20, i: "👑" }
     ];
 
     let st = { xp: 0, coins: 200, lives: 5, level: 1, streak: 0, shields: 0, busy: false, name: "", giftClicks: 0 };
-    let queue = []; // OLAY SIRALAYICI (TAKILMAYI ÖNLER)
+    let queue = []; 
 
     function greetNurse() {
         st.name = document.getElementById('u-name').value || "Hemşire";
@@ -210,12 +232,12 @@
         let rankIdx = Math.min(Math.floor((st.level - 1) / 3), RANKS.length - 1);
         document.getElementById('rank-name').innerText = RANKS[rankIdx];
 
+        let sb = document.getElementById('shield-val');
         if(st.shields > 0) {
-            let sb = document.getElementById('shield-val');
             sb.innerText = `🛡️ ${st.shields}`;
             sb.classList.remove('hidden');
         } else {
-            document.getElementById('shield-val').classList.add('hidden');
+            sb.classList.add('hidden');
         }
 
         let nx = st.level * 400;
@@ -225,11 +247,10 @@
             st.level++;
             st.xp = 0;
             st.coins += (st.level * 100);
-            queue.push('levelup'); // Seviye atlamayı sıraya ekle
+            queue.push('levelup');
         }
     }
 
-    // TAKILMAYI ÖNLEYEN ANA MERKEZ
     function processQueue() {
         upUI();
         if (queue.length > 0) {
@@ -238,7 +259,7 @@
             else if (action === 'gift') { toggle('gift-lock', true); }
         } else {
             st.busy = false;
-            next(); // Eğer sırada olay yoksa yepyeni soruya geç!
+            next();
         }
     }
 
@@ -246,15 +267,43 @@
         document.getElementById('res-ico').innerText = "🎊";
         document.getElementById('res-ttl').innerText = "SEVİYE ATLADIN!";
         document.getElementById('res-dsc').innerHTML = `Tebrikler ${st.name}! Başarıyla <b>Seviye ${st.level}</b> oldun.<br>Maaşın arttı ve yeni kilitler açıldı.`;
-        
         let btn = document.getElementById('res-btn');
         btn.innerText = "SONRAKİ SORUYA GEÇ";
-        btn.onclick = () => { 
-            toggle('res-overlay', false); 
-            processQueue(); // Pencere kapanınca sırayı kontrol et
-        };
+        btn.onclick = () => { toggle('res-overlay', false); processQueue(); };
         toggle('res-overlay', true);
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    }
+
+    // UÇUŞAN YAZI EFEKTİ FONKSİYONU
+    function spawnFloatingText(e, text, color) {
+        const span = document.createElement('span');
+        span.className = 'float-txt';
+        span.innerText = text;
+        span.style.color = color;
+        
+        const rect = e.target.getBoundingClientRect();
+        span.style.left = (rect.left + (rect.width/2) - 30) + 'px';
+        span.style.top = (rect.top - 10) + 'px';
+        
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 1000);
+    }
+
+    // EKRAN PARLAMA VE SALLANMA EFEKTİ
+    function triggerScreenEffect(type) {
+        const app = document.getElementById('app');
+        app.classList.remove('shake-eff', 'flash-red', 'flash-green');
+        void app.offsetWidth; // Reflow
+        
+        if(type === 'correct') {
+            app.classList.add('flash-green');
+        } else {
+            app.classList.add('shake-eff', 'flash-red');
+        }
+        
+        setTimeout(() => {
+            app.classList.remove('shake-eff', 'flash-red', 'flash-green');
+        }, 500);
     }
 
     function next() {
@@ -266,38 +315,44 @@
         const grid = document.getElementById('opt-grid'); grid.innerHTML = "";
         opts.forEach(o => {
             const b = document.createElement('button'); b.className = "opt"; b.innerText = o;
-            b.onclick = () => {
+            b.onclick = (e) => {
                 if(st.busy) return;
-                st.busy = true; // Soru tıklandı, sistemi kilitle
+                st.busy = true; 
                 
                 if(o === q.tr) {
-                    b.classList.add('correct'); 
-                    st.xp += 80; 
-                    st.coins += (20 + (st.level * 5)); 
-                    st.streak++;
-                    showCombo(st.streak);
+                    b.classList.add('correct');
+                    let gainedCoins = 20 + (st.level * 5);
+                    st.xp += 80; st.coins += gainedCoins; st.streak++;
                     
-                    if(st.streak >= 5) { 
-                        st.streak = 0; 
-                        queue.push('gift'); // Hediyeyi sıraya ekle
-                    }
+                    triggerScreenEffect('correct');
+                    spawnFloatingText(e, `+80 XP`, '#10b981');
+                    setTimeout(() => spawnFloatingText(e, `+${gainedCoins} 💰`, '#f59e0b'), 200);
+
+                    showCombo(st.streak);
+                    if(st.streak >= 5) { st.streak = 0; queue.push('gift'); }
                 } else {
                     b.classList.add('wrong');
-                    st.streak = 0;
+                    triggerScreenEffect('wrong');
+                    
+                    // KALKAN MANTIĞI: KOMBOYU KORUR
                     if(st.shields > 0) { 
                         st.shields--; 
-                        setTimeout(() => alert("Kalkanın seni bir hatadan korudu!"), 10);
+                        spawnFloatingText(e, `🛡️ KALKAN KORUDU!`, '#0ea5e9');
+                        // Kombo sıfırlanmaz (st.streak = 0 YAZILMADI)
                     } else { 
+                        st.streak = 0; // Kalkan yoksa kombo gider
                         st.lives--; 
+                        spawnFloatingText(e, `-1 CAN`, '#ef4444');
                     }
+                    
                     if(st.lives <= 0) {
-                        alert("Canın bitti! Oyun baştan başlıyor.");
-                        location.reload();
+                        setTimeout(() => {
+                            alert("Canın bitti! Oyun baştan başlıyor.");
+                            location.reload();
+                        }, 500);
                         return;
                     }
                 }
-                
-                // 800ms animasyon/gösterim süresi, sonra sırayı işlet
                 setTimeout(() => { processQueue(); }, 800); 
             };
             grid.appendChild(b);
@@ -336,7 +391,7 @@
         
         if(id === 'g1') { queue.push('gift'); toggle('shop-overlay', false); processQueue(); return; }
         else if(id === 'h1') st.lives += 1;
-        else if(id === 'h2') st.lives += 3;
+        else if(id === 'h2') st.lives += 2;
         else if(id === 'h3') st.lives += 5;
         else if(id === 's1') st.shields += 1;
         else if(id === 's2') st.shields += 2;
@@ -346,7 +401,7 @@
         else if(id === 'x4') st.xp += 10000;
         
         upUI(); 
-        alert(name + " satın alındı!");
+        alert(name + " envanterinize eklendi!");
     }
 
     function clickGift() {
@@ -359,7 +414,7 @@
             confetti({ particleCount: 200, spread: 80, origin: { y: 0.5 } });
             
             let r = REWARDS[Math.floor(Math.random() * REWARDS.length)];
-            r.fn(); // Ödül fonksiyonunu çalıştır
+            r.fn(); 
             
             setTimeout(() => {
                 toggle('gift-lock', false);
@@ -369,10 +424,7 @@
                 
                 let btn = document.getElementById('res-btn');
                 btn.innerText = "DEVAM ET";
-                btn.onclick = () => { 
-                    toggle('res-overlay', false); 
-                    processQueue(); // Kutu kapanınca sırayı devam ettir
-                };
+                btn.onclick = () => { toggle('res-overlay', false); processQueue(); };
                 toggle('res-overlay', true);
                 
                 st.giftClicks = 0; 
